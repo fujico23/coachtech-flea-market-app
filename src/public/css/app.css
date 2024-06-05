@@ -1,0 +1,284 @@
+/* ヘッダー */
+header {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem 0;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+}
+.header__left {
+    display: flex;
+    width: 65%;
+    align-items: center;
+}
+.header__right {
+    width: 35%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.header__left__inner {
+    width: 35%;
+    margin: 0px 0px 0px 30px;
+}
+.header__left__inner img {
+    width: 80%;
+    height: auto;
+}
+.header__left--input {
+    width: 50%;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 0px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header__left--input input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    padding-left: 20px;
+}
+.header__left--input input::placeholder {
+    color: #000;
+}
+.logout {
+    color: #fff;
+}
+.header__right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+.header__right a:last-child {
+    display: block;
+    padding: 3px 20px;
+    background-color: #fff;
+    color: #000;
+}
+
+/* 認証フォーム */
+.auth-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* index.blade.php */
+.link {
+    width: 100vw;
+}
+.link__inner {
+    margin-top: 50px;
+    margin-left: 140px;
+}
+.link button {
+    font-size: 24px;
+    font-weight: bold;
+}
+.link button:last-child {
+    margin-left: 100px;
+}
+.item__container {
+    width: 95%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    margin: 50px auto;
+}
+.item__container__card {
+    width: 200px;
+    height: 200px;
+}
+
+/* detail comment.blade.php */
+.detail__container,
+.comment__container {
+    width: 85%;
+    margin: 150px auto;
+    display: flex;
+}
+.item__image {
+    width: 45%;
+    height: 550px;
+    margin: 0 auto;
+}
+.item__detail {
+    width: 45%;
+    margin: 0 auto;
+}
+.item__detail h2 {
+    margin-top: 24px;
+}
+.item__detail--price {
+    font-size: 24px;
+}
+.item__detail a {
+    margin: 12px auto;
+}
+
+/* detail.blade.php */
+.item__detail--info--category,
+.item__detail--info--condition {
+    display: flex;
+    margin: 20px auto;
+}
+.item__detail--info--category h3,
+.item__detail--info--condition h3 {
+    font-size: 16px;
+    margin-right: 20px;
+}
+.item__detail--info--category p {
+    border-radius: 15px;
+    padding: 0 16px;
+    margin-right: 10px;
+}
+
+/* comment.blade.php */
+.item__detail--comment {
+    margin: 80px 0px 60px;
+    list-style: none;
+}
+.item__detail--comment__list {
+    margin-bottom: 18px;
+}
+.item__detail--comment__list--user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.comment__user-img {
+    width: 40px;
+    height: 40px;
+}
+.item__detail--comment__list--user P {
+    margin-left: 10px;
+    font-weight: bold;
+}
+.item__detail--comment__list--text {
+    padding: 5px;
+    border-radius: 4px;
+}
+.item__detail--comment__form-header {
+    font-size: 18px;
+}
+
+/* mypage.blade.php */
+.mypage__container--profile {
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 0px 20px;
+}
+.mypage__container--header {
+    display: flex;
+    align-items: center;
+}
+.mypage__container--header h1 {
+    margin-left: 36px;
+    font-size: 24px;
+}
+
+/* profile.blade.php */
+/* address.blade.php */
+.profile-edit__container,
+.address-edit__container,
+.sell-edit__container {
+    max-width: 680px;
+    margin: 50px auto;
+}
+
+.profile-edit__container__img {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.profile-edit__container__img button {
+    margin-left: 30px;
+}
+
+/* sell.blade.php */
+.input-file {
+    border: 1px #5f5f5f dotted;
+    height: 120px;
+}
+.input-file input {
+    justify-content: center;
+    align-items: center;
+}
+.sell-edit__container--form__inner h2 {
+    color: #5f5f5f;
+    margin: 34px 0 20px;
+}
+
+/* purchase.blade.php */
+.purchase__container {
+    display: flex;
+    width: 90%;
+    margin: 100px auto;
+}
+.purchase__container--left {
+    width: 60%;
+    padding: 20px 50px;
+}
+.purchase__container--left--item {
+    display: flex;
+    min-height: 150px;
+    height: 30%;
+}
+.purchase__container--left--item__img {
+    width: 120px;
+    height: 147px;
+    margin: 0 30px;
+}
+.purchase__container--left--item--name h1 {
+    margin-top: 20px;
+    font-size: 28px;
+}
+.purchase__container--left--item--name p {
+    font-size: 20px;
+    margin-top: 20px;
+}
+.purchase__container--left--payment {
+    height: 70%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 20px 0px;
+}
+.purchase__container--left--payment__list h2 {
+    font-size: 20px;
+}
+.purchase__container--right {
+    width: 40%;
+    max-width: 440px;
+}
+.purchase__container--right--payment {
+    width: 100%;
+    padding: 60px 30px 30px;
+}
+.purchase__container--right--payment__list {
+    margin: 28px auto;
+}
+.purchase__container--right--payment__list:nth-child(2) {
+    color: #fff;
+}
+
+.purchase__container--left--payment__list,
+.purchase__container--right--payment__list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase__container--right a {
+    margin-top: 80px;
+}

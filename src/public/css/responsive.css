@@ -1,0 +1,74 @@
+@media (max-width: 1200px) {
+    .header__right a,
+    .header__right button,
+    .header__left--input input::placeholder {
+        font-size: 18px;
+    }
+}
+@media (max-width: 768px) {
+    /* ヘッダー */
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+    .header__left {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .header__left--input {
+        width: 90%;
+        margin: 10px auto;
+    }
+    .header__right {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* index.blade.php */
+
+    /* detail.blade.php */
+    .detail__container {
+        width: 90%;
+        margin-top: 0px;
+        flex-direction: column;
+    }
+    .item__detail,
+    .item__image {
+        width: 90%;
+        margin-top: 40px;
+    }
+
+    /* mypage.blade.php */
+    .mypage__container--profile {
+        flex-direction: column;
+    }
+    .mypage__container--profile__header {
+        margin-bottom: 30px;
+    }
+
+    /* profile.blade.php */
+    .profile-edit__container,
+    .sell-edit__container {
+        width: 90%;
+    }
+    .profile-edit__container__img {
+        flex-direction: column;
+    }
+    .profile-edit__container__img button {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+    /* purchase.blade.php */
+    .purchase__container {
+        flex-direction: column;
+    }
+    .purchase__container--left,
+    .purchase__container--right {
+        width: 95%;
+        max-width: 768px;
+        margin: 0 auto;
+    }
+}
