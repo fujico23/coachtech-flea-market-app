@@ -161,11 +161,15 @@
 - php artisan db:seed --class=RolesTableSeeder
 - php artisan db:seed --class=UsersTableSeeder
 - php artisan db:seed --class=ConditionsTableSeeder
-- php artisan db:seed --class=ImagesTableSeeder
-- php artisan db:seed --class=RolesTableSeeder
-- php artisan db:seed --class=MenusTableSeeder
-- php artisan db:seed --class=CoursesTableSeeder
-- php artisan db:seed --class=UsersTableSeeder
+- php artisan db:seed --class=ColorsTableSeeder
+- php artisan db:seed --class=CategoriesTableSeeder
+- php artisan db:seed --class=BrandsTableSeeder
+- php artisan db:seed --class=TableSeeder
+- php artisan db:seed --class=TableSeeder
+
+###### Factory ファイル実行コマンド (Item)
+
+- php artisan db:seed
 
 ## **環境変数**
 

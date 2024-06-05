@@ -9,7 +9,7 @@
       <div class="form__inner-group">
         <p>郵便番号</p>
         <div class="address-edit__container--form-tag form__inner-group--input">
-          <input type="text" name="postal_code" value="{{  }}">
+          <input type="text" name="postal_code" value="">
         </div>
         <p class="error-message">@error('postal_code')
           {{ $message }}
@@ -19,7 +19,7 @@
       <div class="form__inner-group">
         <p>住所</p>
         <div class="address-edit__container--form-tag form__inner-group--input">
-          <input type="text" name="address" value="{{  }}">
+          <input type="text" name="address" value="">
         </div>
         <p class="error-message">@error('address')
           {{ $message }}
@@ -29,7 +29,7 @@
       <div class="form__inner-group">
         <p>建物名</p>
         <div class="address-edit__container--form-tag form__inner-group--input">
-          <input type="text" name="building_name" value="{{  }}">
+          <input type="text" name="building_name" value="">
         </div>
         <p class="error-message">@error('building_name')
           {{ $message }}
