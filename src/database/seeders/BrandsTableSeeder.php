@@ -20,74 +20,74 @@ class BrandsTableSeeder extends Seeder
         foreach ($categories as $category) {
             switch ($category->name) {
                 case '家電':
-                    Brand::create(['name' => 'Sony', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Panasonic', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Toshiba', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Sharp', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Hitachi', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Sony',]);
+                    Brand::create(['name' => 'Panasonic',]);
+                    Brand::create(['name' => 'Toshiba',]);
+                    Brand::create(['name' => 'Sharp',]);
+                    Brand::create(['name' => 'Hitachi',]);
                     break;
                 case 'ファッション':
-                    Brand::create(['name' => 'Gucci', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Prada', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Louis Vuitton', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Chanel', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Hermes', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Gucci',]);
+                    Brand::create(['name' => 'Prada',]);
+                    Brand::create(['name' => 'Louis Vuitton',]);
+                    Brand::create(['name' => 'Chanel',]);
+                    Brand::create(['name' => 'Hermes',]);
                     break;
                 case '書籍':
-                    Brand::create(['name' => 'Penguin Books', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'HarperCollins', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Simon & Schuster', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Random House', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Macmillan Publishers', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Penguin Books',]);
+                    Brand::create(['name' => 'HarperCollins',]);
+                    Brand::create(['name' => 'Simon & Schuster',]);
+                    Brand::create(['name' => 'Random House',]);
+                    Brand::create(['name' => 'Macmillan Publishers',]);
                     break;
                 case 'スポーツ用品':
-                    Brand::create(['name' => 'Nike', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Adidas', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Under Armour', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Puma', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Reebok', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Nike',]);
+                    Brand::create(['name' => 'Adidas',]);
+                    Brand::create(['name' => 'Under Armour',]);
+                    Brand::create(['name' => 'Puma',]);
+                    Brand::create(['name' => 'Reebok',]);
                     break;
                 case 'おもちゃ':
-                    Brand::create(['name' => 'Lego', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Mattel', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Hasbro', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Bandai', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Fisher-Price', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Lego',]);
+                    Brand::create(['name' => 'Mattel',]);
+                    Brand::create(['name' => 'Hasbro',]);
+                    Brand::create(['name' => 'Bandai',]);
+                    Brand::create(['name' => 'Fisher-Price',]);
                     break;
                 case '家具':
-                    Brand::create(['name' => 'Ikea', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Ashley Furniture', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'La-Z-Boy', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Herman Miller', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Steelcase', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Ikea',]);
+                    Brand::create(['name' => 'Ashley Furniture',]);
+                    Brand::create(['name' => 'La-Z-Boy',]);
+                    Brand::create(['name' => 'Herman Miller',]);
+                    Brand::create(['name' => 'Steelcase',]);
                     break;
                 case 'アクセサリー':
-                    Brand::create(['name' => 'Tiffany & Co.', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Swarovski', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Pandora', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Cartier', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Rolex', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Tiffany & Co.',]);
+                    Brand::create(['name' => 'Swarovski',]);
+                    Brand::create(['name' => 'Pandora',]);
+                    Brand::create(['name' => 'Cartier',]);
+                    Brand::create(['name' => 'Rolex',]);
                     break;
                 case '健康・美容':
-                    Brand::create(['name' => 'L\'Oreal', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Estee Lauder', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Nivea', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Neutrogena', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Olay', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'L\'Oreal',]);
+                    Brand::create(['name' => 'Estee Lauder',]);
+                    Brand::create(['name' => 'Nivea',]);
+                    Brand::create(['name' => 'Neutrogena',]);
+                    Brand::create(['name' => 'Olay',]);
                     break;
                 case '音楽':
-                    Brand::create(['name' => 'Yamaha', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Fender', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Gibson', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Roland', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Kawai', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Yamaha',]);
+                    Brand::create(['name' => 'Fender',]);
+                    Brand::create(['name' => 'Gibson',]);
+                    Brand::create(['name' => 'Roland',]);
+                    Brand::create(['name' => 'Kawai',]);
                     break;
                 case 'アート':
-                    Brand::create(['name' => 'Winsor & Newton', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Faber-Castell', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Royal & Langnickel', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Sennelier', 'category_id' => $category->id]);
-                    Brand::create(['name' => 'Liquitex', 'category_id' => $category->id]);
+                    Brand::create(['name' => 'Winsor & Newton',]);
+                    Brand::create(['name' => 'Faber-Castell',]);
+                    Brand::create(['name' => 'Royal & Langnickel',]);
+                    Brand::create(['name' => 'Sennelier',]);
+                    Brand::create(['name' => 'Liquitex',]);
                     break;
             }
         }

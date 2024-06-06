@@ -9,41 +9,11 @@
     </div>
   </div>
   <div class="item__container">
-    <div class="item__container__card img-gray">
-      <a href="{{ route('detail') }}">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
+    @foreach ($items as $item)
+    <a class="item__container__card img-gray" href="{{ route('detail', $item) }}">
+      <img src="" alt="">
+    </a>
+    @endforeach
   </div>
 </div>
 @endsection

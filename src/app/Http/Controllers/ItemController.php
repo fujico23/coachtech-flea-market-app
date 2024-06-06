@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Item;
+
 class ItemController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $items = Item::getItems();
+        return view('index', compact('items'));
     }
 
-    public function detail()
+    public function detail(Item $item)
     {
-        return view('detail');
+        $item->getDetailItem();
+        return view('detail', compact('item'));
     }
 }

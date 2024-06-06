@@ -29,7 +29,7 @@ class ItemFactory extends Factory
             'price' => $this->faker->numberBetween(100, 100000),
             'description' => $this->faker->paragraph,
             'color_id' => Color::inRandomOrder()->first()->id,
-            'category_id' => Category::inRandomOrder()->first()->id,
+            'category_id' => Category::whereNotIn('id', range(1, 36))->inRandomOrder()->first()->id,
             'condition_id' => Condition::inRandomOrder()->first()->id,
         ];
     }

@@ -25,8 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [AuthController::class, 'index'])->name('index');
-Route::get('/item/item_id', [ItemController::class, 'detail'])->name('detail');
+Route::get('/', [ItemController::class, 'index'])->name('index');
+Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
 Route::get('/mypage/profile', [UserController::class, 'edit'])->name('profile');
 Route::get('/sell', [SellController::class, 'edit'])->name('sell');
