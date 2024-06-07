@@ -17,7 +17,7 @@ class Item extends Model
     }
     public function getDetailItem()
     {
-        return $this->load(['brand', 'category', 'color', 'condition', 'favorites']);
+        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'comments.user']);
     }
 
     public function condition()
@@ -69,6 +69,7 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
     /* コメントされている数をカウントする */
     public static function CommentCount()
     {

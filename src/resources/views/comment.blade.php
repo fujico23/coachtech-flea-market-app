@@ -30,39 +30,43 @@
         <a class="" href="{{ route('comment', $item) }}">
           <img src="{{ asset('img/comment.svg') }}" alt="logo" width="32px" height="32px">
         </a>
-        <p>14</p>
+        <p>{{ $item->comments_count }}</p>
       </div>
     </div>
     <ul class="item__detail--comment">
+      @foreach ($item->comments as $comment)
       <li class="item__detail--comment__list">
-        <div class="item__detail--comment__list--user">
+        @if ($comment->user->id === auth()->id())
+        <form method="post" action="{{ route('comment.destroy', $item) }}">
+          @csrf
+          @method('delete')
+          <div class="item__detail--comment__list--user item__detail--comment__list--user--right">
+            <img class="profile__image comment__user-img" src="" alt="">
+            <p>{{ $comment->user->name }}</p>
+          </div>
+          <p class="item__detail--comment__list--text img-gray ">{{ $comment->comment }}</p>
+          <div class="item__detail--comment__list--delete">
+            <button class="" type="submit">コメント削除</button>
+          </div>
+        </form>
+        @else
+        <div class="item__detail--comment__list--user left">
           <img class="profile__image comment__user-img" src="" alt="">
-          <p>名前</p>
+          <p>{{ $comment->user->name }}</p>
         </div>
-        <p class="item__detail--comment__list--text img-gray">コメントコメント</p>
+        <p class="item__detail--comment__list--text img-gray">{{ $comment->comment }}</p>
+        @endif
       </li>
-      <li class="item__detail--comment__list">
-        <div class="item__detail--comment__list--user">
-          <img class="profile__image comment__user-img" src="" alt="">
-          <p>名前</p>
-        </div>
-        <p class="item__detail--comment__list--text img-gray">コメントコメント</p>
-      </li>
-      <li class="item__detail--comment__list">
-        <div class="item__detail--comment__list--user">
-          <img class="profile__image comment__user-img" src="" alt="">
-          <p>名前</p>
-        </div>
-        <p class="item__detail--comment__list--text img-gray">コメントコメント</p>
-      </li>
+      @endforeach
     </ul>
     <h2 class="item__detail--comment__form-header">商品のコメント</h2>
-    <form action="" class="item__detail--comment__form">
+    <p class="error-message">@error('comment'){{ $message }}@enderror
+    </p>
+    <form action="{{ route('comment.store', $item) }}" method="post" class="item__detail--comment__form">
       @csrf
-      <textarea class="item__detail--comment__form-textarea" name="" id="" textarea rows="4"></textarea>
+      <textarea class="item__detail--comment__form-textarea" name="comment" id="" textarea rows="4"></textarea>
+      <button class="btn--bg-pink" type="submit">コメントを送信する</button>
     </form>
-    <button class="btn--bg-pink" href="{{ route('comment.store',$item) }}">コメントを送信する
-    </button>
   </div>
 </div>
 @endsection

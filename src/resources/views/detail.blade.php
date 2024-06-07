@@ -30,7 +30,7 @@
         <a class="" href="{{ route('comment', $item) }}">
           <img src="{{ asset('img/comment.svg') }}" alt="logo" width="32px" height="32px">
         </a>
-        <p>14</p>
+        <p>{{ $item->comments_count }}</p>
       </div>
     </div>
     <a class="btn--bg-pink" href="{{ route('purchase', $item) }}">購入する</a>

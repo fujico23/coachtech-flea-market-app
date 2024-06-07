@@ -97,7 +97,7 @@ header {
     height: 200px;
 }
 
-/* detail comment.blade.php */
+/* detail comment.blade.php共通スタイル */
 .detail__container,
 .comment__container {
     width: 85%;
@@ -145,6 +145,7 @@ header {
     margin: 80px 0px 60px;
     list-style: none;
 }
+
 .item__detail--comment__list {
     margin-bottom: 18px;
 }
@@ -152,6 +153,9 @@ header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+.item__detail--comment__list--user--right {
+    flex-direction: row-reverse;
 }
 .comment__user-img {
     width: 40px;
@@ -161,9 +165,23 @@ header {
     margin-left: 10px;
     font-weight: bold;
 }
+.item__detail--comment__list--user--right p {
+    margin-right: 10px;
+}
 .item__detail--comment__list--text {
     padding: 5px;
     border-radius: 4px;
+}
+.item__detail--comment__list--delete {
+    text-align: right;
+}
+.item__detail--comment__list--delete button {
+    font-size: 12px;
+    color: #ff5555;
+    font-weight: bold;
+}
+.item__detail--comment__list--delete button:hover {
+    color: #5f5f5f;
 }
 .item__detail--comment__form-header {
     font-size: 18px;
@@ -187,8 +205,7 @@ header {
     font-size: 24px;
 }
 
-/* profile.blade.php */
-/* address.blade.php */
+/* profile・address.blade.php共通スタイル */
 .profile-edit__container,
 .address-edit__container,
 .sell-edit__container {

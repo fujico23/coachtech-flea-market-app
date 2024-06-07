@@ -40,4 +40,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/favorite/destroy/{item}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
     Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('item/comment/{item}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
