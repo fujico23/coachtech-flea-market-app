@@ -1,7 +1,9 @@
 <header>
   <div class="header__left">
     <div class="header__left__inner">
-      <img src="{{ asset('img/logo.svg') }}" alt="logo">
+      <a href="{{ route('index') }}">
+        <img src="{{ asset('img/logo.svg') }}" alt="logo">
+      </a>
     </div>
     <div class="header__left--input input">
       <input type="text" placeholder="なにをお探しですか？">

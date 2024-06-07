@@ -102,6 +102,21 @@ textarea {
 .img-gray {
     background-color: #d9d9d9;
 }
+/* バリデーションエラー */
+.error-message {
+    color: #ff5555;
+}
+.alert {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 6px 0px;
+    font-weight: lighter;
+    border-radius: 4px;
+}
+.alert-success {
+    background-color: #0073cc;
+}
 
 /* プロフィール画像スタイル */
 .profile__image {

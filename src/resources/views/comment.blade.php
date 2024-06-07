@@ -6,17 +6,28 @@
     <img src="" alt="item">
   </div>
   <div class="item__detail">
-    <h1>商品名</h1>
-    <p>ブランド名</p>
-    <p class="item__detail--price price">¥47,000（値段）</p>
+    <h1>
+      <a href="{{ route('detail', $item) }}">{{ $item->name }}</a>
+    </h1>
+    <p>{{ $item->brand->name }}</p>
+    <p class="item__detail--price price">¥{{ $item->price }}（値段）</p>
     <div class="item__detail--icon icon">
-      <form class="star" method="post" action="">
+      @if(!$item->isFavoriteByAuthUser())
+      <form class="star" method="post" action="{{ route('favorite.add', $item) }}">
         @csrf
         <input type="image" src="{{ asset('img/star.svg') }}" alt="いいね" width="32px" height="32px">
-        <p>3</p>
+        <p>{{ $item->favorites_count }}</p>
       </form>
+      @else
+      <form class="star" method="post" action="{{ route('favorite.destroy', $item) }}">
+        @csrf
+        @method('delete')
+        <input type="image" src="{{ asset('img/star-yellow.svg') }}" alt="いいね" width="32px" height="32px">
+        <p>{{ $item->favorites_count }}</p>
+      </form>
+      @endif
       <div class="comment">
-        <a class="" href="{{ route('comment') }}">
+        <a class="" href="{{ route('comment', $item) }}">
           <img src="{{ asset('img/comment.svg') }}" alt="logo" width="32px" height="32px">
         </a>
         <p>14</p>
@@ -50,7 +61,7 @@
       @csrf
       <textarea class="item__detail--comment__form-textarea" name="" id="" textarea rows="4"></textarea>
     </form>
-    <button class="btn--bg-pink" href="{{ route('purchase') }}">コメントを送信する
+    <button class="btn--bg-pink" href="{{ route('comment.store',$item) }}">コメントを送信する
     </button>
   </div>
 </div>

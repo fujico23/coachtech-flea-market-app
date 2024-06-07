@@ -8,8 +8,8 @@
         <img src="" alt="item">
       </div>
       <div class="purchase__container--left--item--name">
-        <h1>商品名</h1>
-        <p class="item__detail--price price">¥47,000</p>
+        <h1>{{ $item->name }}</h1>
+        <p class="item__detail--price price">¥{{ $item->price }}</p>
       </div>
     </div>
     <ul class="purchase__container--left--payment">
@@ -27,7 +27,7 @@
     <ul class="purchase__container--right--payment border-gray">
       <li class="purchase__container--right--payment__list">
         <h3>商品代金</h3>
-        <p>¥47,000</p>
+        <p>¥{{ $item->price }}</p>
       </li>
       <li class="purchase__container--right--payment__list">
         <h3>商品代金</h3>

@@ -17,6 +17,7 @@ class ItemController extends Controller
     public function detail(Item $item)
     {
         $item->getDetailItem();
+        $item->favorites_count = $item->favorites()->count();
         return view('detail', compact('item'));
     }
 }

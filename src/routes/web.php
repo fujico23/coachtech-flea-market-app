@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Models\User;
 
@@ -27,9 +29,15 @@ Route::get('/', function () {
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
-Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
-Route::get('/mypage/profile', [UserController::class, 'edit'])->name('profile');
-Route::get('/sell', [SellController::class, 'edit'])->name('sell');
-Route::get('/purchase/item_id', [PurchaseController::class, 'create'])->name('purchase');
-Route::get('/purchase/address/item_id', [AddressController::class, 'edit'])->name('address');
-Route::get('/item/comment/item_id', [CommentController::class, 'show'])->name('comment');
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/sell', [SellController::class, 'edit'])->name('sell');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
+    Route::get('/purchase/address/item_id', [PurchaseController::class, 'edit'])->name('address');
+    Route::post('/favorite/add/{item}', [FavoriteController::class, 'store'])->name('favorite.add');
+    Route::delete('/favorite/destroy/{item}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+    Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
+    Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
+});
