@@ -183,8 +183,12 @@ header {
 .item__detail--comment__list--delete button:hover {
     color: #5f5f5f;
 }
-.item__detail--comment__form-header {
-    font-size: 18px;
+.item__detail--comment__header {
+    display: flex;
+    align-items: baseline;
+}
+.item__detail--comment__header p {
+    margin-left: 10px;
 }
 
 /* mypage.blade.php */

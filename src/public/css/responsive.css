@@ -29,8 +29,9 @@
 
     /* index.blade.php */
 
-    /* detail.blade.php */
-    .detail__container {
+    /* detail・comment.blade.php共通 */
+    .detail__container,
+    .comment__container {
         width: 90%;
         margin-top: 0px;
         flex-direction: column;

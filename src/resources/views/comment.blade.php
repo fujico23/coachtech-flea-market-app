@@ -34,7 +34,7 @@
       </div>
     </div>
     <ul class="item__detail--comment">
-      @foreach ($item->comments as $comment)
+      @foreach ($comments as $comment)
       <li class="item__detail--comment__list">
         @if ($comment->user->id === auth()->id())
         <form method="post" action="{{ route('comment.destroy', $item) }}">
@@ -44,7 +44,10 @@
             <img class="profile__image comment__user-img" src="" alt="">
             <p>{{ $comment->user->name }}</p>
           </div>
-          <p class="item__detail--comment__list--text img-gray ">{{ $comment->comment }}</p>
+          <div class="item__detail--comment__list--text img-gray ">
+            <p>{{ $comment->comment }}</p>
+            <p>{{ $comment->created_at }}</p>
+          </div>
           <div class="item__detail--comment__list--delete">
             <button class="" type="submit">コメント削除</button>
           </div>
@@ -54,19 +57,40 @@
           <img class="profile__image comment__user-img" src="" alt="">
           <p>{{ $comment->user->name }}</p>
         </div>
-        <p class="item__detail--comment__list--text img-gray">{{ $comment->comment }}</p>
+        <div class="item__detail--comment__list--text img-gray ">
+          <p>{{ $comment->comment }}</p>
+          <p>{{ $comment->created_at }}</p>
+        </div>
         @endif
       </li>
       @endforeach
     </ul>
-    <h2 class="item__detail--comment__form-header">商品のコメント</h2>
-    <p class="error-message">@error('comment'){{ $message }}@enderror
-    </p>
-    <form action="{{ route('comment.store', $item) }}" method="post" class="item__detail--comment__form">
-      @csrf
-      <textarea class="item__detail--comment__form-textarea" name="comment" id="" textarea rows="4"></textarea>
-      <button class="btn--bg-pink" type="submit">コメントを送信する</button>
-    </form>
+    <div class="item__detail--comment__header">
+      <h2 class="">商品のコメント </h2>
+      <p class="error-message">@error('comment'){{ $message }}@enderror</p>
+    </div>
+    <select name="default_comment" id="default_comment">
+      <option value="">コメントを選択する</option>
+      @foreach($defaultComments as $defaultComment)
+      <option value="{{ $defaultComment->comment }}">{{ $defaultComment->title }}</option>
+      @endforeach
+    </select>
+    <div>
+      <form action="{{ route('comment.store', $item) }}" method="post" class="item__detail--comment__form">
+        @csrf
+        <textarea class="item__detail--comment__form-textarea" name="comment" id="commentTextarea" textarea rows="4"></textarea>
+        <button class="btn--bg-pink" type="submit">コメントを送信する</button>
+      </form>
+    </div>
   </div>
 </div>
+
+<script>
+  document.getElementById('default_comment').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var commentTextarea = document.getElementById('commentTextarea');
+    commentTextarea.value = selectedOption.value;
+  });
+</script>
+
 @endsection

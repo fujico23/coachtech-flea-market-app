@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
+use App\Models\DefaultComment;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -13,9 +14,17 @@ class CommentController extends Controller
     public function show(Item $item)
     {
         $item->getDetailItem();
+
         $item->favorites_count = $item->favorites()->count();
-        $item->comments_count = $item->comments()->count();
-        return view('comment', compact('item'));
+
+        $comments = Comment::where('item_id', $item->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $item->comments_count = $comments->count();
+
+        $defaultComments = DefaultComment::all();
+
+        return view('comment', compact('item', 'comments', 'defaultComments'));
     }
     public function store(CommentRequest $request, Item $item)
     {
