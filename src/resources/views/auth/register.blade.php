@@ -8,7 +8,7 @@
     <div class="profile-edit__container--form__inner form__inner">
       <div class="form__inner-group">
         <p>メールアドレス</p>
-        <div class="profile-edit__container--form-tag form__inner-group--input">
+        <div class="profile-edit__container--form-tag form-input--style">
           <input type="text" name="email" value="{{ old('email') }}">
         </div>
         <p class="error-message">@error('email')
@@ -18,7 +18,7 @@
       </div>
       <div class="form__inner-group">
         <p>パスワード</p>
-        <div class="profile-edit__container--form-tag form__inner-group--input">
+        <div class="profile-edit__container--form-tag form-input--style">
           <input type="text" name="password">
         </div>
         <p class="error-message">@error('password')

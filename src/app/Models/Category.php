@@ -14,16 +14,17 @@ class Category extends Model
         return $this->hasMany(Item::class);
     }
 
-    //親カテゴリーを取得
+    //自己参照のリレーションを定義
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
-    //直接のサブカテゴリーを取得
+    //自己参照のリレーションでサブカテゴリーを取得
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    //自己参照のリレーションで更にカテゴリーを取得？？
     public function grandchildren()
     {
         return $this->hasMany(Category::class, 'parent_id')

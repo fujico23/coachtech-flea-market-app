@@ -10,6 +10,8 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'name', 'brand_id', 'price', 'description', 'color_id', 'condition_id', 'category_id'];
+
 
     public static function getItems()
     {
@@ -17,7 +19,7 @@ class Item extends Model
     }
     public function getDetailItem()
     {
-        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'comments.user']);
+        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'images', 'comments.user']);
     }
 
     public function condition()
@@ -36,6 +38,11 @@ class Item extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class, 'item_id');
+    }
+
 
     /* お気に入りメソッド */
     public function favorites()
