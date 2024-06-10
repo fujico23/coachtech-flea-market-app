@@ -49,7 +49,9 @@ select {
 .form__inner-group p {
     font-weight: bold;
 }
-.form-input--style {
+
+.form-input--style,
+textarea {
     border: 1px solid #5f5f5f;
     border-radius: 4px;
     padding: 8px;
@@ -83,6 +85,10 @@ select {
     font-weight: bold;
     font-size: 22px;
     padding: 8px 22px;
+}
+.btn--border-pink:hover {
+    color: #5f5f5f;
+    border: #5f5f5f 2px solid;
 }
 /* ブルーリンク要素 */
 .blue-link {

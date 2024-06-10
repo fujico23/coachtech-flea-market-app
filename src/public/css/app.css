@@ -198,11 +198,11 @@ header {
     justify-content: space-between;
     padding: 50px 0px 20px;
 }
-.mypage__container--header {
+.mypage__container--profile__header {
     display: flex;
     align-items: center;
 }
-.mypage__container--header h1 {
+.mypage__container--profile__header h1 {
     margin-left: 36px;
     font-size: 24px;
 }

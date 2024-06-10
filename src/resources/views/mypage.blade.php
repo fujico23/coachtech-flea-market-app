@@ -4,7 +4,7 @@
 <div class="main mypage__container">
   <div class="mypage__container--profile">
     <div class="mypage__container--profile__header profile">
-      <img class="profile__image" src="" alt="">
+      <img class="profile__image" src="{{ $user->icon_image ?? '' }}" alt="">
       <h1 class="profile--name">{{ $user->name }}</h1>
     </div>
     <a class="profile--edit btn--border-pink" href="{{ route('profile') }}">プロフィールを編集</a>

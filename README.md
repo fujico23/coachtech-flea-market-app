@@ -37,7 +37,7 @@
 - 会員登録ページで新規ユーザー登録
 - 会員登録後、入力したメールアドレス宛に認証メールが送信される　(※後述の「メール機能の注意」参照)
 - 会員登録後、飲食店一覧ページに遷移する
-- 会員登録後、デフォルトで role_id:3 が付与される
+- 会員登録後、デフォルトで role_id:2 が付与される
 
 ### 【ログインページ】
 
@@ -69,7 +69,7 @@
 
 ### 【コメントページ】
 
-- 商品のコメントをしている履歴を表示出来る
+- 商品のコメントをしている履歴を表示
 - ログインユーザーかつ、メール認証済みのユーザーはコメント可能
 
 ### 【Mypage ページ】 ゲストは閲覧不可、メール認証未実施ユーザーは verify_email ページに遷移
@@ -131,10 +131,10 @@
 - composer install
 - .env.example ファイルから.env を作成し、環境変数を変更
 - php artisan key:generate
+- php artisan storage:link (開発環境でのシンボリックリンク作成コマンド)
 
 # 過去の記述のままの項目
 
-- php artisan storage:link (開発環境でのシンボリックリンク作成コマンド)
 - php artisan schedule:work & (開発環境でのタスクスケジューラー動作確認コマンド)
 
 #### パッケージのインストール
@@ -164,8 +164,7 @@
 - php artisan db:seed --class=ColorsTableSeeder
 - php artisan db:seed --class=CategoriesTableSeeder
 - php artisan db:seed --class=BrandsTableSeeder
-- php artisan db:seed --class=TableSeeder
-- php artisan db:seed --class=TableSeeder
+- php artisan db:seed --class=DefaultCommentTableSeeder
 
 ###### Factory ファイル実行コマンド (Item)
 

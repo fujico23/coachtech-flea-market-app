@@ -41,7 +41,7 @@
           @csrf
           @method('delete')
           <div class="item__detail--comment__list--user item__detail--comment__list--user--right">
-            <img class="profile__image comment__user-img" src="" alt="">
+            <img class="profile__image comment__user-img" src="{{ $comment->user->icon_image ?? '' }}" alt="">
             <p>{{ $comment->user->name }}</p>
           </div>
           <div class="item__detail--comment__list--text img-gray ">
