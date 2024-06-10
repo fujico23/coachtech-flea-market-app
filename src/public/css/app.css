@@ -67,7 +67,7 @@ header {
     margin-top: 30px;
 }
 
-/* index.blade.php */
+/* index.mypage.blade.php共通スタイル */
 .link {
     width: 100vw;
 }
@@ -75,7 +75,8 @@ header {
     margin-top: 50px;
     margin-left: 140px;
 }
-.link button {
+.link button,
+.link a {
     font-size: 24px;
     font-weight: bold;
 }
@@ -187,6 +188,12 @@ header {
 }
 .item__detail--comment__header p {
     margin-left: 10px;
+}
+.item__detail--default-comment {
+    border: #5f5f5f 1px solid;
+    border-radius: 4px;
+    margin: 5px 0px;
+    padding: 2px 3px;
 }
 
 /* mypage.blade.php */

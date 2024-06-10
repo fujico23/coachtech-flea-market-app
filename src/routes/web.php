@@ -30,6 +30,7 @@ Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage/sell/{user}', [SellController::class, 'show'])->name('sell.show');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/sell', [SellController::class, 'edit'])->name('sell');

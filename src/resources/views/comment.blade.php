@@ -69,7 +69,7 @@
       <h2 class="">商品のコメント </h2>
       <p class="error-message">@error('comment'){{ $message }}@enderror</p>
     </div>
-    <select name="default_comment" id="default_comment">
+    <select class="item__detail--default-comment" name="default_comment" id="default_comment">
       <option value="">コメントを選択する</option>
       @foreach($defaultComments as $defaultComment)
       <option value="{{ $defaultComment->comment }}">{{ $defaultComment->title }}</option>

@@ -12,10 +12,15 @@ use App\Models\Category;
 use App\Models\ItemImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class SellController extends Controller
 {
+    public function show(User $user)
+    {
+        $items = Item::getItemByUserId($user->id);
+        return view('mypage', compact('items', 'user'));
+    }
     public function edit()
     {
         $conditions = Condition::all();

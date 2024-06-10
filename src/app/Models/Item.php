@@ -19,7 +19,13 @@ class Item extends Model
     }
     public function getDetailItem()
     {
-        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'images', 'comments.user']);
+        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'itemImages', 'comments.user']);
+    }
+
+    /* ログインユーザーの出品した商品を取得する */
+    public static function getItemByUserId($userId)
+    {
+        return self::where('user_id', $userId)->with('itemImages')->get();
     }
 
     public function condition()
@@ -38,7 +44,7 @@ class Item extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
-    public function images()
+    public function itemImages()
     {
         return $this->hasMany(ItemImage::class, 'item_id');
     }

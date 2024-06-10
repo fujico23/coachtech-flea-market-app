@@ -95,7 +95,7 @@
       </div>
       <div class="form__inner-group">
         <p>商品の説明</p>
-        <div class="sell-edit__container--form-tag form-input--style">
+        <div class="sell-edit__container--form-tag">
           <textarea name="description" rows="4">{{ old('description') }}</textarea>
         </div>
         <p class="error-message">@error('description'){{ $message }}@enderror</p>
