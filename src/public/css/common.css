@@ -25,7 +25,7 @@ body {
 /* ページのtitle要素 */
 .header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 a,
 button,
@@ -60,6 +60,22 @@ textarea {
     width: 100%;
 }
 
+/* 戻るボタン */
+.return-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+.return-link:hover {
+    background-color: #d9d9d9;
+}
+
 /* カラースタイル */
 /* ピンクボタン要素 */
 .btn--bg-pink {
@@ -90,11 +106,13 @@ textarea {
     color: #5f5f5f;
     border: #5f5f5f 2px solid;
 }
+
 /* ブルーリンク要素 */
 .blue-link {
     font-weight: bold;
     color: #0073cc;
 }
+
 /* ボーダーボトムグレー要素 */
 .border-bottom-gray {
     border-bottom: 2px #5f5f5f solid;

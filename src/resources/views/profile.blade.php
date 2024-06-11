@@ -3,6 +3,7 @@
 @section('main')
 <div class="main profile-edit__container">
   <h1 class="profile-edit__container__header header">プロフィール設定</h1>
+  <a class="return-link" href="{{ route('mypage') }}">&lsaquo;</a>
   @include('components.session')
   <form action="{{ route('profile.update') }}" method="post" class="profile-edit__container--form form" enctype="multipart/form-data">
     @csrf
@@ -22,24 +23,25 @@
       <div class="form__inner-group">
         <p>郵便番号</p>
         <div class="profile-edit__container--form-tag form-input--style">
-          <input type="text" name="postal_code" value="{{ $user->postal_code }}">
+          <input type="text" name="postal_code" value="{{ $homeAddress->postal_code ?? '' }}">
         </div>
         <p class="error-message">@error('postal_code'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
         <p>住所</p>
         <div class="profile-edit__container--form-tag form-input--style">
-          <input type="text" name="address" value="{{ $user->address }}">
+          <input type="text" name="address" value="{{ $homeAddress->address ?? '' }}">
         </div>
         <p class="error-message">@error('address'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
         <p>建物</p>
         <div class="profile-edit__container--form-tag form-input--style">
-          <input type="text" name="building_name" value="{{ $user->building_name }}">
+          <input type="text" name="building_name" value="{{ $homeAddress->building_name ?? '' }}">
         </div>
         <p class="error-message">@error('building_name'){{ $message }}@enderror</p>
       </div>
+      <input type="hidden" name="type" value="自宅">
     </div>
     <button class="btn--bg-pink" type="submit">更新する</button>
   </form>

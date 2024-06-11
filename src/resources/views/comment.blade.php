@@ -37,7 +37,7 @@
       @foreach ($comments as $comment)
       <li class="item__detail--comment__list">
         @if ($comment->user->id === auth()->id())
-        <form method="post" action="{{ route('comment.destroy', $item) }}">
+        <form method="post" action="{{ route('comment.destroy', $comment) }}">
           @csrf
           @method('delete')
           <div class="item__detail--comment__list--user item__detail--comment__list--user--right">

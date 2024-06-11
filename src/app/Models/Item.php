@@ -19,10 +19,18 @@ class Item extends Model
     }
     public function getDetailItem()
     {
-        return $this->load(['brand', 'category', 'color', 'condition', 'favorites', 'itemImages', 'comments.user']);
+        return $this
+            ->load([
+                'brand',
+                'category',
+                'color',
+                'condition',
+                'favorites',
+                'itemImages',
+                'comments.user'
+            ]);
     }
-
-    /* ログインユーザーの出品した商品を取得する */
+    /* ログインユーザーの出品商品一覧取得 */
     public static function getItemByUserId($userId)
     {
         return self::where('user_id', $userId)->with('itemImages')->get();

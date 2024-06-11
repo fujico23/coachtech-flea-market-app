@@ -36,9 +36,9 @@ class CommentController extends Controller
         Comment::create($comment);
         return redirect()->back();
     }
-    public function destroy(Item $item)
+    public function destroy(Comment $comment)
     {
-        Comment::where('user_id', Auth::id())->where('item_id', $item->id)->delete();
+        Comment::where('id', $comment->id)->delete();
         return redirect()->back();
     }
 }

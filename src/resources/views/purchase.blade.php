@@ -8,20 +8,31 @@
         <img src="" alt="item">
       </div>
       <div class="purchase__container--left--item--name">
-        <h1>{{ $item->name }}</h1>
+        <a href="{{ route('detail' , $item) }}">{{ $item->name }}</a>
         <p class="item__detail--price price">¥{{ $item->price }}</p>
       </div>
     </div>
-    <ul class="purchase__container--left--payment">
-      <li class="purchase__container--left--payment__list">
+    <div class="purchase__container--left--payment">
+      <div class="purchase__container--left--payment__header">
         <h2>支払い方法</h2>
         <a class="blue-link" href="">変更する</a>
-      </li>
-      <li class="purchase__container--left--payment__list">
+      </div>
+      <div class="purchase__container--left--payment__list__description">
+        <p>カード払い</p>
+        <p>手数料¥880</p>
+      </div>
+      <div class="purchase__container--left--payment__header">
         <h2>配送先</h2>
-        <a class="blue-link" href="{{ route('address') }}">変更する</a>
-      </li>
-    </ul>
+        <a class="blue-link" href="{{ route('purchase.address.update', $item) }}">変更する</a>
+      </div>
+      <div class="purchase__container--left--payment__list__description">
+        @if($shippingAddress)
+        <p>〒{{ $shippingAddress->postal_code }}</p>
+        <p>{{ $shippingAddress->address }}</p>
+        <p>{{ $shippingAddress->building_name ?? '' }}</p>
+        @endif
+      </div>
+    </div>
   </div>
   <div class="purchase__container--right">
     <ul class="purchase__container--right--payment border-gray">

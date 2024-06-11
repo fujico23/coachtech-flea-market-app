@@ -18,8 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'role_id', 'email', 'password', 'icon_image', 'postal_code', 'address', 'building_name'
+        'name', 'role_id', 'email', 'password', 'icon_image',
     ];
+
+    public function getDataUser()
+    {
+        return $this->load(['items', 'addresses',]);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,5 +48,9 @@ class User extends Authenticatable
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 }
