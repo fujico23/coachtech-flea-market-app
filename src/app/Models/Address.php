@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Address extends Model
 {
@@ -22,5 +23,11 @@ class Address extends Model
     public function scopeHomeAddress($query, $userId)
     {
         return $query->where('user_id', $userId)->where('type', '自宅');
+    }
+    /* 住所一覧を取得(自宅住所優先で取得する) */
+    public function scopeUserAddresses($query)
+    {
+        return $query->where('user_id', Auth::id())
+            ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END");
     }
 }

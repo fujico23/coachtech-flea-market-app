@@ -11,17 +11,19 @@ class AddressController extends Controller
 {
     public function index(Item $item)
     {
-        $addresses = Address::where('user_id', Auth::id())
+        $addresses = Address::userAddresses()->get();
+        /*        $addresses = Address::where('user_id', Auth::id())
             ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END")
-            ->get();
+            ->get();*/
         return view('address_list', compact('item', 'addresses'));
     }
+
+    //配送先選択機能
     public function selectAddress(Request $request)
     {
         $userId = Auth::id();
         $addressId = $request->input('address_id');
 
-        // ユーザーの全ての住所のデフォルトフラグをリセット
         Address::where('user_id', $userId)->update(['is_default' => false]);
         // 選択された住所をデフォルトに設定
         $address = Address::find($addressId);
@@ -31,32 +33,32 @@ class AddressController extends Controller
         return redirect()->back()->with('success', '配送先が更新されました。');
     }
 
+    //住所編集・削除選択画面に遷移
+    public function editList(Item $item)
+    {
+        $addresses = Address::userAddresses()->get();
+        return view('address_edit_index', compact('item', 'addresses'));
+    }
+    //住所更新
+    public function edit(Address $address)
+    {
+        return view('address_edit', compact('address'));
+    }
+    public function update(Request $request, Address $address)
+    {
+        $data = $request->only(['postal_code', 'address', 'building_name']);
+        $address->update($data);
+
+        return redirect()->back()->with('success', '住所が更新されました。');
+    }
+    //住所削除
     public function destroy(Address $address)
     {
         Address::where('id', $address->id)->delete();
         return redirect()->back()->with('success', '住所が削除されました。');
     }
 
-    public function editList(Item $item)
-    {
-        $addresses = Address::where('user_id', Auth::id())
-            ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END")
-            ->get();
-        return view('address_edit_index', compact('item', 'addresses'));
-    }
-    public function edit(Address $address)
-    {
-        return view('address_edit', compact('address'));
-    }
-
-    public function update(Request $request, Address $address)
-    {
-        $data = $request->only(['postal_code', 'address', 'building_name']);
-        $address->update($data);
-
-        return redirect()->back()->with('success', '配送先が更新されました。');
-    }
-
+    //住所追加
     public function create(Item $item)
     {
         return view('address', compact('item'));
