@@ -11,19 +11,15 @@
         <div class="profile-edit__container--form-tag form-input--style">
           <input type="text" name="email" value="{{ old('email') }}">
         </div>
-        <p class="error-message">@error('email')
-          {{ $message }}
-          @enderror
+        <p class="error-message">@error('email'){{ $message }}@enderror
         </p>
       </div>
       <div class="form__inner-group">
         <p>パスワード</p>
         <div class="profile-edit__container--form-tag form-input--style">
-          <input type="text" name="password">
+          <input type="password" name="password">
         </div>
-        <p class="error-message">@error('password')
-          {{ $message }}
-          @enderror
+        <p class="error-message">@error('password'){{ $message }}@enderror
         </p>
       </div>
     </div>

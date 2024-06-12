@@ -23,7 +23,7 @@
       </div>
       <div class="purchase__container--left--payment__header">
         <h2>配送先</h2>
-        <a class="blue-link" href="{{ route('purchase.address.update', $item) }}">変更する</a>
+        <a class="blue-link" href="{{ route('address.index', $item) }}">変更する</a>
       </div>
       <div class="purchase__container--left--payment__list__description">
         @if($shippingAddress)

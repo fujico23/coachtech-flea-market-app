@@ -2,10 +2,10 @@
 
 @section('main')
 <div class="main address-edit__container">
-  <h1 class="address-edit__container__header header">住所の変更</h1>
-  <a class="return-link" href="{{ route('purchase.address.update', $item) }}">&lsaquo;</a>
+  <h1 class="address-edit__container__header header">住所の追加</h1>
+  <a class="return-link" href="{{ route('address.index', $item) }}">&lsaquo;</a>
   @include('components.session')
-  <form action="{{ route('purchase.address.store', $item) }}" method="post" class="address-edit__container--form form">
+  <form action="{{ route('address.store', $item) }}" method="post" class="address-edit__container--form form">
     @csrf
     <div class="address-edit__container--form__inner form__inner">
       <div class="form__inner-group">

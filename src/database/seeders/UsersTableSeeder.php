@@ -22,11 +22,18 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('11111111'),
         ]);
         User::create([
-            'role_id' => '1',
+            'role_id' => '2',
             'name' => '利用者次郎',
             'email' => 'test2@example.com',
             'email_verified_at' => now(),
             'password' => bcrypt('22222222'),
+        ]);
+        User::create([
+            'role_id' => '2',
+            'name' => '利用者三郎',
+            'email' => 'test3@example.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('33333333'),
         ]);
     }
 }

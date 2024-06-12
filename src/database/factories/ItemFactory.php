@@ -23,7 +23,7 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => User::inRandomOrder()->first()->id,
             'name' => $this->faker->word,
             'brand_id' => Brand::inRandomOrder()->first()->id,
             'price' => $this->faker->numberBetween(100, 100000),

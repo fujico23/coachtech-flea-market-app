@@ -34,6 +34,21 @@
     }
 
     /* index.blade.php */
+    .link {
+        margin-top: 24px;
+    }
+    .link__inner {
+        width: 90%;
+        margin-left: 0px;
+        margin: 0px auto;
+        display: flex;
+        text-align: center;
+        justify-content: space-around;
+        font-size: 10px;
+    }
+    .link__inner a {
+        font-size: 20px;
+    }
 
     /* detail・comment.blade.php共通 */
     .detail__container,
@@ -58,12 +73,18 @@
 
     /* profile.blade.php */
     .profile-edit__container,
-    .sell-edit__container {
+    .sell-edit__container,
+    .address-select__container,
+    .address-edit__container {
         width: 90%;
     }
     .profile-edit__container__img {
         flex-direction: column;
     }
+    .profile-edit__container__img img {
+        margin-bottom: 10px;
+    }
+
     .profile-edit__container__img button {
         margin-left: 0px;
         margin-top: 10px;

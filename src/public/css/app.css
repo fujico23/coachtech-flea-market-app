@@ -76,11 +76,16 @@ header {
     margin-left: 140px;
 }
 .link button,
-.link a {
+.link__inner a {
     font-size: 24px;
     font-weight: bold;
+    color: #000;
+    padding: 4px 8px 0px 8px;
 }
-.link button:last-child {
+.link__inner a:hover {
+    background-color: #d9d9d9;
+}
+.link__inner a:last-child {
     margin-left: 100px;
 }
 .item__container {
@@ -218,7 +223,8 @@ header {
 .profile-edit__container,
 .address-edit__container,
 .sell-edit__container,
-.address-select__container {
+.address-select__container,
+.address-list__container {
     max-width: 680px;
     margin: 50px auto;
 }
@@ -324,14 +330,13 @@ header {
     margin-top: 80px;
 }
 
-/* 住所一覧ページ */
-.address-select__container--form__inner {
-    display: flex;
+/* 住所一覧ページ(select/list) 共通スタイル*/
+.address-select__container--link,
+.address-list__container--link {
+    display: block;
+    text-align: right;
 }
-.address-select__container--form__inner--address-detail {
-    margin: 10px;
-}
-.address-select__container--form__inner--address-detail--home-icon {
+.home-address-icon {
     display: inline-block;
     background-color: #5f5f5f;
     color: #fff;
@@ -340,6 +345,29 @@ header {
     font-size: 10px;
     margin-right: 5px;
 }
-.address-select__container--form__inner--address-detail a {
-    display: inline-block;
+.address-select__container__inner--address-detail,
+.address-list__container__inner--address-detail {
+    margin: 10px;
+}
+.address-select__container__inner,
+.address-list__container__inner {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    margin: 5px 0px;
+}
+/* 住所一覧ページ(select) */
+
+.address-select__container__inner:hover {
+    background-color: #d9d9d9;
+}
+/* 住所一覧ページ(list) */
+.address-list__container__inner {
+    justify-content: space-between;
+}
+.address-list__container__inner--left {
+    display: flex;
+}
+.address-list__container__inner--right a {
+    margin-bottom: 10px;
 }

@@ -106,11 +106,23 @@ textarea {
     color: #5f5f5f;
     border: #5f5f5f 2px solid;
 }
+.btn--border-pink--small {
+    display: block;
+    color: #ff5555;
+    border: #ff5555 2px solid;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 10px;
+}
 
 /* ブルーリンク要素 */
 .blue-link {
     font-weight: bold;
     color: #0073cc;
+}
+.blue-link:hover {
+    color: #6ca7d4;
 }
 
 /* ボーダーボトムグレー要素 */

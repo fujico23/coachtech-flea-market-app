@@ -11,48 +11,22 @@
   </div>
   <div class="link border-bottom-gray">
     <div class="link__inner">
-      <a href="{{ route('sell.show', $user) }}">出品した商品</a>
-      <button>購入した商品</button>
+      <a href="{{ route('sell.show', $user) }}" style="color: #ff5555;">出品した商品</a>
+      <a href="">購入した商品</a>
     </div>
   </div>
   <div class="item__container">
     @foreach($items as $item)
     <div class="item__container__card img-gray">
       <a href="{{ route('detail', $item) }}">
+        @if($item->itemImages->isNotEmpty())
         <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
+        @else
+        <img src="" alt="" width="100%" height="100%">
+        @endif
       </a>
     </div>
     @endforeach
-    <!-- <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div>
-    <div class="item__container__card img-gray">
-      <a href="/item/item_id">
-        <img src="" alt="">
-      </a>
-    </div> -->
   </div>
 </div>
 @endsection

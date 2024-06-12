@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
-    public function update(Item $item)
+    public function index(Item $item)
     {
-        $addresses = Address::where('user_id', Auth::id())->get();
+        $addresses = Address::where('user_id', Auth::id())
+            ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END")
+            ->get();
         return view('address_list', compact('item', 'addresses'));
     }
     public function selectAddress(Request $request)
@@ -25,6 +27,32 @@ class AddressController extends Controller
         $address = Address::find($addressId);
         $address->is_default = true;
         $address->save();
+
+        return redirect()->back()->with('success', '配送先が更新されました。');
+    }
+
+    public function destroy(Address $address)
+    {
+        Address::where('id', $address->id)->delete();
+        return redirect()->back()->with('success', '住所が削除されました。');
+    }
+
+    public function editList(Item $item)
+    {
+        $addresses = Address::where('user_id', Auth::id())
+            ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END")
+            ->get();
+        return view('address_edit_index', compact('item', 'addresses'));
+    }
+    public function edit(Address $address)
+    {
+        return view('address_edit', compact('address'));
+    }
+
+    public function update(Request $request, Address $address)
+    {
+        $data = $request->only(['postal_code', 'address', 'building_name']);
+        $address->update($data);
 
         return redirect()->back()->with('success', '配送先が更新されました。');
     }

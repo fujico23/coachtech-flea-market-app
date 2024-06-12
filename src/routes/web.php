@@ -28,23 +28,28 @@ Route::get('/', function () {
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
+Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
-    Route::get('/mypage/sell/{user}', [SellController::class, 'show'])->name('sell.show');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/mypage/sell/{user}', [SellController::class, 'show'])->name('sell.show');
     Route::get('/sell', [SellController::class, 'edit'])->name('sell');
     Route::post('/sell/listing', [SellController::class, 'store'])->name('sell.listing');
     Route::get('/categories/{parentId}/subcategories', [CategoryController::class, 'getSubCategories']);
 
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
-    Route::get('/purchase/{item}/address/update', [AddressController::class, 'update'])->name('purchase.address.update');
-    Route::get('/purchase/{item}/address/create', [AddressController::class, 'create'])->name('purchase.address.create');
-    Route::post('/purchase/{item}/address/select', [AddressController::class, 'selectAddress'])->name('purchase.address.select');
-    Route::post('/purchase/{item}/address', [AddressController::class, 'store'])->name('purchase.address.store');
+    Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');
+    Route::post('/address/{item}/select', [AddressController::class, 'selectAddress'])->name('address.select');
+    Route::delete('address/{address}/delete', [AddressController::class, 'destroy'])->name('address.destroy');
+    Route::get('/address/edit/list', [AddressController::class, 'editList'])->name('address.edit.index');
+    Route::get('/address/{address}/edit', [AddressController::class, 'edit'])->name('address.edit');
+    Route::post('/address/{address}/update', [AddressController::class, 'update'])->name('address.update');
+    Route::get('/address/{item}/create', [AddressController::class, 'create'])->name('address.create');
+    Route::post('/address/{item}/store', [AddressController::class, 'store'])->name('address.store');
+    Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::post('/favorite/add/{item}', [FavoriteController::class, 'store'])->name('favorite.add');
     Route::delete('/favorite/destroy/{item}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
-    Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('item/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });

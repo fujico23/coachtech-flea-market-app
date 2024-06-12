@@ -4,8 +4,8 @@
 <div class="main">
   <div class="link border-bottom-gray">
     <div class="link__inner">
-      <button>おすすめ</button>
-      <button>マイリスト</button>
+      <a href="{{ route('index') }}" style="color: #ff5555;">おすすめ</a>
+      <a href="{{ route('favorite.index') }}">マイリスト</a>
     </div>
   </div>
   <div class="item__container">
