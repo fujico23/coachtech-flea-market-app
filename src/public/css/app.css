@@ -60,11 +60,40 @@ header {
     color: #000;
 }
 
+/* メール確認ページ・プロフィールページ・アドレス作成ページ・出品ページ・アドレス一覧ページ 共通スタイル */
+.profile-edit__container,
+.address-edit__container,
+.sell-edit__container,
+.address-select__container,
+.address-list__container,
+.verification__container {
+    max-width: 680px;
+    margin: 50px auto;
+}
+
 /* 認証フォーム */
 .auth-link {
     display: block;
     text-align: center;
     margin-top: 30px;
+}
+/* 確認メール */
+.verification__container__inner {
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+.verification__container__btn-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
 }
 
 /* 商品一覧ページ・マイページ　共通スタイル */
@@ -217,16 +246,6 @@ header {
 .mypage__container--profile__header h1 {
     margin-left: 36px;
     font-size: 24px;
-}
-
-/* プロフィールページ・アドレス作成ページ・出品ページ・アドレス一覧ページ 共通スタイル */
-.profile-edit__container,
-.address-edit__container,
-.sell-edit__container,
-.address-select__container,
-.address-list__container {
-    max-width: 680px;
-    margin: 50px auto;
 }
 
 /* プロフィールページ */

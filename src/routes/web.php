@@ -10,26 +10,22 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//認証機能
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
 Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,3 +54,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('item/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
+
+//メール認証
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+//メール確認のリンクをクリックした後の処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+//メール確認の再送信
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('resent', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
