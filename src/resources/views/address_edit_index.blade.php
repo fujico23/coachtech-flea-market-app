@@ -5,14 +5,13 @@
   <h1 class="address-list__container__header header">住所一覧</h1>
   <a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
   @include('components.session')
-  <h2>ご自宅/勤務先など</h2>
+  <h2>登録済み住所を編集/削除する</h2>
   <a class="address-list__container--link blue-link" href="#" onclick="history.back()">完了する</a>
   @csrf
   @foreach($addresses as $address)
   @if($address)
   <div class="address-list__container__inner">
     <div class="address-list__container__inner--left">
-      <input type="radio" name="address_id" value="{{ $address->id }}" {{ $address->is_default ? 'checked' : '' }}>
       <div class="address-list__container__inner--address-detail">
         @if($address->type === '自宅')
         <p class="address-list__container__inner--address-detail--home-icon home-address-icon">ご自宅</p>

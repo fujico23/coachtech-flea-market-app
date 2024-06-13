@@ -5,8 +5,10 @@
   <h1 class="address-select__container__header header">住所一覧</h1>
   <a class="return-link" href="{{ route('purchase', $item) }}">&lsaquo;</a>
   @include('components.session')
-  <h2>ご自宅/勤務先など</h2>
+  <h2>配送先を選択する</h2>
+  @if($addressExists)
   <a class="address-select__container--link blue-link" href="{{ route('address.edit.index') }}">編集する</a>
+  @endif
   <form action="{{ route('address.select', $item) }}" method="post" class="address-select__container--form form">
     @csrf
     @foreach($addresses as $address)
@@ -28,7 +30,9 @@
     @endforeach
     <a class="blue-link" href="{{ route('address.create', $item ) }}">新しい住所を登録する</a>
     <p>※「新しい住所を登録」に郵便局/コンビニの住所を設定されても、商品を受け取ることはできません</p>
+    @if($addressExists)
     <button class="btn--bg-pink" type="submit">更新する</button>
+    @endif
   </form>
 </div>
 @endsection

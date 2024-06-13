@@ -12,10 +12,9 @@ class AddressController extends Controller
     public function index(Item $item)
     {
         $addresses = Address::userAddresses()->get();
-        /*        $addresses = Address::where('user_id', Auth::id())
-            ->orderByRaw("CASE WHEN type = '自宅' THEN 1 ELSE 2 END")
-            ->get();*/
-        return view('address_list', compact('item', 'addresses'));
+        $user = Auth::user();
+        $addressExists = $user->addresses()->exists();
+        return view('address_list', compact('item', 'addresses', 'addressExists'));
     }
 
     //配送先選択機能

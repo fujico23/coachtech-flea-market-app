@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -49,8 +50,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Item::class);
     }
+
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+    /* ログインユーザーが住所登録しているかチェックする */
+    public function isAddressByAuthUser()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+        return $this->addresses->where('user_id', Auth::id())->isNotEmpty();
     }
 }
