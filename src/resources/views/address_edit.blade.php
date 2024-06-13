@@ -9,21 +9,30 @@
     @csrf
     <div class="address-edit__container--form__inner form__inner">
       <div class="form__inner-group">
-        <p>郵便番号</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">郵便番号</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="address-edit__container--form-tag form-input--style">
           <input type="text" name="postal_code" value="{{ $address->postal_code }}">
         </div>
         <p class="error-message">@error('postal_code'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
-        <p>住所</p>
+        <div class="form__inner-group--tag">
+          <p>住所</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="address-edit__container--form-tag form-input--style">
           <input type="text" name="address" value="{{ $address->address }}">
         </div>
         <p class="error-message">@error('address'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
-        <p>建物名</p>
+        <div class="form__inner-group--tag">
+          <p>建物名</p>
+          <p class="form__inner-group--tag__required"></p>
+        </div>
         <div class="address-edit__container--form-tag form-input--style">
           <input type="text" name="building_name" value="{{ $address->building_name ?? '' }}">
         </div>

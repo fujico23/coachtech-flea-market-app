@@ -8,7 +8,10 @@
     @csrf
     <div class="sell-edit__container--form__inner form__inner">
       <div class="form__inner-group">
-        <p>商品画像</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">商品画像</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style input-file">
           <input class="sell-edit__container--form-tag--file" type="file" name="image_url[]" multiple>
         </div>
@@ -16,7 +19,10 @@
       </div>
       <h2 class="border-bottom-gray">商品の詳細</h2>
       <div class="form__inner-group">
-        <p>カテゴリー</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">カテゴリー</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <select name="" id="parentCategory">
             <option value="">カテゴリーを選択する</option>
@@ -44,7 +50,10 @@
         </div>
       </div>
       <div class="form__inner-group">
-        <p>商品のブランド</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">商品のブランド</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <select name="brand_id" id="">
             <option value="">商品のブランドを選択してください</option>
@@ -58,7 +67,10 @@
         <p class="error-message">@error('brand_id'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
-        <p>商品のカラー</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">商品のカラー</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <select name="color_id" id="">
             <option value="">商品のカラーを選択してください</option>
@@ -72,7 +84,10 @@
         <p class="error-message">@error('color_id'){{ $message }}@enderror</p>
       </div>
       <div class="form__inner-group">
-        <p>商品の状態</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">商品の状態</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <select name="condition_id" id="">
             <option value="">商品の状態を選択してください</option>
@@ -87,7 +102,10 @@
       </div>
       <h2 class="border-bottom-gray">商品名と説明</h2>
       <div class="form__inner-group">
-        <p>商品名</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">商品名</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <input type="text" name="name" value="{{ old('name') }}" placeholder="例：Laravelの教科書（中古）">
         </div>
@@ -102,7 +120,10 @@
       </div>
       <h2 class="border-bottom-gray">販売価格</h2>
       <div class="form__inner-group">
-        <p>販売価格</p>
+        <div class="form__inner-group--tag">
+          <p class="form__inner-group--tag__header">販売価格</p>
+          <p class="form__inner-group--tag__required required">必須</p>
+        </div>
         <div class="sell-edit__container--form-tag form-input--style">
           <input type="text" name="price" value="{{ old('price') }}" placeholder="1000">
         </div>
