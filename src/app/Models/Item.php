@@ -63,14 +63,7 @@ class Item extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-    /* お気に入り登録している商品を処理する 
-    public static function getFavoriteItems()
-    {
-        $items = Item::with('favorites', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->get();
-        return $items;
-    }*/
+
     /*　お気に入り登録している商品の数をカウントする　*/
     public static function favoriteCount()
     {

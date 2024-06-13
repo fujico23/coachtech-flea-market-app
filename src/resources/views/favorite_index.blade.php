@@ -10,8 +10,8 @@
   </div>
   <div class="item__container">
     @foreach ($favoriteItems as $item)
-    <a class="item__container__card img-gray" href="{{ route('detail', $item) }}">
-      <img src="" alt="">
+    <a class="item__container__card img-gray" href="{{ route('detail',  ['item' => $item->item->id]) }}">
+      <img src="" alt="{{ $item->name }}">
     </a>
     @endforeach
   </div>
