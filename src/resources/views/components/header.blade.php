@@ -1,12 +1,16 @@
 <header>
   <div class="header__left">
-    <div class="header__left__inner">
+    <div class="header__left__logo">
       <a href="{{ route('index') }}">
         <img src="{{ asset('img/logo.svg') }}" alt="logo">
       </a>
     </div>
     <div class="header__left--input input">
-      <input type="text" placeholder="なにをお探しですか？">
+      <form class="header__left--input__inner" method="get" action="{{ route('search') }}">
+        @csrf
+        <input type="text" name="keyword" placeholder="なにをお探しですか？">
+        <button type="submit"><img src="{{ asset('img/magnifying-glass-solid.svg') }}" alt="" width="55%" height="55%"></button>
+      </form>
     </div>
   </div>
   @if (Auth::check())

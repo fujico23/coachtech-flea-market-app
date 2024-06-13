@@ -21,4 +21,11 @@ class ItemController extends Controller
         $item->comments_count = $item->comments()->count();
         return view('detail', compact('item'));
     }
+
+    public function search(Request $request)
+    {
+        $items = Item::KeywordSearch($request->keyword)->get();
+
+        return view('index', compact('items'));
+    }
 }

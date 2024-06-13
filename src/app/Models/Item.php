@@ -63,14 +63,14 @@ class Item extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-    /* お気に入り登録している商品を処理する */
+    /* お気に入り登録している商品を処理する 
     public static function getFavoriteItems()
     {
         $items = Item::with('favorites', function ($query) {
             $query->where('user_id', Auth::id());
         })->get();
         return $items;
-    }
+    }*/
     /*　お気に入り登録している商品の数をカウントする　*/
     public static function favoriteCount()
     {
@@ -95,5 +95,21 @@ class Item extends Model
     public static function CommentCount()
     {
         return self::withCount('comments')->get();
+    }
+
+    /* 検索機能 */
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('items.name', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('category', function ($q) use ($keyword) {
+                        $q->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('brand', function ($q) use ($keyword) {
+                        $q->where('name', 'like', '%' . $keyword . '%');
+                    });
+            });
+        }
     }
 }

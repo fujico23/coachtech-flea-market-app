@@ -24,7 +24,9 @@ Route::post('register', [RegisterController::class, 'register']);
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
+Route::get('search', [ItemController::class, 'search'])->name('search');
 Route::get('/item/comment/{item}', [CommentController::class, 'show'])->name('comment');
+
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
