@@ -266,9 +266,10 @@ header {
     align-items: center;
     margin: 20px auto;
 }
-.profile-edit__container__img button {
-    margin-left: 30px;
+.profile-edit__container__img p {
+    margin-left: 10px;
 }
+
 .custom-file-input {
     display: none;
 }

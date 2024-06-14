@@ -7,7 +7,6 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -26,7 +25,9 @@ class ProfileController extends Controller
         // 画像を保存
         if ($request->hasFile('icon_image')) {
             $file = $request->file('icon_image');
-            $path = $file->store('public/icon_image/' . $user->id);
+            $extension = $file->getClientOriginalExtension();
+            $fileName = 'icon_image.' . $extension;
+            $path = $file->storeAs('public/icon_image/' . $user->id, $fileName);
             $image_url = Storage::url($path);
             $profileData['icon_image'] = $image_url;
         }

@@ -9,8 +9,9 @@
     @csrf
     <div class="profile-edit__container__img">
       <img id="profileImage" class="profile__image" src="{{ $user->icon_image ?? '' }}" alt="">
-      <label for="icon_image" class="custom-file-label btn--border-pink">画像を選択する</label>
+      <label for="icon_image" class="custom-file-label btn--border-pink">画像を選択</label>
       <input id="icon_image" type="file" class="profile--edit custom-file-input" name="icon_image">
+      <p class="error-message">@error('icon_image'){{ $message }}@enderror</p>
     </div>
     <div class="profile-edit__container--form__inner form__inner">
       <div class="form__inner-group">
@@ -19,7 +20,7 @@
           <p class="form__inner-group--tag__required required">必須</p>
         </div>
         <div class="profile-edit__container--form-tag form-input--style">
-          <input type="text" name="name" value="{{ $user->name }}" placeholder="">
+          <input type="text" name="name" value="{{ $user->name ?? ''}}" placeholder="">
         </div>
         <p class="error-message">@error('name'){{ $message }}@enderror</p>
       </div>

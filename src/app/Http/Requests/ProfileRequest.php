@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProfileRequest extends FormRequest
 {
@@ -23,10 +24,12 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
+        Log::info(request()->file('icon_image')->getMimeType());
         return [
             'name' => 'required|string',
             'postal_code' => 'required|string|digits:7',
             'address' => 'required|string',
+            'icon_image' => 'file|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
         ];
     }
     public function messages()
@@ -39,6 +42,8 @@ class ProfileRequest extends FormRequest
             'postal_code.digits' => '郵便番号は数字7桁で入力してください',
             'address.required' => '住所を入力してください',
             'address.string' => '文字列型で入力してください',
+            'icon_image.mimes' => 'jpg,jpeg,svg形式を選択してください',
+            'icon_image.max' => 'ファイルは最大4MBまでの登録が可能です',
         ];
     }
 }
