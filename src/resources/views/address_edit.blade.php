@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main address-edit__container">
   <h1 class="address-edit__container__header header">住所の編集</h1>
-  <a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
   @include('components.session')
   <form action="{{ route('address.update', $address) }}" method="post" class="address-edit__container--form form">
     @csrf

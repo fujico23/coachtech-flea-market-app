@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="{{ route('address.index', $item) }}">&lsaquo;</a>
 <div class="main address-edit__container">
   <h1 class="address-edit__container__header header">住所の追加</h1>
-  <a class="return-link" href="{{ route('address.index', $item) }}">&lsaquo;</a>
   @include('components.session')
   <form action="{{ route('address.store', $item) }}" method="post" class="address-edit__container--form form">
     @csrf

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="{{ route('purchase', $item) }}">&lsaquo;</a>
 <div class="main address-select__container">
   <h1 class="address-select__container__header header">住所一覧</h1>
-  <a class="return-link" href="{{ route('purchase', $item) }}">&lsaquo;</a>
   @include('components.session')
   <h2>配送先を選択する</h2>
   @if($addressExists)

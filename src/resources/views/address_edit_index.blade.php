@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main address-list__container">
   <h1 class="address-list__container__header header">住所一覧</h1>
-  <a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
   @include('components.session')
   <h2>登録済み住所を編集/削除する</h2>
   <a class="address-list__container--link blue-link" href="#" onclick="history.back()">完了する</a>

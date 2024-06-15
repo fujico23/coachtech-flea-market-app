@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="{{ route('mypage') }}">&lsaquo;</a>
 <div class="main profile-edit__container">
   <h1 class="profile-edit__container__header header">プロフィール設定</h1>
-  <a class="return-link" href="{{ route('mypage') }}">&lsaquo;</a>
   @include('components.session')
   <form action="{{ route('profile.update') }}" method="post" class="profile-edit__container--form form" enctype="multipart/form-data">
     @csrf

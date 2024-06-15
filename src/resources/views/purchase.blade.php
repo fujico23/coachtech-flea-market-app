@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main purchase__container">
   <div class="purchase__container--left">
     <div class="purchase__container--left--item">
       <div class="purchase__container--left--item__img img-gray">
-        <img src="" alt="item">
+        @if($item->itemImages->isNotEmpty())
+        <img src="{{ $item->itemImages->first()->image_url }}" alt="item" width="100%" height="100%">
+        @else
+        <img src="" alt="" width="100%" height="100%">
+        @endif
       </div>
       <div class="purchase__container--left--item--name">
         <a href="{{ route('detail' , $item) }}">{{ $item->name }}</a>

@@ -17,6 +17,11 @@ class Favorite extends Model
         return $this->belongsTo(Item::class);
     }
 
+    public function itemImages()
+    {
+        return $this->hasManyThrough(ItemImage::class, Item::class, 'id', 'item_id', 'item_id', 'id');
+    }
+
     public static function favorite($user_id, $item_id)
     {
         $existingFavorite = Favorite::where('user_id', $user_id)->where('item_id', $item_id)->first();

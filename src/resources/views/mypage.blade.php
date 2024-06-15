@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main mypage__container">
   <div class="mypage__container--profile">
     <div class="mypage__container--profile__header profile">

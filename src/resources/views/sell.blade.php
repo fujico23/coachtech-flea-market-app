@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('main')
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main sell-edit__container">
   <h1 class="sell-edit__container__header header">商品の出品</h1>
   @include('components.session')

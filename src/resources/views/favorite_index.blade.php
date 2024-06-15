@@ -9,9 +9,13 @@
     </div>
   </div>
   <div class="item__container">
-    @foreach ($favoriteItems as $item)
-    <a class="item__container__card img-gray" href="{{ route('detail',  ['item' => $item->item->id]) }}">
-      <img src="" alt="{{ $item->name }}">
+    @foreach ($favoriteItems as $favorite)
+    <a class="item__container__card img-gray" href="{{ route('detail',  ['item' => $favorite->item->id]) }}">
+      @if($favorite->item && $favorite->item->itemImages->isNotEmpty())
+      <img src="{{ $favorite->item->itemImages->first()->image_url }}" alt="{{ $favorite->item->name }}" width="100%" height="100%">
+      @else
+      <img src="" alt="" width="100%" height="100%">
+      @endif
     </a>
     @endforeach
   </div>

@@ -9,9 +9,13 @@
     </div>
   </div>
   <div class="item__container">
-    @foreach ($items as $item)
+    @foreach($items as $item)
     <a class="item__container__card img-gray" href="{{ route('detail', $item) }}">
-      <img src="" alt="">
+      @if($item->itemImages->isNotEmpty())
+      <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
+      @else
+      <img src="" alt="" width="100%" height="100%">
+      @endif
     </a>
     @endforeach
   </div>
