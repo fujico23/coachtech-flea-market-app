@@ -31,7 +31,7 @@ class SellRequest extends FormRequest
             'color_id' => 'required',
             'category_id' => 'required',
             'condition_id' => 'required',
-            'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image_url.*' => 'required|file|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
         ];
     }
     public function messages()
@@ -48,9 +48,9 @@ class SellRequest extends FormRequest
             'category_id.required' => 'カテゴリーを入力してください',
             'condition_id.required' => '商品の状態を入力してください',
             'image_url.*.required' => '画像をアップロードしてください',
-            'image_url.*.image' => 'アップロードされたファイルは画像でなければなりません。',
-            'image_url.*.mimes' => '画像形式はjpeg, png, jpg, gif, svgのいずれかでなければなりません。',
-            'image_url.*.max' => '画像のサイズは2MB以下でなければなりません。'
+            'image_url.*.file' => 'アップロードされたファイルは画像でなければなりません。',
+            'image_url.*.mimes' => 'jpg,jpeg,svg形式を選択してください',
+            'image_url.*.max' => '画像のサイズは4MB以下でなければなりません。'
         ];
     }
 }

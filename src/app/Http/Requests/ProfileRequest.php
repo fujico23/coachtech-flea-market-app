@@ -43,7 +43,7 @@ class ProfileRequest extends FormRequest
             'address.required' => '住所を入力してください',
             'address.string' => '文字列型で入力してください',
             'icon_image.mimes' => 'jpg,jpeg,svg形式を選択してください',
-            'icon_image.max' => 'ファイルは最大4MBまでの登録が可能です',
+            'icon_image.max' => '画像のサイズは4MB以下でなければなりません。'
         ];
     }
 }

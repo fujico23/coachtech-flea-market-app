@@ -281,9 +281,14 @@ header {
 
 /* 出品ページ */
 .input-file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px #5f5f5f dotted;
-    height: 120px;
+    min-height: 120px;
+    height: auto;
 }
+
 .input-file input {
     justify-content: center;
     align-items: center;
@@ -291,6 +296,17 @@ header {
 .sell-edit__container--form__inner h2 {
     color: #5f5f5f;
     margin: 34px 0 20px;
+}
+.preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 100%;
+}
+.preview img {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
 }
 .category-hidden {
     display: none;
