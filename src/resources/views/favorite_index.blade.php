@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('main')
-<div class="main">
-  <div class="link border-bottom-gray">
-    <div class="link__inner">
-      <a href="{{ route('index') }}">おすすめ</a>
-      <a href="{{ route('favorite.index') }}" style="color: #ff5555;">マイリスト</a>
-    </div>
+<a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
+<div class="main favorite-index__container mg-200">
+  <div class="favorite-index__container__link link border-bottom-gray">
+    <a href="{{ route('index') }}">おすすめ</a>
+    <a href="{{ route('favorite.index') }}" style="color: #ff5555;">マイリスト</a>
   </div>
   <div class="item__container">
     @foreach ($favoriteItems as $favorite)

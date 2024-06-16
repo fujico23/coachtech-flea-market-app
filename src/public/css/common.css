@@ -83,8 +83,8 @@ textarea {
     height: 36px;
     text-align: center;
     font-size: 32px;
-    margin: 15px 0px 0px 15px;
     color: black;
+    margin: 15px 0px 0px 15px;
 }
 .return-link:hover {
     background-color: #d9d9d9;

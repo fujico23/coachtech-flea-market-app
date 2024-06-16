@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 
 class ProfileRequest extends FormRequest
 {
@@ -24,7 +23,6 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-        Log::info(request()->file('icon_image')->getMimeType());
         return [
             'name' => 'required|string',
             'postal_code' => 'required|string|digits:7',

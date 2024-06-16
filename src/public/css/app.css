@@ -7,6 +7,31 @@ header {
     display: flex;
     justify-content: space-between;
 }
+header,
+.link {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.return-link {
+    position: fixed;
+    top: 80px;
+    z-index: 1500;
+    background-color: #fff;
+    display: inline-flex; /* inline-block or blockでも可 */
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    font-size: 32px;
+    color: black;
+    margin: 15px 0px 0px 15px;
+}
+
 .header__left {
     display: flex;
     width: 65%;
@@ -80,7 +105,7 @@ header {
 .address-list__container,
 .verification__container {
     max-width: 680px;
-    margin: 50px auto;
+    margin: 130px auto;
 }
 
 /* 認証フォーム */
@@ -108,25 +133,33 @@ header {
     padding: 20px;
 }
 
-/* 商品一覧ページ・マイページ　共通スタイル */
+/* 商品一覧ページ・お気に入り一覧ページ・マイページ　共通スタイル */
 .link {
     width: 100vw;
+    background-color: #fff;
 }
-.link__inner {
-    margin-top: 50px;
-    margin-left: 140px;
+/* 商品一覧ページ・お気に入り一覧ページ　共通スタイル */
+.index__container,
+.favorite-index__container {
+    margin-top: 220px;
 }
+.index__container__link,
+.favorite-index__container__link {
+    top: 80px;
+    padding: 70px 0px 0px 140px;
+}
+
 .link button,
-.link__inner a {
+.link a {
     font-size: 24px;
     font-weight: bold;
     color: #000;
     padding: 4px 8px 0px 8px;
 }
-.link__inner a:hover {
+.link a:hover {
     background-color: #d9d9d9;
 }
-.link__inner a:last-child {
+.link a:last-child {
     margin-left: 100px;
 }
 .item__container {
@@ -146,7 +179,7 @@ header {
 .detail__container,
 .comment__container {
     width: 85%;
-    margin: 150px auto;
+    margin: 170px auto;
     display: flex;
 }
 .item__image {
@@ -243,13 +276,28 @@ header {
 }
 
 /* マイページ */
+.mypage__container {
+    margin-top: 440px;
+    z-index: 900;
+}
+
 .mypage__container--profile {
-    width: 75%;
-    margin: 0 auto;
+    width: 100%;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff !important;
+    padding-top: 90px;
+    padding-bottom: 10px;
+    z-index: 1000;
+}
+.mypage__container--profile__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 50px 0px 20px;
+    width: 80%;
+    margin: 0 auto;
 }
 .mypage__container--profile__header {
     display: flex;
@@ -258,6 +306,13 @@ header {
 .mypage__container--profile__header h1 {
     margin-left: 36px;
     font-size: 24px;
+}
+.mypage__container__link {
+    position: fixed;
+    top: 325px;
+    padding-left: 140px;
+    padding-top: 30px;
+    background-color: #fff;
 }
 
 /* プロフィールページ */

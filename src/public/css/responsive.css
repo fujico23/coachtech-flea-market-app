@@ -32,21 +32,33 @@
         display: flex;
         justify-content: space-around;
     }
+    .return-link {
+        top: 160px;
+        margin-left: 5px;
+    }
 
     /* index.blade.php */
-    .link {
-        margin-top: 24px;
+    .index__container,
+    .favorite-index__container {
+        margin-top: 280px;
     }
-    .link__inner {
-        width: 90%;
+
+    .index__container__link,
+    .favorite-index__container__link {
+        top: 155px;
+    }
+    .link {
+        width: 100%;
         margin-left: 0px;
         margin: 0px auto;
         display: flex;
         text-align: center;
         justify-content: space-around;
         font-size: 10px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
-    .link__inner a {
+    .link a {
         font-size: 20px;
     }
 
@@ -54,7 +66,7 @@
     .detail__container,
     .comment__container {
         width: 90%;
-        margin-top: 0px;
+        margin-top: 200px;
         flex-direction: column;
     }
     .item__detail,
@@ -64,8 +76,23 @@
     }
 
     /* mypage.blade.php */
+    .mypage__container {
+        margin-top: 550px;
+    }
     .mypage__container--profile {
+        padding-top: 74px;
+        padding-bottom: 40px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+    }
+    .mypage__container--profile__inner {
+        width: 100%;
         flex-direction: column;
+    }
+    .mypage__container__link {
+        top: 470px;
+        padding-top: 35px;
     }
     .mypage__container--profile__header {
         margin-bottom: 30px;
@@ -75,8 +102,10 @@
     .profile-edit__container,
     .sell-edit__container,
     .address-select__container,
-    .address-edit__container {
+    .address-edit__container,
+    .address-list__container {
         width: 90%;
+        margin-top: 200px;
     }
     .profile-edit__container__img {
         flex-direction: column;
