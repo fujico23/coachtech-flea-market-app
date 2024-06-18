@@ -20,7 +20,7 @@ header,
     top: 80px;
     z-index: 1500;
     background-color: #fff;
-    display: inline-flex; /* inline-block or blockでも可 */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 100px;
@@ -103,7 +103,8 @@ header,
 .sell-edit__container,
 .address-select__container,
 .address-list__container,
-.verification__container {
+.verification__container,
+.admin-index__container {
     max-width: 680px;
     margin: 130px auto;
 }
@@ -138,17 +139,6 @@ header,
     width: 100vw;
     background-color: #fff;
 }
-/* 商品一覧ページ・お気に入り一覧ページ　共通スタイル */
-.index__container,
-.favorite-index__container {
-    margin-top: 220px;
-}
-.index__container__link,
-.favorite-index__container__link {
-    top: 80px;
-    padding: 70px 0px 0px 140px;
-}
-
 .link button,
 .link a {
     font-size: 24px;
@@ -173,6 +163,16 @@ header,
 .item__container__card {
     width: 200px;
     height: 200px;
+}
+/* 商品一覧ページ・お気に入り一覧ページ　共通スタイル */
+.index__container,
+.favorite-index__container {
+    margin-top: 220px;
+}
+.index__container__link,
+.favorite-index__container__link {
+    top: 80px;
+    padding: 70px 0px 0px 140px;
 }
 
 /* 詳細詳細ページ・コメントページ 共通スタイル */
@@ -199,6 +199,44 @@ header,
 }
 .item__detail a {
     margin: 12px auto;
+}
+/* マイページ */
+.mypage__container {
+    margin-top: 440px;
+    z-index: 900;
+}
+.mypage__container--profile {
+    width: 100%;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff !important;
+    padding-top: 90px;
+    padding-bottom: 10px;
+    z-index: 1000;
+}
+.mypage__container--profile__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+.mypage__container--profile__header {
+    display: flex;
+    align-items: center;
+}
+.mypage__container--profile__header h1 {
+    margin-left: 36px;
+    font-size: 24px;
+}
+.mypage__container__link {
+    position: fixed;
+    top: 325px;
+    padding-left: 140px;
+    padding-top: 30px;
+    background-color: #fff;
 }
 
 /* 商品詳細ページ */
@@ -273,46 +311,6 @@ header,
     border-radius: 4px;
     margin: 5px 0px;
     padding: 2px 3px;
-}
-
-/* マイページ */
-.mypage__container {
-    margin-top: 440px;
-    z-index: 900;
-}
-
-.mypage__container--profile {
-    width: 100%;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff !important;
-    padding-top: 90px;
-    padding-bottom: 10px;
-    z-index: 1000;
-}
-.mypage__container--profile__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
-}
-.mypage__container--profile__header {
-    display: flex;
-    align-items: center;
-}
-.mypage__container--profile__header h1 {
-    margin-left: 36px;
-    font-size: 24px;
-}
-.mypage__container__link {
-    position: fixed;
-    top: 325px;
-    padding-left: 140px;
-    padding-top: 30px;
-    background-color: #fff;
 }
 
 /* プロフィールページ */
@@ -460,7 +458,6 @@ header,
     margin: 5px 0px;
 }
 /* 住所一覧ページ(select) */
-
 .address-select__container__inner:hover {
     background-color: #d9d9d9;
 }
@@ -473,4 +470,35 @@ header,
 }
 .address-list__container__inner--right a {
     margin-bottom: 10px;
+}
+
+/* 管理画面 */
+.admin-index__container-delete-button {
+    float: right;
+    width: 10%;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+/* 管理画面(詳細）ページ */
+.admin-detail__container__table-row__header {
+    width: 30%;
+}
+.admin-detail__container__table-row__description {
+    width: 70%;
+}
+.admin-table-comment-description__li-created {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin-table-comment-description {
+    list-style: none;
+}
+.admin-table-comment-description__li {
+    border-bottom: #d9d9d9 1px solid;
+    margin-bottom: 5px;
+}
+.admin-detail__container__mail-link {
+    margin-top: 30px;
 }

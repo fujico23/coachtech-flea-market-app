@@ -15,4 +15,13 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+    /* 新着順のコメント取得 */
+    public function scopeUserComment($query, $userId)
+    {
+        return $query->where('user_id', $userId)->orderBy('created_at', 'desc');
+    }
 }

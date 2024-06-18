@@ -13,6 +13,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 //認証機能
@@ -56,6 +57,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('item/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::delete('/admin/delete/users', [AdminController::class, 'destroyMultiple'])->name('admin.destroy.users');
+Route::get('/admin/{user}', [AdminController::class, 'show'])->name('admin.show');
 
 //メール認証
 Route::get('/email/verify', function () {

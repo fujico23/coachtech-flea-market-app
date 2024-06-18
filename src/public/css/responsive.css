@@ -64,7 +64,8 @@
 
     /* detail・comment.blade.php共通 */
     .detail__container,
-    .comment__container {
+    .comment__container,
+    .purchase__container {
         width: 90%;
         margin-top: 200px;
         flex-direction: column;
@@ -77,7 +78,7 @@
 
     /* mypage.blade.php */
     .mypage__container {
-        margin-top: 550px;
+        margin-top: 580px;
     }
     .mypage__container--profile {
         padding-top: 74px;
@@ -103,7 +104,8 @@
     .sell-edit__container,
     .address-select__container,
     .address-edit__container,
-    .address-list__container {
+    .address-list__container,
+    .admin-index__container {
         width: 90%;
         margin-top: 200px;
     }
@@ -119,13 +121,21 @@
         margin-top: 10px;
     }
     /* purchase.blade.php */
-    .purchase__container {
-        flex-direction: column;
-    }
     .purchase__container--left,
     .purchase__container--right {
         width: 95%;
         max-width: 768px;
         margin: 0 auto;
+    }
+    /* 管理画面詳細ページ */
+    .admin-detail__container__table-row__header,
+    .admin-detail__container__table-row__description {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    .admin-detail__container__table-row__description-select {
+        text-align: center;
     }
 }

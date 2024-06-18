@@ -14,6 +14,17 @@
     </div>
   </div>
   @if (Auth::check())
+  @if( Auth::user()->role_id === 1 )
+  <div class="header__right">
+    <form action="/logout" method="post">
+      @csrf
+      <button class="logout">ログアウト</button>
+    </form>
+    <a href="{{ route('mypage') }}">マイページ</a>
+    <a href="{{ route('admin.index') }}">管理</a>
+    <a class="" href="{{ route('sell') }}">出品</a>
+  </div>
+  @else( Auth::user()->role_id === 2 )
   <div class="header__right">
     <form action="/logout" method="post">
       @csrf
@@ -22,6 +33,7 @@
     <a href="{{ route('mypage') }}">マイページ</a>
     <a class="" href="{{ route('sell') }}">出品</a>
   </div>
+  @endif
   @else
   <div class="header__right">
     <a href="/login">ログイン</a>

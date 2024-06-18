@@ -27,6 +27,10 @@ body {
     text-align: center;
     margin-bottom: 40px;
 }
+.admin-header {
+    color: #ff5555;
+}
+
 a,
 button,
 input,
@@ -51,18 +55,10 @@ select {
     margin-bottom: 4px;
     font-weight: bold;
 }
-.required {
-    background-color: #ff5555;
-    color: #fff;
-    border-radius: 2px;
-    font-size: 14px;
-    padding: 2px 4px;
-    margin-left: 10px;
-}
 .form__inner-group .form__inner-group p {
     font-weight: bold;
 }
-
+/* フォームの入力箇所スタイル */
 .form-input--style,
 textarea {
     border: 1px solid #5f5f5f;
@@ -71,6 +67,16 @@ textarea {
 }
 .form-input--style input {
     width: 100%;
+}
+
+/* 必須表示スタイル */
+.required {
+    background-color: #ff5555;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 14px;
+    padding: 2px 4px;
+    margin-left: 10px;
 }
 
 /* 戻るボタン */
@@ -92,7 +98,7 @@ textarea {
 }
 
 /* カラースタイル */
-/* ピンクボタン要素 */
+/* ピンクボタン(親要素width:100％）要素 */
 .btn--bg-pink {
     display: block;
     width: 100%;
@@ -117,11 +123,7 @@ textarea {
     font-size: 22px;
     padding: 8px 22px;
 }
-.btn--border-pink:hover,
-.btn--border-pink--small:hover {
-    color: #5f5f5f;
-    border: #5f5f5f 2px solid;
-}
+/* ボーダーピンクボタン(小さめサイズ)要素 */
 .btn--border-pink--small {
     display: block;
     color: #ff5555;
@@ -130,6 +132,11 @@ textarea {
     font-weight: bold;
     font-size: 14px;
     padding: 4px 10px;
+}
+.btn--border-pink:hover,
+.btn--border-pink--small:hover {
+    color: #5f5f5f;
+    border: #5f5f5f 2px solid;
 }
 
 /* ブルーリンク要素 */
@@ -168,6 +175,9 @@ textarea {
 .alert-success {
     background-color: #0073cc;
 }
+.alert-danger {
+    background-color: #5f5f5f;
+}
 
 /* プロフィール画像スタイル */
 .profile__image {
@@ -177,6 +187,7 @@ textarea {
     width: 150px;
     height: 150px;
 }
+
 /* お気に入り・コメント要素 */
 .icon {
     display: flex;
@@ -196,6 +207,29 @@ textarea {
     justify-content: center;
 }
 
+/* 管理画面テーブルスタイル */
+.admin-table {
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.admin-table-header {
+    background-color: #d9d9d9;
+    color: #5f5f5f;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+.admin-table-row {
+    border-bottom: 1px solid #ddd;
+}
+.admin-table-description {
+    padding: 10px;
+    text-align: left;
+}
+
 /* メール認証モーダルウィンドウ */
 @keyframes slideDown {
     from {
@@ -207,11 +241,10 @@ textarea {
         opacity: 1;
     }
 }
-
 #emailVerifyModal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 2000;
     top: 80px;
     right: 10px;
     width: 80%;
@@ -224,7 +257,6 @@ textarea {
     background-color: #fefefe;
     animation: slideDown 0.5s ease-out; /* アニメーション名、期間、イージング関数 */
 }
-
 .mail-verify__modal__content {
     display: flex;
     flex-direction: column;
@@ -243,10 +275,56 @@ textarea {
 .modal__content__link {
     font-size: 12px;
 }
-
 .modal__content__close-button:hover,
 .modal__content__close-button:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* 管理画面コメント用ページネーション */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.page-item {
+    margin: 0 0.25rem;
+}
+
+.page-item .page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #5f5f5f;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.page-item .page-link:hover {
+    z-index: 2;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #0073cc;
+    border-color: #0073cc;
+    cursor: default;
+}
+
+.page-item.disabled .page-link {
+    color: #5f5f5f;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
 }
