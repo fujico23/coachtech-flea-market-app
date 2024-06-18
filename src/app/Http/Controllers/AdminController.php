@@ -12,7 +12,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::with('role')->get();
+        // $users = User::with('role')->get();
+        $users = User::with('role')->paginate(3);
         return view('admin.admin_index', compact('users'));
     }
     public function destroyMultiple(Request $request)
@@ -38,5 +39,13 @@ class AdminController extends Controller
         $comments = Comment::userComment($user->id)->paginate(3);
 
         return view('admin.admin_detail', compact('user', 'roles', 'homeAddress', 'shippingAddresses', 'comments'));
+    }
+    public function update(Request $request, User $user)
+    {
+        $role = $request->input('role_id');
+
+        $user->update(['role_id' => $role]);
+
+        return redirect()->back()->with('success', '権限が変更されました');
     }
 }

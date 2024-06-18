@@ -8,7 +8,7 @@
   <form action="{{ route('admin.destroy.users') }}" method="post" onsubmit="return confirm('本当に削除変更しますか？');">
     @csrf
     @method('delete')
-    <button class="admin-index__container-delete-button btn--bg-pink" type="submit">削除</button>
+    <a class="admin-detail__container__mail-link btn--bg-pink" href="{{ route('mail.sendToAllForm') }}">全ユーザーメール送信フォームへ</a>
     <table class="admin-index__container__table admin-table">
       <tr class="admin-index__container__table-row admin-table-row">
         <th class="admin-index__container__table-row__header admin-table-header">ID</th>
@@ -34,6 +34,8 @@
       </tr>
       @endforeach
     </table>
+    {{ $users->links('vendor.pagination.pagination') }}
+    <button class="admin-index__container-delete-button btn--bg-pink" type="submit">削除</button>
   </form>
 </div>
 @endsection

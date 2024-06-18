@@ -5,6 +5,7 @@
 <div class="main admin-index__container">
   <h1 class="admin-header header">ユーザー詳細</h1>
   @include('components.session')
+  <a class="admin-detail__container__mail-link btn--bg-pink" href="{{ route('mail.create', $user) }}">個人メールフォーム</a>
   <table class="admin-detail__container__table admin-table">
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">ID</th>
@@ -12,7 +13,7 @@
     </tr>
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">名前</th>
-      <td class="admin-detail__container__table-row__description admin-table-description">{{ $user->name }}</td>
+      <td class="admin-detail__container__table-row__description admin-table-description">{{ $user->name ?? '未登録' }}</td>
     </tr>
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">会員登録日</th>
@@ -32,10 +33,11 @@
         {{ $homeAddress->building_name ?? '' }}
       </td>
     </tr>
+    @if (!$shippingAddresses->isEmpty())
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">配送先一覧</th>
       <td class="admin-detail__container__table-row__description admin-table-description">
-        <select class="admin-detail__container__table-row__description-select" name="shipping_address" id="shipping_address_select">
+        <select class="admin-detail__container__table-row__description-select form-input--style" name="shipping_address" id="shipping_address_select">
           <option value="">配送先詳細を選択</option>
           @foreach ($shippingAddresses as $shippingAddress)
           <option value="{{ $shippingAddress->plain_address }}" data-full-address="{{ $shippingAddress->full_address }}">
@@ -48,25 +50,31 @@
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">配送先表示</th>
       <td class="admin-detail__container__table-row__description admin-table-description" id="shipping_address_display">
-        選択してください
+        No Select
       </td>
     </tr>
+    @endif
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">役割</th>
       <td class="admin-detail__container__table-row__description admin-table-description">
-        <form class="admin-detail__container__table-row__form-patch" action="" method="POST" onsubmit="return confirm('本当に変更しますか？');">
+        <form class="admin-detail__container__table-row__form-patch" action="{{ route('role.update', ['user' => $user->id]) }}" method="POST" onsubmit="return confirm('本当に変更しますか？');">
           @csrf
           @method('patch')
-          <select class="admin-detail__container__table-row__description-select" name="role_id" id="role_id">
+          <select class="admin-detail__container__table-row__description-select form-input--style" name="role_id">
+            <option value="">
+              @if($user->role_id == 1 )管理者
+              @else($user->role_id == 2 )利用者
+              @endif
+            </option>
             @foreach ($roles as $role)
-            <option class="admin-detail__container__table-role-option role-{{ $role->id }}" value="{{ $role->id }}">
+            <option class="admin-detail__container__table-role-option" value="{{ $role->id }}">
               @if($role->id == 1) 管理者
               @else 利用者
               @endif
             </option>
             @endforeach
           </select>
-          <button class="admin-detail__container__table__btn-patch" type="submit">変更</button>
+          <button class="admin-detail__container__table__btn-patch btn--border-pink--small" type="submit">変更</button>
         </form>
       </td>
     </tr>
@@ -90,7 +98,6 @@
       </td>
     </tr>
   </table>
-  <a class="admin-detail__container__mail-link btn--bg-pink" href="">個人メールフォーム</a>
 </div>
 
 <script>
@@ -104,4 +111,5 @@
     });
   });
 </script>
+
 @endsection

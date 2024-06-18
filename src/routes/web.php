@@ -14,7 +14,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Notifications\Channels\MailChannel;
 
 //認証機能
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -38,7 +40,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/sell/listing', [SellController::class, 'store'])->name('sell.listing');
     // カテゴリー階層取得ルート
     Route::get('/categories/{parentId}/subcategories', [CategoryController::class, 'getSubCategories']);
-
+    // 購入機能
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
     // 住所機能
     Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');
@@ -57,9 +59,17 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('item/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-Route::delete('/admin/delete/users', [AdminController::class, 'destroyMultiple'])->name('admin.destroy.users');
-Route::get('/admin/{user}', [AdminController::class, 'show'])->name('admin.show');
+// 管理者画面
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::delete('/admin/delete/users', [AdminController::class, 'destroyMultiple'])->name('admin.destroy.users');
+    Route::get('/admin/{user}', [AdminController::class, 'show'])->name('admin.show');
+    Route::patch('/role/update/{user}', [AdminController::class, 'update'])->name('role.update');
+    Route::get('/mail/create/{user}', [MailController::class, 'create'])->name('mail.create');
+    Route::post('/mail/send/{user}', [MailController::class, 'send'])->name('mail.send');
+    Route::get('/mail/sendToAll', [MailController::class, 'sendToAllForm'])->name('mail.sendToAllForm');
+    Route::post('/mail/sendToAll', [MailController::class, 'sendToAll'])->name('mail.sendToAll');
+});
 
 //メール認証
 Route::get('/email/verify', function () {
