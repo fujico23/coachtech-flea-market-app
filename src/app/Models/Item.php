@@ -15,7 +15,7 @@ class Item extends Model
 
     public static function getItems()
     {
-        return self::all();
+        return self::query()->orderBy('created_at', 'desc')->get();
     }
     public function getDetailItem()
     {
@@ -33,7 +33,7 @@ class Item extends Model
     /* ログインユーザーの出品商品一覧取得 */
     public static function getItemByUserId($userId)
     {
-        return self::where('user_id', $userId)->with('itemImages')->get();
+        return self::where('user_id', $userId)->with('itemImages')->orderBy('created_at', 'desc')->get();
     }
 
     public function condition()
