@@ -97,9 +97,9 @@
     .mypage__container--profile {
         padding-top: 88px;
         padding-bottom: 40px;
-        top: 51%;
+        top: 340px;
         left: 50%;
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -50%);
     }
     .mypage__container--profile__inner {
         width: 100%;

@@ -213,7 +213,7 @@ header,
 .mypage__container--profile {
     width: 100%;
     position: fixed;
-    top: 20%;
+    top: 200px;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff !important;
