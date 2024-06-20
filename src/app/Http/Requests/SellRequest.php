@@ -30,8 +30,11 @@ class SellRequest extends FormRequest
             'description' => 'max:1000',
             'color_id' => 'required',
             'category_id' => 'required',
+            'child_category_id' => 'required_with:category_id',
+            'grandchild_category_id' => 'required_with:child_category_id',
             'condition_id' => 'required',
-            'image_url.*' => 'required|file|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
+            'image_url' => 'required',
+            'image_url.*' => 'required|image|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
         ];
     }
     public function messages()
@@ -46,7 +49,10 @@ class SellRequest extends FormRequest
             'description.max' => '商品の説明は1,000文字以内で入力してください',
             'color_id.required' => 'カラーを入力してください',
             'category_id.required' => 'カテゴリーを入力してください',
+            'child_category_id.required_with' => '子カテゴリーを入力してください',
+            'grandchild_category_id.required_with' => '孫カテゴリーを入力してください',
             'condition_id.required' => '商品の状態を入力してください',
+            'image_url.required' => '画像をアップロードしてください',
             'image_url.*.required' => '画像をアップロードしてください',
             'image_url.*.file' => 'アップロードされたファイルは画像でなければなりません。',
             'image_url.*.mimes' => 'jpg,jpeg,svg形式を選択してください',

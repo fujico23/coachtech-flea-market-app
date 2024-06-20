@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index()
     {
         // $users = User::with('role')->get();
-        $users = User::with('role')->paginate(3);
+        $users = User::with('role')->paginate(5);
         return view('admin.admin_index', compact('users'));
     }
     public function destroyMultiple(Request $request)

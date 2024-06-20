@@ -28,7 +28,9 @@ class SellController extends Controller
         $colors = Color::all();
         $brands = Brand::all();
         $categories = Category::whereNull('parent_id')->get();
-        return view('sell', compact('conditions', 'colors', 'brands', 'categories'));
+        $childCategories = Category::whereNotNull('parent_id')->get();
+        $grandchildCategories = Category::whereNotNull('parent_id')->get();
+        return view('sell', compact('conditions', 'colors', 'brands', 'categories', 'childCategories', 'grandchildCategories'));
     }
 
     public function store(SellRequest $request)
@@ -40,7 +42,7 @@ class SellController extends Controller
             'price' => $request->price,
             'description' => $request->description,
             'color_id' => $request->color_id,
-            'category_id' => $request->category_id,
+            'category_id' => $request->grandchild_category_id,
             'condition_id' => $request->condition_id,
         ]);
 

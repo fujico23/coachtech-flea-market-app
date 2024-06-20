@@ -11,6 +11,13 @@
         font-size: 18px;
     }
 }
+@media (max-width: 960px) {
+    .header__right a,
+    .header__right button,
+    .header__left--input input::placeholder {
+        font-size: 16px;
+    }
+}
 @media (max-width: 768px) {
     /* ヘッダー */
     header {
@@ -22,6 +29,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .header__left__logo {
+        width: 50%;
     }
     .header__left--input {
         width: 90%;
@@ -49,14 +59,18 @@
     }
     .link {
         width: 100%;
+        top: 15%;
         margin-left: 0px;
         margin: 0px auto;
         display: flex;
         text-align: center;
         justify-content: space-around;
         font-size: 10px;
-        padding-left: 50px;
-        padding-right: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .link a:last-child {
+        margin-left: 0px;
     }
     .link a {
         font-size: 20px;
@@ -81,9 +95,9 @@
         margin-top: 580px;
     }
     .mypage__container--profile {
-        padding-top: 74px;
+        padding-top: 88px;
         padding-bottom: 40px;
-        top: 50%;
+        top: 51%;
         left: 50%;
         transform: translate(-50%, -100%);
     }
@@ -92,8 +106,8 @@
         flex-direction: column;
     }
     .mypage__container__link {
-        top: 470px;
-        padding-top: 35px;
+        top: 480px;
+        padding-top: 30px;
     }
     .mypage__container--profile__header {
         margin-bottom: 30px;

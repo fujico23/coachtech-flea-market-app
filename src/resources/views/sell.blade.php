@@ -18,7 +18,10 @@
           <input id="image_url" class="sell-edit__container--form-tag--file" type="file" name="image_url[]" multiple style="display: none;">
           <div class="preview" id="preview"></div>
         </div>
-        <p class="error-message">@error('image_url'){{ $message }}@enderror</p>
+        <p class="error-message">
+          @error('image_url'){{ $message }}@enderror
+          @error('image_url.*'){{ $message }}@enderror
+        </p>
       </div>
       <h2 class="border-bottom-gray">商品の詳細</h2>
       <div class="form__inner-group">
@@ -27,27 +30,31 @@
           <p class="form__inner-group--tag__required required">必須</p>
         </div>
         <div class="sell-edit__container--form-tag form-input--style">
-          <select name="" id="parentCategory">
+          <select name="category_id" id="parentCategory">
             <option value="">カテゴリーを選択する</option>
             @foreach ($categories as $category)
-            <option value="{{ $category->id }}">
+            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
               {{ $category->name }}
             </option>
             @endforeach
           </select>
         </div>
-        <p class="error-message">@error('category_id'){{ $message }}@enderror</p>
+        <p class="error-message">
+          @error('category_id'){{ $message }}@enderror
+          @error('child_category_id'){{ $message }}@enderror
+          @error('grandchild_category_id'){{ $message }}@enderror
+        </p>
       </div>
       <div class="form__inner-group">
         <div class="sell-edit__container--form-tag form-input--style category-hidden">
-          <select id="childCategory">
+          <select name="child_category_id" id="childCategory">
             <option value="">Select Child Category</option>
           </select>
         </div>
       </div>
       <div class="form__inner-group">
         <div class="sell-edit__container--form-tag form-input--style category-hidden">
-          <select name="category_id" id="grandchildCategory">
+          <select name="grandchild_category_id" id="grandchildCategory">
             <option value="{{ $category->id }}">Select Grandchild Category</option>
           </select>
         </div>
@@ -220,6 +227,14 @@
         grandchildSelect.parentElement.classList.add('category-hidden');
       }
     });
+
+    //ページロード時に旧値で復元
+    if (parentSelect.value) {
+      parentSelect.dispatchEvent(new Event('change'));
+    }
+    if (childSelect.value) {
+      childSelect.dispatchEvent(new Event('change'));
+    }
   });
 </script>
 @endsection
