@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Notifications\Channels\MailChannel;
 
@@ -40,8 +41,17 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/sell/listing', [SellController::class, 'store'])->name('sell.listing');
     // カテゴリー階層取得ルート
     Route::get('/categories/{parentId}/subcategories', [CategoryController::class, 'getSubCategories']);
+
     // 購入機能
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
+    //支払い方法の変更
+    Route::get('/purchase/{item}/select', [PurchaseController::class, 'selectPurchase'])->name('purchase.select');
+    Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
+    Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
+    //stripe機能
+    Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
+    Route::post('/create-payment-intent', [PurchaseController::class, 'createPaymentIntent']);
+
     // 住所機能
     Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');
     Route::post('/address/{item}/select', [AddressController::class, 'selectAddress'])->name('address.select');

@@ -141,6 +141,10 @@
         max-width: 768px;
         margin: 0 auto;
     }
+
+    .purchase__container--left--payment__header h2 {
+        font-size: 20px;
+    }
     /* 管理画面詳細ページ */
     .admin-detail__container__table-row__header,
     .admin-detail__container__table-row__description {

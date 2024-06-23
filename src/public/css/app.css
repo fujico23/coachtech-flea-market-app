@@ -392,13 +392,9 @@ header,
 }
 .purchase__container--left--item--name a {
     display: block;
-    margin-top: 20px;
-    font-size: 28px;
+    margin: 20px 0px 20px 0px;
+    font-size: 32px;
     font-weight: bold;
-}
-.purchase__container--left--item--name p {
-    font-size: 20px;
-    margin-top: 20px;
 }
 .purchase__container--left--payment {
     height: 70%;
@@ -410,10 +406,9 @@ header,
 .purchase__container--left--payment__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
-.purchase__container--left--payment__header h2 {
-    font-size: 20px;
-}
+
 .purchase__container--right {
     width: 40%;
     max-width: 440px;
@@ -421,19 +416,23 @@ header,
 .purchase__container--right--payment {
     width: 100%;
     padding: 60px 30px 30px;
+    margin-bottom: 80px;
 }
 .purchase__container--right--payment__list {
     margin: 28px auto;
-}
-.purchase__container--right--payment__list:nth-child(2) {
-    color: #fff;
-}
-.purchase__container--right--payment__list {
     display: flex;
     justify-content: space-between;
+    border: 1px red solid;
 }
-.purchase__container--right a {
-    margin-top: 80px;
+.purchase__container--right--payment__list h3 {
+    border: 1px red solid;
+}
+.purchase__container--right--payment__list input {
+    border: 1px red solid;
+    display: inline-block;
+}
+.test {
+    display: inline-block;
 }
 
 /* 住所一覧ページ(select/list) 共通スタイル*/

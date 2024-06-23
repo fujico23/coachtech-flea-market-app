@@ -18,6 +18,10 @@
 
 ### ローカル環境：http://localhost
 
+### ローカル環境：http://localhost:4040 (Webhook 使用時)
+
+###### ※http://localhost:4040 アクセス時はデザインが崩れるため app/Providers/AppServiceProvider.php のコメントアウトを有効にして下さい
+
 ### 本番環境：http://00000000/
 
 ## **他のリポジトリ**
@@ -172,6 +176,7 @@
 - php artisan db:seed --class=CategoriesTableSeeder
 - php artisan db:seed --class=BrandsTableSeeder
 - php artisan db:seed --class=DefaultCommentTableSeeder
+- php artisan db:seed --class=OrderStatusesTableSeeder
 
 ###### Factory ファイル実行コマンド (Item)
 

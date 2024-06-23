@@ -27,7 +27,8 @@ class Item extends Model
                 'condition',
                 'favorites',
                 'itemImages',
-                'comments.user'
+                'comments.user',
+                'orders',
             ]);
     }
     /* ログインユーザーの出品商品一覧取得 */
@@ -55,6 +56,10 @@ class Item extends Model
     public function itemImages()
     {
         return $this->hasMany(ItemImage::class, 'item_id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
 
