@@ -11,7 +11,9 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['item_id', 'user_id', 'status', 'pay_method'];
+    protected $fillable = [
+        'item_id', 'user_id', 'status', 'pay_method', 'stripe_session_id', 'customer_number'
+    ];
 
     public function item()
     {
@@ -29,7 +31,7 @@ class Order extends Model
         $PayMethod = [
             'card' => 'クレジットカード決済',
             'konbini' => 'コンビニ',
-            'bank_transfer' => '銀行振込',
+            'customer_balance' => '銀行振込',
         ];
         return $PayMethod[$this->attributes['pay_method']] ?? '不明な支払い方法';
     }
@@ -40,7 +42,7 @@ class Order extends Model
         $item = Item::find($this->attributes['item_id']);
         $price = $item->price;
 
-        if (in_array($this->attributes['pay_method'], ['konbini', 'bank_transfer'])) {
+        if (in_array($this->attributes['pay_method'], ['konbini', 'customer_balance'])) {
             if ($price <= 5000) {
                 return 100;
             } elseif ($price <= 10000) {
@@ -73,7 +75,7 @@ class Order extends Model
 
         if ($existingOrder) {
             $existingOrder->update([
-                'pay_method' => $request->payment_method,
+                'pay_method' => $request->pay_method,
             ]);
             return $existingOrder;
         }
@@ -82,7 +84,7 @@ class Order extends Model
             'user_id' => $user_id,
             'item_id' => $item_id,
             'status' => 1,
-            'pay_method' => $request->payment_method,
+            'pay_method' => $request->pay_method,
         ];
         $order = self::create($param);
 

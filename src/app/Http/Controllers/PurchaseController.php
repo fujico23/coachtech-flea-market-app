@@ -44,12 +44,20 @@ class PurchaseController extends Controller
 
         $pay_method = $request->pay_method;
 
-        $customer = \Stripe\Customer::create([
-            'email' => $request->user()->email,
-        ]);
+        // ユーザーが既にStripeの顧客IDを持っていない場合、顧客を作成する
+        $user = auth()->user();
+        if (!$user->stripe_id) {
+            $customer = \Stripe\Customer::create([
+                'email' => $user->email,
+                'name' => $user->name,
+            ]);
+            // 顧客IDをユーザーに保存
+            $user->stripe_id = $customer->id;
+            $user->save();
+        }
 
         $checkoutSessionParams = [
-            'customer' => $customer->id,
+            'customer' => $user->stripe_id,
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -61,7 +69,7 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('purchase', compact('item')), // 成功時のリダイレクトURL
+            'success_url' => route('purchase.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
         ];
 
         switch ($pay_method) {
@@ -85,8 +93,29 @@ class PurchaseController extends Controller
             default:
                 abort(400, 'Unsupported payment method');
         }
-        $checkout_session = Session::create($checkoutSessionParams);
+        $checkout_session = \Stripe\Checkout\Session::create($checkoutSessionParams);
+
+        // 注文の作成または更新
+        $order = Order::order($request, auth()->id(), $item->id);
+        $order->stripe_session_id = $checkout_session->id;
+        $order->save();
 
         return redirect($checkout_session->url);
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        $session_id = $request->input('session_id');
+        dd($session_id);
+        Stripe::setApiKey(config('services.stripe.st_key'));
+        $session = Session::retrieve($session_id);
+
+
+        if ($session->payment_status === 'paid') {
+            Order::where('stripe_session_id', $session_id)->update(['status' => 3]);
+        }
+
+        // 支払い成功ページを表示する
+        return view('success');
     }
 }

@@ -48,6 +48,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/purchase/{item}/select', [PurchaseController::class, 'selectPurchase'])->name('purchase.select');
     Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
     Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
+    Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
     //stripe機能
     Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
     Route::post('/create-payment-intent', [PurchaseController::class, 'createPaymentIntent']);

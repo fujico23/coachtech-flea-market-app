@@ -422,17 +422,13 @@ header,
     margin: 28px auto;
     display: flex;
     justify-content: space-between;
-    border: 1px red solid;
 }
 .purchase__container--right--payment__list h3 {
-    border: 1px red solid;
+    width: 50%;
 }
 .purchase__container--right--payment__list input {
-    border: 1px red solid;
-    display: inline-block;
-}
-.test {
-    display: inline-block;
+    width: 50%;
+    text-align: right;
 }
 
 /* 住所一覧ページ(select/list) 共通スタイル*/

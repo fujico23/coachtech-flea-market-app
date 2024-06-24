@@ -10,7 +10,7 @@
     @csrf
     <label class="address-select__container__inner" style="display: block; cursor: pointer;">
       <div class="address-select__container__inner">
-        <input type="radio" name="payment_method" value="card">
+        <input type="radio" name="pay_method" value="card">
         <div class="address-select__container__inner--address-detail">
           <p style="font-size: 18px;">クレジットカード決済</p>
           <p style="font-size: 18px;">手数料¥0</p>
@@ -19,7 +19,7 @@
     </label>
     <label class="address-select__container__inner" style="display: block; cursor: pointer;">
       <div class="address-select__container__inner">
-        <input type="radio" name="payment_method" value="konbini">
+        <input type="radio" name="pay_method" value="konbini">
         <div class="address-select__container__inner--address-detail">
           <p style="font-size: 18px;">コンビニ</p>
           <p style="font-size: 18px;">手数料¥100-¥880</p>
@@ -28,7 +28,7 @@
     </label>
     <label class="address-select__container__inner" style="display: block; cursor: pointer;">
       <div class="address-select__container__inner">
-        <input type="radio" name="payment_method" value="bank_transfer">
+        <input type="radio" name="pay_method" value="customer_balance">
         <div class="address-select__container__inner--address-detail">
           <p style="font-size: 18px;">銀行振込</p>
           <p style="font-size: 18px;">手数料¥100-¥880</p>

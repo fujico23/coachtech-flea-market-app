@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
             $table->bigInteger('status')->unsigned()->default(2);
             $table->string('pay_method')->nullable();
+            $table->string('stripe_session_id')->nullable();
+            $table->string('customer_number')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
 
