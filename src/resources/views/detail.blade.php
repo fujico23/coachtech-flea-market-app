@@ -3,13 +3,38 @@
 @section('main')
 <a class="return-link" href="#" onclick="history.back()">&lsaquo;</a>
 <div class="main detail__container">
-  <div class="item__image img-gray">
-    @if($item->itemImages->isNotEmpty())
-    <img src="{{ $item->itemImages->first()->image_url }}" alt="item" width="100%" height="100%">
-    @else
-    <img src="" alt="" width="100%" height="100%">
-    @endif
+  @if($item->itemImages->isNotEmpty())
+  <div class="item__image">
+    <div class="item__image__content">
+      <div class="slider">
+        @foreach ($item->ItemImages as $index => $itemImage)
+        <div class="slide" id="slide-{{ $itemImage->id }}" style="{{ $index === 0 ? 'display: flex;' : 'display: none;' }}">
+          <img src="{{ $itemImage->image_url }}" alt="" style="width: 100%; height: auto;">
+        </div>
+        @endforeach
+      </div>
+      <div class="slider__btn">
+        <ul class="slider__btn__ul">
+          @foreach ($item->ItemImages as $itemImage)
+          <li class="slider__btn__ul-li">
+            <a class="slider__btn__ul-li-link" data-id="slide-{{ $itemImage->id }}" href="#slide-{{ $itemImage->id }}">
+              <img src="{{ $itemImage->image_url }}" alt="">
+            </a>
+          </li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
   </div>
+  @else
+  <div class="item__image img-gray">
+    <div class="item__image__content">
+      <img src="" alt="" width="100%" height="100%">
+    </div>
+  </div>
+  @endif
+
+
   <div class="item__detail">
     <h1>
       <a href="">{{ $item->name }}</a>
@@ -60,4 +85,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const links = document.querySelectorAll(".slider__btn__ul-li-link");
+    const slides = document.querySelectorAll(".slide");
+
+    // 最初に表示されるスライドを設定
+    const initialSlide = document.querySelector(".slide");
+    if (initialSlide) {
+      initialSlide.style.display = "flex";
+    }
+
+    links.forEach(link => {
+      link.addEventListener("click", function(event) {
+        event.preventDefault();
+        const targetId = this.getAttribute("data-id");
+
+        slides.forEach(slide => {
+          if (slide.id === targetId) {
+            slide.style.display = "flex"; // 画像を表示
+          } else {
+            slide.style.display = "none"; // 他の画像を非表示
+          }
+        });
+      });
+    });
+  });
+</script>
 @endsection

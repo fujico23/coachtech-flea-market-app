@@ -84,10 +84,18 @@
         margin-top: 200px;
         flex-direction: column;
     }
-    .item__detail,
+    .item__image__content {
+        width: 100%;
+        max-height: 400px;
+    }
     .item__image {
         width: 90%;
+        max-height: 300px;
         margin-top: 40px;
+    }
+    .item__detail {
+        width: 90%;
+        margin-top: 100px;
     }
 
     /* mypage.blade.php */

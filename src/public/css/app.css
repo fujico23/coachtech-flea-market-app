@@ -188,7 +188,7 @@ header,
 }
 .item__image {
     width: 45%;
-    height: 550px;
+    max-height: 550px;
     margin: 0 auto;
 }
 .item__detail {
