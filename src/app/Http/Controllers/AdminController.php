@@ -12,7 +12,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // $users = User::with('role')->get();
         $users = User::with('role')->paginate(5);
         return view('admin.admin_index', compact('users'));
     }
@@ -36,7 +35,11 @@ class AdminController extends Controller
         $shippingAddresses = Address::shippingAddress($user->id)->get();
 
         // スコープを使ってユーザーのコメントを取得
-        $comments = Comment::userComment($user->id)->paginate(3);
+        $comments = Comment::userComment($user->id)->paginate(4);
+
+        if (request()->ajax()) {
+            return view('comments.partials.comments', compact('comments'))->render();
+        }
 
         return view('admin.admin_detail', compact('user', 'roles', 'homeAddress', 'shippingAddresses', 'comments'));
     }

@@ -156,12 +156,12 @@ header,
 .link a:last-child {
     margin-left: 100px;
 }
+
 .item__container {
     width: 95%;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 80px;
+    display: grid;
+    gap: 1rem 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin: 50px auto;
 }
 .item__container__card {
@@ -175,7 +175,7 @@ header,
 }
 .index__container__link,
 .favorite-index__container__link {
-    top: 80px;
+    top: 75px;
     padding: 70px 0px 0px 140px;
 }
 
@@ -265,6 +265,19 @@ header,
 .item__detail--comment {
     margin: 80px 0px 60px;
     list-style: none;
+    &:hover .toggle {
+        grid-template-rows: 1fr;
+    }
+}
+
+.toggle {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+
+    div {
+        overflow: hidden;
+    }
 }
 
 .item__detail--comment__list {

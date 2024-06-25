@@ -81,20 +81,22 @@
     <tr class="admin-detail__container__table-row admin-table-row">
       <th class="admin-detail__container__table-row__header admin-table-header">コメント一覧</th>
       <td class="admin-detail__container__table-row__description admin-table-description">
-        <ul class="admin-table-comment-description">
-          @foreach ($comments as $comment)
-          <li class="admin-table-comment-description__li">
-            <form action=" {{ route('comment.destroy', $comment) }}" method="post" onsubmit="return confirm('本当に削除変更しますか？');">
-              @csrf
-              @method('delete')
-              <p class="admin-table-comment-description__li-created">【{{ $comment->created_at }} 】<button class="btn--border-pink--small" type="submit">削除</button></p>
-              <p class="admin-table-comment-description__li-item"><a class="blue-link" href="{{ route('comment', $comment->item->id) }}">{{ $comment->item->name }}</a></p>
-              <p class="admin-table-comment-description__li-comment"> {{ $comment->comment }} </p>
-            </form>
-          </li>
-          @endforeach
-        </ul>
-        {{ $comments->links('vendor.pagination.pagination') }}
+        <details class="admin-table-comment-description">
+          <summary>コメント一覧を表示/非表示</summary>
+          <ul class="admin-table-comment-description">
+            @foreach ($comments as $comment)
+            <li class="admin-table-comment-description__li">
+              <form action=" {{ route('comment.destroy', $comment) }}" method="post" onsubmit="return confirm('本当に削除変更しますか？');">
+                @csrf
+                @method('delete')
+                <p class="admin-table-comment-description__li-created">【{{ $comment->created_at }} 】<button class="btn--border-pink--small" type="submit">削除</button></p>
+                <p class="admin-table-comment-description__li-item"><a class="blue-link" href="{{ route('comment', $comment->item->id) }}">{{ $comment->item->name }}</a></p>
+                <p class="admin-table-comment-description__li-comment"> {{ $comment->comment }} </p>
+              </form>
+            </li>
+            @endforeach
+          </ul>
+        </details>
       </td>
     </tr>
   </table>

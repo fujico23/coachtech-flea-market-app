@@ -39,34 +39,39 @@
       </div>
     </div>
     <ul class="item__detail--comment">
-      @foreach ($comments as $comment)
-      <li class="item__detail--comment__list">
-        <form method="post" action="{{ route('comment.destroy', $comment) }}" onsubmit="return confirm('本当に削除変更しますか？');">
-          @csrf
-          @method('delete')
-          @if ($comment->user->id === auth()->id())
-          <div class="item__detail--comment__list--user item__detail--comment__list--user--right">
-            <img class="profile__image comment__user-img" src="{{ $comment->user->icon_image ?? '' }}" alt="">
-            <p>{{ $comment->user->name }}</p>
-          </div>
-          @else
-          <div class="item__detail--comment__list--user left">
-            <img class="profile__image comment__user-img" src="{{ $comment->user->icon_image ?? '' }}" alt="">
-            <p>{{ $comment->user->name }}</p>
-          </div>
-          @endif
-          <div class="item__detail--comment__list--text img-gray ">
-            <p>{{ $comment->comment }}</p>
-            <p>{{ $comment->created_at }}</p>
-          </div>
-          @if ($comment->user->id === auth()->id() || auth()->user()->role_id === 1)
-          <div class="item__detail--comment__list--delete">
-            <button class="" type="submit">コメント削除</button>
-          </div>
-          @endif
-        </form>
-      </li>
-      @endforeach
+      <h2>コメント一覧</h2>
+      <div class="toggle">
+        <div>
+          @foreach ($comments as $comment)
+          <li class="item__detail--comment__list">
+            <form method="post" action="{{ route('comment.destroy', $comment) }}" onsubmit="return confirm('本当に削除変更しますか？');">
+              @csrf
+              @method('delete')
+              @if ($comment->user->id === auth()->id())
+              <div class="item__detail--comment__list--user item__detail--comment__list--user--right">
+                <img class="profile__image comment__user-img" src="{{ $comment->user->icon_image ?? '' }}" alt="">
+                <p>{{ $comment->user->name }}</p>
+              </div>
+              @else
+              <div class="item__detail--comment__list--user left">
+                <img class="profile__image comment__user-img" src="{{ $comment->user->icon_image ?? '' }}" alt="">
+                <p>{{ $comment->user->name }}</p>
+              </div>
+              @endif
+              <div class="item__detail--comment__list--text img-gray ">
+                <p>{{ $comment->comment }}</p>
+                <p>{{ $comment->created_at }}</p>
+              </div>
+              @if ($comment->user->id === auth()->id() || auth()->user()->role_id === 1)
+              <div class="item__detail--comment__list--delete">
+                <button class="" type="submit">コメント削除</button>
+              </div>
+              @endif
+            </form>
+          </li>
+          @endforeach
+        </div>
+      </div>
     </ul>
     <div class="item__detail--comment__header">
       <h2 class="">商品のコメント </h2>
