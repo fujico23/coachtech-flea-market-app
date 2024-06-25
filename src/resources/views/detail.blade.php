@@ -63,7 +63,11 @@
         <p>{{ $item->comments_count }}</p>
       </div>
     </div>
-    <a class="btn--bg-pink" href="{{ route('purchase', $item) }}">購入する</a>
+    @if($item->getOrderForItem($item))
+    <a class="btn--bg-pink disabled" href="{{ route('purchase', $item) }}">購入済み</a>
+    @else
+    <a class="btn--bg-pink " href="{{ route('purchase', $item) }}">購入する</a>
+    @endif
     <h2>商品説明</h2>
     <div class="item__detail--description">
       <p>カラー：{{ $item->color->name }}</p>

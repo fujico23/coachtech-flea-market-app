@@ -13,7 +13,7 @@
       @if($item->itemImages->isNotEmpty())
       <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
       @else
-      <img src="" alt="" width="100%" height="100%">
+      <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
       @endif
     </a>
     @endforeach

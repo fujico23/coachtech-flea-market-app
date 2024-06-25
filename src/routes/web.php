@@ -43,6 +43,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/categories/{parentId}/subcategories', [CategoryController::class, 'getSubCategories']);
 
     // 購入機能
+    Route::get('/purchase', [PurchaseController::class, 'index'])->name('purchase.index');
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
     //支払い方法の変更
     Route::get('/purchase/{item}/select', [PurchaseController::class, 'selectPurchase'])->name('purchase.select');

@@ -16,16 +16,16 @@
   </div>
   <div class="mypage__container__link link border-bottom-gray">
     <a href="{{ route('sell.show', $user) }}" style="color: #ff5555;">出品した商品</a>
-    <a href="">購入した商品</a>
+    <a href="{{ route('purchase.index', $user) }}">購入した商品</a>
   </div>
   <div class="item__container">
     @foreach($items as $item)
     <div class="item__container__card img-gray">
       <a href="{{ route('detail', $item) }}">
-        @if($item->itemImages->isNotEmpty())
+        @if($item->itemImages && $item->itemImages->isNotEmpty())
         <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
         @else
-        <img src="" alt="" width="100%" height="100%">
+        <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
         @endif
       </a>
     </div>

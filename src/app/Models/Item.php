@@ -61,6 +61,13 @@ class Item extends Model
     {
         return $this->hasMany(Order::class);
     }
+    /*決済済みアイテム取得メソッド**/
+    public function getOrderForItem($item)
+    {
+        return Order::where('item_id', $item->id)
+            ->where('status', 1)
+            ->first();
+    }
 
 
     /* お気に入りメソッド */

@@ -60,6 +60,22 @@ class Order extends Model
         return 0;
     }
 
+    //注文済みアイテムの取得
+    public static function getOrderForItem($item)
+    {
+        return self::where('item_id', $item->id)
+            ->where('status', 1)
+            ->first();
+    }
+
+    //ログインユーザーの購入アイテムレコードの取得メソッド
+    public static function getUserPurchasedItems()
+    {
+        return self::where('user_id', Auth::id())
+            ->where('status', 1)
+            ->select('item_id', 'user_id', 'status', 'pay_method')
+            ->get();
+    }
     //ログインユーザーの特定アイテムレコードの取得メソッド
     public static function orderUserItem($item)
     {

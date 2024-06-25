@@ -250,6 +250,10 @@ header,
     display: flex;
     margin: 20px auto;
 }
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
 .item__detail--info--category h3,
 .item__detail--info--condition h3 {
     font-size: 16px;

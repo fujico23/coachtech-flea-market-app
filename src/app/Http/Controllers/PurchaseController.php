@@ -13,6 +13,12 @@ use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+        $items = Order::getUserPurchasedItems($user->id);
+        return view('purchase_index', compact('items', 'user'));
+    }
     public function create(Item $item)
     {
         $shippingAddress = Address::where('user_id', Auth::id())
