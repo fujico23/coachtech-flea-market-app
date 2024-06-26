@@ -16,7 +16,8 @@ class PurchaseController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $items = Order::getUserPurchasedItems($user->id);
+        $items = Order::getUserPurchasedItems();
+
         return view('purchase_index', compact('items', 'user'));
     }
     public function create(Item $item)
@@ -37,11 +38,11 @@ class PurchaseController extends Controller
     }
     public function updatePaymentMethod(Request $request, Item $item)
     {
-        Order::order($request, Auth::id(), $item->id);
+        Order::orderPayMethod($request, Auth::id(), $item->id);
         return redirect()->back()->with('success', '支払い方法が選択されました');
     }
 
-
+    //Stripeオブジェクト生成
     public function updatePaymentForm(Request $request, Item $item)
     {
         // Stripeキーの設定
@@ -102,7 +103,7 @@ class PurchaseController extends Controller
         $checkout_session = \Stripe\Checkout\Session::create($checkoutSessionParams);
 
         // 注文の作成または更新
-        $order = Order::order($request, auth()->id(), $item->id);
+        $order = Order::orderPayMethod($request, auth()->id(), $item->id);
         $order->stripe_session_id = $checkout_session->id;
         $order->save();
 
@@ -110,18 +111,7 @@ class PurchaseController extends Controller
     }
 
     public function paymentSuccess(Request $request)
-    {
-        $session_id = $request->input('session_id');
-        dd($session_id);
-        Stripe::setApiKey(config('services.stripe.st_key'));
-        $session = Session::retrieve($session_id);
-
-
-        if ($session->payment_status === 'paid') {
-            Order::where('stripe_session_id', $session_id)->update(['status' => 3]);
-        }
-
-        // 支払い成功ページを表示する
+    {        // 支払い成功ページを表示する
         return view('success');
     }
 }

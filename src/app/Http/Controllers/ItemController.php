@@ -20,8 +20,9 @@ class ItemController extends Controller
         $item->favorites_count = $item->favorites()->count();
         $item->comments_count = $item->comments()->count();
 
-        $order = $item->getOrderForItem($item);
-        return view('detail', compact('item', 'order'));
+        $orderItems = $item->orderItems();
+
+        return view('detail', compact('item', 'orderItems'));
     }
 
     public function search(Request $request)

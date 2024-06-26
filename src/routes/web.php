@@ -25,6 +25,10 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
+//stripe機能
+Route::post('/create-payment-intent', [PurchaseController::class, 'createPaymentIntent']);
+Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
+Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('detail');
@@ -50,9 +54,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
     Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
     Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
-    //stripe機能
-    Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
-    Route::post('/create-payment-intent', [PurchaseController::class, 'createPaymentIntent']);
+
 
     // 住所機能
     Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');

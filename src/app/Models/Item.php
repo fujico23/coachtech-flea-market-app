@@ -57,25 +57,28 @@ class Item extends Model
     {
         return $this->hasMany(ItemImage::class, 'item_id');
     }
+
+    /* 注文メソッド */
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
-    /*決済済みアイテム取得メソッド**/
-    public function getOrderForItem($item)
+    /* 全ユーザーの */
+    public function orderItems()
     {
-        return Order::where('item_id', $item->id)
-            ->where('status', 1)
-            ->first();
+        return Order::where('item_id', $this->id)->get();
     }
 
+    public function getOrderStatus($status)
+    {
+        return $this->orderItems()->where('status', $status)->isNotEmpty();
+    }
 
     /* お気に入りメソッド */
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
-
     /*　お気に入り登録している商品の数をカウントする　*/
     public static function favoriteCount()
     {
@@ -95,7 +98,6 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
     }
-
     /* コメントされている数をカウントする */
     public static function CommentCount()
     {

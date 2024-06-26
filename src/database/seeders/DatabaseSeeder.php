@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         Item::factory(30)->create();
         $this->call(DefaultCommentsTableSeeder::class);
+        $this->call(OrderStatusesTableSeeder::class);
     }
 }

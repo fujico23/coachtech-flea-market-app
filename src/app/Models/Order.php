@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
 class Order extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'item_id', 'user_id', 'status', 'pay_method', 'stripe_session_id', 'customer_number'
+        'item_id', 'user_id', 'status', 'pay_method', 'stripe_session_id',
     ];
 
     public function item()
@@ -35,7 +36,6 @@ class Order extends Model
         ];
         return $PayMethod[$this->attributes['pay_method']] ?? '不明な支払い方法';
     }
-
     //コンビニ・銀行振込の手数料計算
     public function getFeeAttribute()
     {
@@ -60,20 +60,14 @@ class Order extends Model
         return 0;
     }
 
-    //注文済みアイテムの取得
-    public static function getOrderForItem($item)
-    {
-        return self::where('item_id', $item->id)
-            ->where('status', 1)
-            ->first();
-    }
-
-    //ログインユーザーの購入アイテムレコードの取得メソッド
+    //ログインユーザーの全購入アイテムレコードの取得メソッド
     public static function getUserPurchasedItems()
     {
-        return self::where('user_id', Auth::id())
-            ->where('status', 1)
-            ->select('item_id', 'user_id', 'status', 'pay_method')
+        return self::with('item.itemImages')
+            ->where('user_id', Auth::id())
+            ->where('status', 2)
+            ->orWhere('status', 3)
+            ->select('item_id', 'user_id', 'status', 'pay_method',)
             ->get();
     }
     //ログインユーザーの特定アイテムレコードの取得メソッド
@@ -84,8 +78,8 @@ class Order extends Model
             ->first();
     }
 
-    //ログインユーザーの特定アイテムに対するレコードが存在するか確認するメソッド
-    public static function order(Request $request, $user_id, $item_id)
+    //ログインユーザーが特定アイテムに対して支払い方法を選択しているか確認するメソッド
+    public static function orderPayMethod(Request $request, $user_id, $item_id)
     {
         $existingOrder = self::where('user_id', $user_id)->where('item_id', $item_id)->first();
 

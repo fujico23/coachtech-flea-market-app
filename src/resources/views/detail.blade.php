@@ -63,7 +63,11 @@
         <p>{{ $item->comments_count }}</p>
       </div>
     </div>
-    @if($item->getOrderForItem($item))
+    @if($item->getOrderStatus(1))
+    <a class="btn--bg-pink" href="{{ route('purchase', $item) }}">購入する</a>
+    @elseif($item->getOrderStatus(2))
+    <a class="btn--bg-pink disabled" href="{{ route('purchase', $item) }}">購入済み</a>
+    @elseif($item->getOrderStatus(3))
     <a class="btn--bg-pink disabled" href="{{ route('purchase', $item) }}">購入済み</a>
     @else
     <a class="btn--bg-pink " href="{{ route('purchase', $item) }}">購入する</a>
