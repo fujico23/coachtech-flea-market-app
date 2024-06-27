@@ -21,13 +21,16 @@
   <div class="item__container">
     @foreach($items as $item)
     <div class="item__container__card img-gray">
-      <a href="{{ route('detail', ['item' => $item->item_id]) }}">
-        @if($item->item->itemImages && $item->item->itemImages->isNotEmpty())
-        <img src="{{ $item->item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
+      <a href="{{ route('detail', $item) }}">
+        @if($item->itemImages && $item->itemImages->isNotEmpty())
+        <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
         @else
         <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
         @endif
       </a>
+      @if($item->isSoldOut())
+      <span class="soldout">SOLD OUT</span>
+      @endif
     </div>
     @endforeach
   </div>

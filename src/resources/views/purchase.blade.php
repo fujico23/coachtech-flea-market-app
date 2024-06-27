@@ -18,6 +18,7 @@
       </div>
     </div>
     <div class="purchase__container--left--payment">
+      @include('components.session')
       <div class="purchase__container--left--payment__header">
         <h2>支払い方法</h2>
         <a class="blue-link" href="{{ route('purchase.select', $item) }}">変更する</a>
@@ -27,6 +28,7 @@
         @if(isset($order) && in_array($order->pay_method, ['konbini', 'bank_transfer']))
         <p>手数料¥{{ number_format($order->fee) }}</p>
         @endif
+        <p class="error-message">@error('pay_method'){{ $message }}@enderror </p>
       </div>
       <div class="purchase__container--left--payment__header">
         <h2>配送先</h2>
@@ -40,6 +42,7 @@
         @else
         <p>未設定</p>
         @endif
+        <p class="error-message">@error('shippingAddress.address'){{ $message }}@enderror </p>
       </div>
     </div>
   </div>
@@ -70,6 +73,7 @@
           <input type="text" name="pay_method" value="{{ $order->custom_pay_method ?? '未設定' }}" readonly>
         </li>
       </ul>
+      <input type="hidden" name="shippingAddress[address]" value="{{ $shippingAddress->address ?? '' }}">
       <button class="btn--bg-pink">購入する</button>
     </form>
   </div>

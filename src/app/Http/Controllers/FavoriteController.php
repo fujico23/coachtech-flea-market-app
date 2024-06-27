@@ -12,12 +12,18 @@ class FavoriteController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $favoriteItems = Favorite::with(['item', 'item.itemImages'])
+        $favorites = Favorite::with(['item', 'item.itemImages'])
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('favorite_index', compact('favoriteItems'));
+
+        $items = $favorites->map(function ($favorite) {
+            return $favorite->item;
+        });
+
+        return view('favorite_index', compact('items', 'user'));
     }
+
     public function store(Item $item)
     {
         Favorite::favorite(Auth::id(), $item->id);

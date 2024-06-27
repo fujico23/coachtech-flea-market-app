@@ -9,13 +9,18 @@
   </div>
   <div class="item__container">
     @foreach($items as $item)
-    <a class="item__container__card img-gray" href="{{ route('detail', $item) }}">
-      @if($item->itemImages->isNotEmpty())
-      <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
-      @else
-      <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
+    <div class="item__container__card img-gray">
+      <a href="{{ route('detail', $item) }}">
+        @if($item->itemImages->isNotEmpty())
+        <img src="{{ $item->itemImages->first()->image_url }}" alt="" width="100%" height="100%">
+        @else
+        <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
+        @endif
+      </a>
+      @if($item->isSoldOut())
+      <span class="soldout">SOLD OUT</span>
       @endif
-    </a>
+    </div>
     @endforeach
   </div>
 </div>

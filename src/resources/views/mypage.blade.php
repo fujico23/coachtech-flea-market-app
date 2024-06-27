@@ -28,6 +28,9 @@
         <img src="https://via.placeholder.com/200/d9d9d9/fff/?text=No Image">
         @endif
       </a>
+      @if($item->isSoldOut())
+      <span class="soldout">SOLD OUT</span>
+      @endif
     </div>
     @endforeach
   </div>

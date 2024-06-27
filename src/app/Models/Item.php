@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
@@ -15,8 +16,14 @@ class Item extends Model
 
     public static function getItems()
     {
-        return self::query()->orderBy('created_at', 'desc')->get();
+        return self::query()
+            ->leftJoin('orders', 'items.id', '=', 'orders.item_id')
+            ->select('items.*', DB::raw('orders.item_id IS NULL as no_order'))
+            ->orderBy('no_order', 'desc')
+            ->orderBy('items.created_at', 'desc')
+            ->get();
     }
+
     public function getDetailItem()
     {
         return $this
@@ -63,15 +70,25 @@ class Item extends Model
     {
         return $this->hasMany(Order::class);
     }
-    /* 全ユーザーの */
+    /* 全ユーザーの注文アイテム */
     public function orderItems()
     {
         return Order::where('item_id', $this->id)->get();
     }
-
+    /* 購入するボタン切り替えorders status判別用メソッド */
     public function getOrderStatus($status)
     {
         return $this->orderItems()->where('status', $status)->isNotEmpty();
+    }
+
+    /* ordersテーブルのstatusが2か3の時SOLD OUTを表示させるメソッド */
+    public function isSoldOut()
+    {
+        foreach ($this->orders as $order) {
+            if (in_array($order->status, [2, 3]))
+                return true;
+        }
+        return false;
     }
 
     /* お気に入りメソッド */

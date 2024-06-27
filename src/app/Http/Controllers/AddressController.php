@@ -18,7 +18,7 @@ class AddressController extends Controller
     }
 
     //配送先選択機能
-    public function selectAddress(Request $request)
+    public function selectAddress(Request $request, Item $item)
     {
         $userId = Auth::id();
         $addressId = $request->input('address_id');
@@ -29,7 +29,7 @@ class AddressController extends Controller
         $address->is_default = true;
         $address->save();
 
-        return redirect()->back()->with('success', '配送先が更新されました。');
+        return redirect()->route('purchase', ['item' => $item->id])->with('success', '配送先が更新されました！');
     }
 
     //住所編集・削除選択画面に遷移
@@ -48,13 +48,13 @@ class AddressController extends Controller
         $data = $request->only(['postal_code', 'address', 'building_name']);
         $address->update($data);
 
-        return redirect()->back()->with('success', '住所が更新されました。');
+        return redirect()->back()->with('success', '住所が更新されました!');
     }
     //住所削除
     public function destroy(Address $address)
     {
         Address::where('id', $address->id)->delete();
-        return redirect()->back()->with('success', '住所が削除されました。');
+        return redirect()->back()->with('success', '住所が削除されました!');
     }
 
     //住所追加
@@ -62,7 +62,7 @@ class AddressController extends Controller
     {
         return view('address', compact('item'));
     }
-    public function store(Request $request)
+    public function store(Request $request, Item $item)
     {
         Address::create([
             'user_id' => Auth::id(),
@@ -71,6 +71,6 @@ class AddressController extends Controller
             'building_name' => $request->building_name,
         ]);
 
-        return redirect()->back()->with('success', '配送先住所が追加されました');
+        return redirect()->route('address.index', ['item' => $item->id])->with('success', '配送先住所が追加されました!');
     }
 }

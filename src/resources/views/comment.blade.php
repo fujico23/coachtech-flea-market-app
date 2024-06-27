@@ -10,6 +10,7 @@
     <img src="" alt="" width="100%" height="100%">
     @endif
   </div>
+
   <div class="item__detail">
     <h1>
       <a href="{{ route('detail', $item) }}">{{ $item->name }}</a>

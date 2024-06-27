@@ -55,7 +55,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
     Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
 
-
     // 住所機能
     Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');
     Route::post('/address/{item}/select', [AddressController::class, 'selectAddress'])->name('address.select');

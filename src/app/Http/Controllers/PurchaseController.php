@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
-
 
 class PurchaseController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        $items = Order::getUserPurchasedItems();
-
+        $orders = Order::getUserPurchasedItems();
+        $items = $orders->map(function ($order) {
+            return $order->item;
+        });
         return view('purchase_index', compact('items', 'user'));
     }
     public function create(Item $item)
@@ -39,11 +40,11 @@ class PurchaseController extends Controller
     public function updatePaymentMethod(Request $request, Item $item)
     {
         Order::orderPayMethod($request, Auth::id(), $item->id);
-        return redirect()->back()->with('success', '支払い方法が選択されました');
+        return redirect()->route('purchase', ['item' => $item->id])->with('success', '支払い方法が選択されました');
     }
 
     //Stripeオブジェクト生成
-    public function updatePaymentForm(Request $request, Item $item)
+    public function updatePaymentForm(PurchaseRequest $request, Item $item)
     {
         // Stripeキーの設定
         Stripe::setApiKey(config('services.stripe.st_key'));
