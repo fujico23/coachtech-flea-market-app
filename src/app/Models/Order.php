@@ -81,10 +81,11 @@ class Order extends Model
     //ログインユーザーが特定アイテムに対して支払い方法を選択しているか確認するメソッド
     public static function orderPayMethod(Request $request, $user_id, $item_id)
     {
-        $existingOrder = self::where('user_id', $user_id)->where('item_id', $item_id)->first();
+        $existingOrder = self::where('item_id', $item_id)->first();
 
         if ($existingOrder) {
             $existingOrder->update([
+                'user_id' => $user_id,
                 'pay_method' => $request->pay_method,
             ]);
             return $existingOrder;

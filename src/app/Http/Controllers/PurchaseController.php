@@ -32,7 +32,7 @@ class PurchaseController extends Controller
         $items = $orders->map(function ($order) {
             return $order->item;
         });
-        //dd($items);
+
         return view('purchase_index', compact('items', 'user'));
     }
 
