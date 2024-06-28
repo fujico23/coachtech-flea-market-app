@@ -6,7 +6,7 @@
   <h1 class="address-select__container__header header">支払い方法</h1>
   @include('components.session')
   <h2>支払い方法を選択する</h2>
-  <form action="{{ route('purchase.update.payment', $item) }}" method="post" class="address-select__container--form form">
+  <form action="{{ route('purchase.update.payment', $item) }}" method="post" class="address-select__container--form form" onsubmit="return confirm('本当に変更しますか？');">
     @csrf
     <label class="address-select__container__inner" style="display: block; cursor: pointer;">
       <div class="address-select__container__inner">

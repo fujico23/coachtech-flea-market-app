@@ -22,8 +22,8 @@
       </div>
     </div>
     <div class="address-list__container__inner--right">
-      <a class="btn--border-pink--small" href="{{ route('address.edit', $address) }}">編集する</a>
-      <form action="{{ route('address.destroy', $address) }}" method="post">
+      <a class="btn--border-pink--small" href="{{ route('address.edit', [$item, $address]) }}">編集する</a>
+      <form action="{{ route('address.destroy', [$item, $address]) }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
         @csrf
         @method('delete')
         <button class="btn--border-pink--small">削除する</button>

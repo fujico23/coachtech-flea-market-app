@@ -5,7 +5,7 @@
 <div class="main address-edit__container">
   <h1 class="address-edit__container__header header">住所の編集</h1>
   @include('components.session')
-  <form action="{{ route('address.update', $address) }}" method="post" class="address-edit__container--form form">
+  <form action="{{ route('address.update', [$item, $address]) }}" method="post" class="address-edit__container--form form" onsubmit="return confirm('本当に変更しますか？');">
     @csrf
     <div class="address-edit__container--form__inner form__inner">
       <div class="form__inner-group">

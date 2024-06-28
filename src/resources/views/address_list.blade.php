@@ -7,7 +7,7 @@
   @include('components.session')
   <h2>配送先を選択する</h2>
   @if($addressExists)
-  <a class="address-select__container--link blue-link" href="{{ route('address.edit.index') }}">編集する</a>
+  <a class="address-select__container--link blue-link" href="{{ route('address.edit.index',$item) }}">編集する</a>
   @endif
   <form action="{{ route('address.select', $item) }}" method="post" class="address-select__container--form form">
     @csrf

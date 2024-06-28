@@ -12,15 +12,7 @@ use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
-        $orders = Order::getUserPurchasedItems();
-        $items = $orders->map(function ($order) {
-            return $order->item;
-        });
-        return view('purchase_index', compact('items', 'user'));
-    }
+
     public function create(Item $item)
     {
         $shippingAddress = Address::where('user_id', Auth::id())
@@ -31,6 +23,17 @@ class PurchaseController extends Controller
         $order = Order::orderUserItem($item);
 
         return view('purchase', compact('item', 'shippingAddress', 'order'));
+    }
+
+    public function index()
+    {
+        $user = Auth::user();
+        $orders = Order::getUserPurchasedItems();
+        $items = $orders->map(function ($order) {
+            return $order->item;
+        });
+        //dd($items);
+        return view('purchase_index', compact('items', 'user'));
     }
 
     public function selectPurchase(Item $item)

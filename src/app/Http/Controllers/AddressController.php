@@ -39,22 +39,22 @@ class AddressController extends Controller
         return view('address_edit_index', compact('item', 'addresses'));
     }
     //住所更新
-    public function edit(Address $address)
+    public function edit(Item $item, Address $address)
     {
-        return view('address_edit', compact('address'));
+        return view('address_edit', compact('item', 'address'));
     }
-    public function update(Request $request, Address $address)
+    public function update(Request $request, Item $item, Address $address)
     {
         $data = $request->only(['postal_code', 'address', 'building_name']);
         $address->update($data);
 
-        return redirect()->back()->with('success', '住所が更新されました!');
+        return redirect()->route('address.index', ['item' => $item->id])->with('success', '住所が更新されました!');
     }
     //住所削除
-    public function destroy(Address $address)
+    public function destroy(Item $item, Address $address)
     {
         Address::where('id', $address->id)->delete();
-        return redirect()->back()->with('success', '住所が削除されました!');
+        return redirect()->route('address.index', ['item' => $item->id])->with('success', '住所が削除されました!');
     }
 
     //住所追加
