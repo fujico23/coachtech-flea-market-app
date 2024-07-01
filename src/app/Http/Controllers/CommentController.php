@@ -22,7 +22,10 @@ class CommentController extends Controller
             ->get();
         $item->comments_count = $comments->count();
 
-        $defaultComments = DefaultComment::all();
+        $defaultComments = DefaultComment::where('user_id', Auth::id())
+            ->orWhere('user_id', null)
+            ->get();
+
 
         return view('comment', compact('item', 'comments', 'defaultComments'));
     }
@@ -40,5 +43,25 @@ class CommentController extends Controller
     {
         Comment::where('id', $comment->id)->delete();
         return redirect()->back();
+    }
+
+    public function addDefaultComment(Request $request)
+    {
+        DefaultComment::create([
+            'user_id' => Auth::id(),
+            'title' => $request->input('title'),
+            'comment' => $request->input('comment'),
+        ]);
+
+        return redirect()->back()->with('success', 'あなた専用のコメントが追加されました!');
+    }
+
+    public function updateDefaultComment(Request $request, DefaultComment $defaultComment)
+    {
+        $defaultComment->update([
+            'title' => $request->input('title'),
+            'comment' => $request->input('comment'),
+        ]);
+        return redirect()->back()->with('success', 'あなた専用のコメントが更新されました!');
     }
 }

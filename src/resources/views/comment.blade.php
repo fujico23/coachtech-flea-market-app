@@ -86,7 +86,7 @@
                 <p>{{ $comment->comment }}</p>
                 <p>{{ $comment->created_at }}</p>
               </div>
-              @if ($comment->user->id === auth()->id() || auth()->user()->role_id === 1)
+              @if ($comment->user->id === auth()->id() )
               <div class="item__detail--comment__list--delete">
                 <button class="" type="submit">コメント削除</button>
               </div>
@@ -101,6 +101,10 @@
       <h2 class="">商品のコメント </h2>
       <p class="error-message">@error('comment'){{ $message }}@enderror</p>
     </div>
+    @if(Auth::check())
+    <button class="blue-link" id="openAddCommentModal">Create a Default Comment!!</button>
+    @endif
+    @include('components.session')
     <select class="item__detail--default-comment" name="default_comment" id="default_comment">
       <option value="">コメントを選択する</option>
       @foreach($defaultComments as $defaultComment)
@@ -117,6 +121,37 @@
   </div>
 </div>
 
+<!-- コメント追加用モーダルウィンドウ -->
+<div id="addCommentModal" class="comment-modal">
+  <div class="comment-modal-content">
+    <span class="comment-modal-content-close" id="closeAddCommentModal">&times;</span>
+    @include('comments.add_default_comment_form')
+  </div>
+</div>
+
+<!-- コメント用モーダルウィンドウ -->
+<script>
+  var addCommentModal = document.getElementById("addCommentModal");
+  var openAddCommentModalBtn = document.getElementById("openAddCommentModal");
+  var closeAddCommentModalBtn = document.getElementById("closeAddCommentModal");
+
+  openAddCommentModalBtn.onclick = function() {
+    addCommentModal.style.display = "block";
+    updateCommentModal.style.display = "none";
+  }
+
+  closeAddCommentModalBtn.onclick = function() {
+    addCommentModal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == addCommentModal) {
+      addCommentModal.style.display = "none";
+    }
+  }
+</script>
+
+<!-- コメント選択時の動作 -->
 <script>
   document.getElementById('default_comment').addEventListener('change', function() {
     var selectedOption = this.options[this.selectedIndex];
@@ -125,6 +160,7 @@
   });
 </script>
 
+<!-- 商品画像用 -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const links = document.querySelectorAll(".slider__btn__ul-li-link");
@@ -143,9 +179,9 @@
 
         slides.forEach(slide => {
           if (slide.id === targetId) {
-            slide.style.display = "flex"; // 画像を表示
+            slide.style.display = "flex";
           } else {
-            slide.style.display = "none"; // 他の画像を非表示
+            slide.style.display = "none";
           }
         });
       });

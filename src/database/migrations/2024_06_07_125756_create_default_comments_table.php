@@ -15,6 +15,7 @@ class CreateDefaultCommentsTable extends Migration
     {
         Schema::create('default_comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('comment');
             $table->timestamp('created_at')->useCurrent()->nullable();

@@ -55,11 +55,10 @@
 
     .index__container__link,
     .favorite-index__container__link {
-        top: 155px;
+        top: 150px;
     }
     .link {
         width: 100%;
-        top: 15%;
         margin-left: 0px;
         margin: 0px auto;
         display: flex;

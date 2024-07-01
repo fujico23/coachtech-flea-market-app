@@ -71,6 +71,8 @@ Route::middleware('auth', 'verified')->group(function () {
     // コメント機能
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('item/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+    Route::post('/default-comments', [CommentController::class, 'addDefaultComment'])->name('defaultComment.add');
+    Route::post('/default-comments/{defaultComment}', [CommentController::class, 'updateDefaultComment'])->name('defaultComment.update');
 });
 // 管理者画面
 Route::middleware('admin')->group(function () {
