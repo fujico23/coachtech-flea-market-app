@@ -49,10 +49,12 @@ Route::middleware('auth', 'verified')->group(function () {
     // 購入機能
     Route::get('/purchase', [PurchaseController::class, 'index'])->name('purchase.index');
     //支払い方法の変更
-    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
-    Route::get('/purchase/{item}/select', [PurchaseController::class, 'selectPurchase'])->name('purchase.select');
-    Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
-    Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
+    Route::middleware('sell')->group(function () {
+        Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase');
+        Route::get('/purchase/{item}/select', [PurchaseController::class, 'selectPurchase'])->name('purchase.select');
+        Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
+        Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
+    });
     Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
 
     // 住所機能
