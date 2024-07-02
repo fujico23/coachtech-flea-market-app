@@ -13,6 +13,7 @@ use App\Models\ItemImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Imagick;
 
 
 class SellController extends Controller
@@ -49,8 +50,34 @@ class SellController extends Controller
         // 画像を保存
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
-                $path = $file->store('public/items/' . $item->id);
-                $image_url = Storage::url($path);
+                $filename = uniqid() . '.jpg';
+                $storagePath = 'public/items/' . $item->id;
+                //S3本番環境の場合
+                //$storagePath = 'items/' . $item->id . '/' . $filename;
+
+                //S3では不要
+                if (!Storage::disk('local')->exists($storagePath)) {
+                    Storage::disk('local')->makeDirectory($storagePath);
+                }
+
+                // 画像をjpgに変換
+                $img = new Imagick($file->getRealPath());
+                $img->setImageFormat('jpg');
+
+                $fullPath = storage_path('app/' . $storagePath . '/' . $filename);
+                // S3本番環境の場合
+                // $fullPath = storage_path('app/temp/' . $filename);
+                $img->writeImage($fullPath);
+
+                //S3本番環境の場合
+                // Storage::disk('s3')->put($storagePath, file_get_contents($fullPath), 'public');
+                //unlink($fullPath);
+
+
+                // 画像のURLを生成
+                $image_url = Storage::url($storagePath . '/' . $filename);
+                // S3本番環境の場合
+                //$image_url = Storage::disk('s3')->url($storagePath);
 
                 ItemImage::create([
                     'item_id' => $item->id,

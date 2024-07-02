@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Imagick;
 
 class ProfileController extends Controller
 {
@@ -25,14 +26,30 @@ class ProfileController extends Controller
         // 画像を保存
         if ($request->hasFile('icon_image')) {
             $file = $request->file('icon_image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = 'icon_image.' . $extension;
-            $path = $file->storeAs('public/icon_image/' . $user->id, $fileName);
-            $image_url = Storage::url($path);
-            $profileData['icon_image'] = $image_url;
-        }
+            $fileName = 'icon_image.jpg';
+            $storagePath = 'public/icon_image/' . $user->id;
 
-        // ユーザーのプロフィール情報を更新
+            // ディレクトリが存在しない場合は作成
+            //S3では不要
+            if (!Storage::disk('local')->exists($storagePath)) {
+                Storage::disk('local')->makeDirectory($storagePath);
+            }
+
+            $tempPath = $file->storeAs('temp', $file->getClientOriginalName());
+            $img = new Imagick(storage_path('app/' . $tempPath));
+            $img->setImageFormat('jpg');
+
+            $storagePathWithFileName = $storagePath . '/' . $fileName;
+            Storage::disk('local')->put($storagePathWithFileName, $img->getImageBlob());
+            // S3本番環境の場合
+            ///Storage::disk('s3')->put($storagePathWithFileName, $img->getImageBlob());
+
+            $image_url = Storage::url($storagePathWithFileName);
+
+            $profileData['icon_image'] = $image_url;
+
+            Storage::delete($tempPath);
+        }
         $user->update($profileData);
 
         $addressData = $request->only(['postal_code', 'address', 'building_name', 'type']);

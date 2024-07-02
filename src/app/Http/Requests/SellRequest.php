@@ -34,7 +34,7 @@ class SellRequest extends FormRequest
             'grandchild_category_id' => 'required_with:child_category_id',
             'condition_id' => 'required',
             'image_url' => 'required',
-            'image_url.*' => 'required|image|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
+            'image_url.*' => 'required|image|max:5000',
         ];
     }
     public function messages()
