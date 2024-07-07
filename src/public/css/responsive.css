@@ -67,6 +67,8 @@
         font-size: 10px;
         padding-left: 10px;
         padding-right: 10px;
+        padding-top: 200px;
+        top: -10px;
     }
     .link a:last-child {
         margin-left: 0px;
@@ -103,7 +105,7 @@
     }
     .mypage__container--profile {
         padding-top: 85px;
-        padding-bottom: 40px;
+        padding-bottom: 100px;
         top: 330px;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -113,7 +115,7 @@
         flex-direction: column;
     }
     .mypage__container__link {
-        top: 480px;
+        top: 470px;
         padding-top: 30px;
     }
     .mypage__container--profile__header {

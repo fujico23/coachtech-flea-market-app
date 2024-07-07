@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ConditionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        Item::factory(30)->create();
+        $this->call(ItemsTableSeeder::class);
         $this->call(DefaultCommentsTableSeeder::class);
         $this->call(OrderStatusesTableSeeder::class);
     }

@@ -23,14 +23,14 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => User::factory(),
             'name' => $this->faker->word,
-            'brand_id' => Brand::inRandomOrder()->first()->id,
+            'brand_id' => Brand::factory(),
             'price' => $this->faker->numberBetween(100, 100000),
             'description' => $this->faker->paragraph,
-            'color_id' => Color::inRandomOrder()->first()->id,
-            'category_id' => Category::whereNotIn('id', range(1, 36))->inRandomOrder()->first()->id,
-            'condition_id' => Condition::inRandomOrder()->first()->id,
+            'color_id' => Color::factory(),
+            'category_id' => Category::factory(),
+            'condition_id' => Condition::factory(),
         ];
     }
 }

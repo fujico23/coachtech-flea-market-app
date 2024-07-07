@@ -28,6 +28,7 @@ class Item extends Model
     {
         return $this
             ->load([
+                'user',
                 'brand',
                 'category',
                 'color',
@@ -37,6 +38,10 @@ class Item extends Model
                 'comments.user',
                 'orders',
             ]);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     /* ログインユーザーの出品商品一覧取得 */
     public static function getItemByUserId($userId)

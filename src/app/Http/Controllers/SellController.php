@@ -51,8 +51,9 @@ class SellController extends Controller
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
                 $filename = uniqid() . '.jpg';
+                //local開発環境の場合
                 $storagePath = 'public/items/' . $item->id;
-                //S3本番環境の場合
+                // S3本番環境の場合
                 //$storagePath = 'items/' . $item->id . '/' . $filename;
 
                 //S3では不要
@@ -63,18 +64,17 @@ class SellController extends Controller
                 // 画像をjpgに変換
                 $img = new Imagick($file->getRealPath());
                 $img->setImageFormat('jpg');
-
+                //local開発環境の場合
                 $fullPath = storage_path('app/' . $storagePath . '/' . $filename);
                 // S3本番環境の場合
                 // $fullPath = storage_path('app/temp/' . $filename);
                 $img->writeImage($fullPath);
 
                 //S3本番環境の場合
-                // Storage::disk('s3')->put($storagePath, file_get_contents($fullPath), 'public');
+                //Storage::disk('s3')->put($storagePath, file_get_contents($fullPath));
                 //unlink($fullPath);
 
-
-                // 画像のURLを生成
+                //local開発環境の場合
                 $image_url = Storage::url($storagePath . '/' . $filename);
                 // S3本番環境の場合
                 //$image_url = Storage::disk('s3')->url($storagePath);

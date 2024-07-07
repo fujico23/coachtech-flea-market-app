@@ -9,7 +9,7 @@
       <div class="slider">
         @foreach ($item->ItemImages as $index => $itemImage)
         <div class="slide" id="slide-{{ $itemImage->id }}" style="{{ $index === 0 ? 'display: flex;' : 'display: none;' }}">
-          <img src="{{ $itemImage->image_url }}" alt="" style="width: auto; height: 100%;">
+          <img src="{{ $itemImage->image_url }}" alt="" style="width: 100%; height: auto;">
         </div>
         @endforeach
       </div>

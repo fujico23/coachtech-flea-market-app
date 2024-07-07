@@ -24,7 +24,7 @@
 
 ## **他のリポジトリ**
 
-- git@github.com:fujico23/coachtech-flea-market-app.git 　より git clone
+- git@github.com:fujico23/coachtech-flea-market-app.git より git clone
 
 ## **機能一覧**
 
@@ -37,7 +37,7 @@
 ### 【会員登録ページ】
 
 - 会員登録ページで新規ユーザー登録
-- 会員登録後、入力したメールアドレス宛に認証メールが送信される　(※後述の「メール機能の注意」参照)
+- 会員登録後、入力したメールアドレス宛に認証メールが送信される(※後述の「メール機能の注意」参照)
 - 会員登録後、商品一覧ページに遷移する
 - 会員登録後、デフォルトで role_id:2 を付与
 
@@ -67,7 +67,6 @@
 - ログインユーザーかつ、メール認証済みのユーザーはコメント追加
 - 「コメントを選択する」をクリックでデフォルトメッセージから選択可。ユーザー毎にデフォルトコメントを作成・更新が出来る
 - ログインユーザー自身のコメントは削除可
-- 管理者は全ユーザーのコメントを削除可
 
 ### 【Mypage ページ】 メール認証未実施ユーザーは verify_email ページに遷移
 
@@ -111,7 +110,7 @@
 
 #### **■Stripe 機能**
 
-- 支払い方法　の「変更する」を押すと支払い方法に応じた Stripe オブジェクトが生成される。
+- 支払い方法の「変更する」を押すと支払い方法に応じた Stripe オブジェクトが生成される。
 - 支払いが完了すると orders テーブルの status が「クレジット決済」の場合は 3、「コンビニ払い」「銀行振り込み」の場合は 2 に変更される
 
 ###### ※テストモードでの実装のため、クレジットカード決済の場合はカード番号：4242424242424242 にてご利用下さい
@@ -148,7 +147,7 @@
 - composer install
 - .env.example ファイルから.env を作成し、環境変数を変更
 - php artisan key:generate
-- php artisan storage:link (開発環境でのシンボリックリンク作成コマンド)
+- php artisan storage:link
 
 # 過去の記述のままの項目
 
@@ -175,9 +174,9 @@
 
 ### 2.Stripe による環境構築
 
-- stripe にサインイン後、開発者ページ > Webhook > エンドポイントを追加　に遷移し設定
+- stripe にサインイン後、開発者ページ > Webhook > エンドポイントを追加に遷移し設定
 - エンドポイント URL に ngrok で取得した URL を参考にhttps://randomURL.ngrok-free.app/stripe/webhookと入力
-- イベント追加に「invoice.payment_action_required」「cancelcustomer.deleted」、「cancelcustomer.updated」、「cancelcustomer.subscription.deleted」、「cancel customer.subscription.updated」、「cancel customer.subscription.created」、「cancel 　 checkout.session.completed」、「cancel payment_intent.succeeded」、「cancel payment_intent.payment_failed」を追加し、エンドポイントを更新
+- イベント追加に「invoice.payment_action_required」「cancelcustomer.deleted」、「cancelcustomer.updated」、「cancelcustomer.subscription.deleted」、「cancel customer.subscription.updated」、「cancel customer.subscription.created」、「cancel checkout.session.completed」、「cancel payment_intent.succeeded」、「cancel payment_intent.payment_failed」を追加し、エンドポイントを更新
 
 ### 3.Laravel による環境構築
 
@@ -214,7 +213,7 @@
 #### ■RDS
 
 - DB_CONNECTION=mysql
-- DB_HOST=mysql
+- DB_HOST=RDS のエンドポイント
 - DB_PORT=3306
 - DB_DATABASE=RDS のデータベース名
 - DB_USERNAME=RDS のユーザー名
@@ -229,16 +228,9 @@
 - AWS_BUCKET=//S3 のバケット名
 - AWS_USE_PATH_STYLE_ENDPOINT=false
 
-###### ※以下のファイルをコメントアウトしている「本番環境の場合」に変更
+###### ※以下のファイルをコメントアウトしている「S3 本番環境の場合」に変更
 
-# 過去の記述のまま
-
-- index.blade.php
-- details.blade.php
-- mypage.blade.php
-- ManagementController
-- AdminMailController
-- ReservationReminder.php
+- ProfileController
 
 #### ■SES
 
@@ -281,7 +273,6 @@
 
 - 「ドメイン取得はなし」案件の為、送信元は自身のメールアドレスにて実装。その為 DKIM 等の処理が出来ず、送信された確認メールが迷惑メール BOX に入っている可能性あり
 - gmail ドメインで動作確認し、送信可能（キャリアメール、outlook では送信不可能）
-- いくつかのメール機能には QR コードが添付されているが、QR コードは png 形式の画像データの為、ご利用の環境で画像が表示される設定に変更してご確認頂く必要あり(環境によってはセキュリティによって QR コードが文字化けしてしまう可能性あり)
 
 ### スプレッドシート
 

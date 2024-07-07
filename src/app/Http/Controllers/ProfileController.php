@@ -40,11 +40,12 @@ class ProfileController extends Controller
             $img->setImageFormat('jpg');
 
             $storagePathWithFileName = $storagePath . '/' . $fileName;
+            //local開発環境の場合
             Storage::disk('local')->put($storagePathWithFileName, $img->getImageBlob());
-            // S3本番環境の場合
-            ///Storage::disk('s3')->put($storagePathWithFileName, $img->getImageBlob());
-
             $image_url = Storage::url($storagePathWithFileName);
+            //S3本番環境の場合
+            //Storage::disk('s3')->put($storagePathWithFileName, $img->getImageBlob());
+            //$image_url = Storage::disk('s3')->url($storagePathWithFileName);
 
             $profileData['icon_image'] = $image_url;
 
