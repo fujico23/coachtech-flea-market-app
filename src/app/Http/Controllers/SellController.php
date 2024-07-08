@@ -54,7 +54,7 @@ class SellController extends Controller
                 //local開発環境の場合
                 $storagePath = 'public/items/' . $item->id;
                 // S3本番環境の場合
-                //$storagePath = 'items/' . $item->id . '/' . $filename;
+                //$storagePath = 'items/' . $item->id . '/' . $filename ;
 
                 //S3では不要
                 if (!Storage::disk('local')->exists($storagePath)) {

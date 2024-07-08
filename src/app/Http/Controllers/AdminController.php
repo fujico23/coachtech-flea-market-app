@@ -35,7 +35,7 @@ class AdminController extends Controller
         $shippingAddresses = Address::shippingAddress($user->id)->get();
 
         // スコープを使ってユーザーのコメントを取得
-        $comments = Comment::userComment($user->id)->paginate(4);
+        $comments = Comment::userComment($user->id)->get();
 
         if (request()->ajax()) {
             return view('comments.partials.comments', compact('comments'))->render();

@@ -15,7 +15,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::faker(),
+            'user_id' => User::factory(),
             'postal_code' => $this->faker->postcode,
             'address' => $this->faker->address,
             'building_name' => $this->faker->optional()->secondaryAddress,

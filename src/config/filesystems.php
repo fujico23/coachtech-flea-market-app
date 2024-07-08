@@ -47,6 +47,13 @@ return [
             'root' => storage_path('app/temp'),
         ],
 
+        'testing' => [
+            'driver' => 'local',
+            'root' => storage_path('framework/testing/disks'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

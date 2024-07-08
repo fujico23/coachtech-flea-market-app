@@ -23,7 +23,6 @@ class CategoryFactory extends Factory
                     return Category::inRandomOrder()->first()->id ?? null;
                 }
             }
-            //$this->faker->optional()->randomDigit,
         ];
     }
 }

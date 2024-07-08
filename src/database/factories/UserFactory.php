@@ -17,8 +17,6 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            //'role_id' => Role::inRandomOrder()->first()->id,
-            // 'role_id' => Role::inRandomOrder()->first()->id ?? Role::factory()->create()->id, // 変更
             'role_id' => Role::factory(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
