@@ -195,6 +195,10 @@
 - php artisan migrate
 - php artisan db:seed
 
+## **PHPUnit テスト実行**
+
+- php artisan test
+
 ## **環境変数**
 
 ### 開発環境(ローカルマシーンに Docker で環境構築)
