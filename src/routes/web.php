@@ -17,7 +17,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Notifications\Channels\MailChannel;
 
 //認証機能
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -26,7 +25,6 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
 //stripe機能
-Route::post('/create-payment-intent', [PurchaseController::class, 'createPaymentIntent']);
 Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook']);
 Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
 
@@ -55,7 +53,6 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('purchase/{item}/payment-method', [PurchaseController::class, 'updatePaymentMethod'])->name('purchase.update.payment');
         Route::post('/purchase/{item}/payment-form', [PurchaseController::class, 'updatePaymentForm'])->name('purchase.payment.form');
     });
-    Route::get('purchase/success', [PurchaseController::class, 'paymentSuccess'])->name('purchase.success');
 
     // 住所機能
     Route::get('/address/{item}/index', [AddressController::class, 'index'])->name('address.index');

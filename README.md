@@ -20,7 +20,7 @@
 
 ###### ※Stripe 支払い機能をテストする際は https でアクセス。後述の Stripe 環境構築ご確認下さい
 
-### 本番環境：http://00000000/
+### 本番環境：http://13.113.67.92
 
 ## **他のリポジトリ**
 
@@ -149,32 +149,26 @@
 - php artisan key:generate
 - php artisan storage:link
 
-# 過去の記述のままの項目
-
-- php artisan schedule:work & (開発環境でのタスクスケジューラー動作確認コマンド)
-
 #### パッケージのインストール
 
 - composer require laravel/fortify
 - php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 - composer require laravel-lang/lang:~7.0 --dev
 - cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
-- composer require "ext-gd:\*" --ignore-platform-reqs
-- composer require simplesoftwareio/simple-qrcode
 - composer require laravel/cashier
 
 ## **Stripe 環境構築**
 
 ### 1.ngrok による HTTPS 通信環境構築
 
-- ngrok にサインイン後、AuthToken 取得
+- ngrok にサインイン後、AuthToken 取得 https://ngrok.com/
 - docker pull ngrok/ngrok
 - docker run --net=host -it -e NGROK_AUTHTOKEN=[your AuthToken] ngrok/ngrok:latest http 80
 - endpoits page より個別の httpsURL を取得（例:https//randomURL.ngrok-free.app/）
 
 ### 2.Stripe による環境構築
 
-- stripe にサインイン後、開発者ページ > Webhook > エンドポイントを追加に遷移し設定
+- stripe にサインイン後、開発者ページ > Webhook > エンドポイントを追加に遷移し設定 https://stripe.com/jp?utm_campaign=JP_JA_Search_Brand_Payments-Pure_EXA-21278920274&utm_medium=cpc&utm_source=google&ad_content=699150004484&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gad_source=1&gclid=CjwKCAjwqMO0BhA8EiwAFTLgIECq-A7jSm9sy8yCXauKjDMUICOGZ4kN0P3GdRbS4g4aTXnYNW1lJhoCvjEQAvD_BwE
 - エンドポイント URL に ngrok で取得した URL を参考にhttps://randomURL.ngrok-free.app/stripe/webhookと入力
 - イベント追加に「invoice.payment_action_required」「cancelcustomer.deleted」、「cancelcustomer.updated」、「cancelcustomer.subscription.deleted」、「cancel customer.subscription.updated」、「cancel customer.subscription.created」、「cancel checkout.session.completed」、「cancel payment_intent.succeeded」、「cancel payment_intent.payment_failed」を追加し、エンドポイントを更新
 
@@ -235,6 +229,7 @@
 ###### ※以下のファイルをコメントアウトしている「S3 本番環境の場合」に変更
 
 - ProfileController
+- SellCOntroller
 
 #### ■SES
 

@@ -55,7 +55,6 @@ class SellRequest extends FormRequest
             'image_url.required' => '画像をアップロードしてください',
             'image_url.*.required' => '画像をアップロードしてください',
             'image_url.*.file' => 'アップロードされたファイルは画像でなければなりません。',
-            'image_url.*.mimes' => 'jpg,jpeg,svg形式を選択してください',
             'image_url.*.max' => '画像のサイズは4MB以下でなければなりません。'
         ];
     }
