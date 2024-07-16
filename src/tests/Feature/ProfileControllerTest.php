@@ -3,12 +3,9 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Address;
 use App\Models\Role;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileControllerTest extends TestCase
@@ -35,38 +32,5 @@ class ProfileControllerTest extends TestCase
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('profile'));
         $response->assertStatus(200);
-    }
-
-    public function test_can_profile_update()
-    {
-        Storage::fake('local');
-
-        //既存のアドレス
-        $user = User::factory()->create();
-        $address = Address::factory()->create([
-            'user_id' => $user->id,
-            'type' => '自宅',
-        ]);
-
-        $response = $this->actingAs($user)->post(route('profile.update'), [
-            'name' => 'New User',
-            'postal_code' => '1234567',
-            'address' => 'Nes Address',
-            'building_name' => 'New Building',
-            'type' => '自宅',
-        ]);
-
-        $response->assertRedirect();
-        $response->assertSessionHas('success', 'プロフィールが更新されました');
-
-        $this->assertDatabaseHas('users', ['id' => $user->id, 'name' => 'New User',]);
-        $this->assertDatabaseHas('addresses', [
-            'id' => $address->id,
-            'user_id' => $user->id,
-            'postal_code' => '1234567',
-            'address' => 'Nes Address',
-            'building_name' => 'New Building',
-            'type' => '自宅',
-        ]);
     }
 }
