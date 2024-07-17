@@ -96,8 +96,7 @@ jobs:
       - aws-cli/install
       - run:
           name: upload artifacts to s3
-          #          command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
-          command: aws s3 cp coachtech-flea-market-app-main.zip s3://flea-market-app-revision-bucket/ --storage-class STANDARD_IA --acl public-read
+          command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
       - run:
           name: deploy to prod
@@ -105,7 +104,7 @@ jobs:
             aws deploy create-deployment \
             --application-name flea-market-app \
             --deployment-group-name flea-market-appDeployGroup \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main,bundleType=zip
           working_directory: src
 
 orbs:
