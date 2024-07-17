@@ -79,16 +79,6 @@ jobs:
       AWS_DEFAULT_REGION: ap-northeast-1
     steps:
       - checkout
-      - add_ssh_keys
-      - run:
-          name: aws deploy
-          command: |
-            ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME} "cd coachtech-flea-market-app-main && \
-              git pull origin main && \
-              cd /var/www/coachtech-flea-market-app-main/src && \
-              composer install -n --no-dev --prefer-dist && \
-              php artisan migrate --force && \
-              php artisan config:cache"
       - run: sudo composer self-update --1
       - restore_cache:
           key: composer-no-dev-v1-{{ checksum "src/composer.lock" }}
@@ -114,7 +104,7 @@ jobs:
             aws deploy create-deployment \
             --application-name flea-market-app \
             --deployment-group-name flea-market-appDeployGroup \
-            --s3-location bucket=flea-market-app-revision-bucket,bundleType="zip",key=coachtech-flea-market-app-main.zip
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip
           working_directory: src
 
 orbs:
