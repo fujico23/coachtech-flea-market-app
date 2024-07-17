@@ -95,6 +95,10 @@ jobs:
           working_directory: src
       - aws-cli/install
       - run:
+          name: Configure AWS CLI
+          command: |
+            echo -e "${{AWS_ACCESS_KEY_ID}}\n${{AWS_SECRET_ACCESS_KEY}}\n${{AWS_REGION}}\njson" | aws configure
+      - run:
           name: upload artifacts to s3
           command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
@@ -104,7 +108,7 @@ jobs:
             aws deploy create-deployment \
             --application-name flea-market-app \
             --deployment-group-name flea-market-appDeployGroup \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main,bundleType=zip
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip
           working_directory: src
 
 orbs:
