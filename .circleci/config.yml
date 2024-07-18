@@ -101,27 +101,21 @@ jobs:
           name: upload artifacts to s3
           command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
-#      - run:
-#          name: deploy to prod
-#          command: |
-#            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip
-#          working_directory: src
+      - run:
+          name: deploy to prod
+          command: |
+            aws deploy create-deployment \
+            --application-name flea-market-app \
+            --deployment-group-name flea-market-appDeployGroup \
+            --s3-location bundle-bucket=${AWS_S3_BUCKET_NAME},bundle-key=coachtech-flea-market-app-main.zip
+          working_directory: src
 
-#orbs:
-#  aws-cli: circleci/aws-cli@1.0.0
-#  aws-cli: circleci/aws-cli@4.1.3
 workflows:
   version: 2
   build_deploy:
     jobs:
       - build:
       - deploy:
-      - aws-code-deploy/deploy:
-          application-name: flea-market-app
-          bundle-bucket: ${AWS_S3_BUCKET_NAME}
-          bundle-key: coachtech-flea-market-app-main.zip
-          deployment-group: flea-market-appDeployGroup
-          service-role-arn: arn:aws:iam::058264092563:role/CodeDeployServiceRole
           requires:
             - build
           filters:
