@@ -107,7 +107,7 @@ jobs:
             aws deploy create-deployment \
             --application-name flea-market-app \
             --deployment-group-name flea-market-appDeployGroup \
-            --s3-location bundle-bucket=${AWS_S3_BUCKET_NAME}
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=${AWS_S3_BUCKET_NAME}/coachtech-flea-market-app-main.zip,bundleType=zip
           working_directory: src
 
 workflows:
