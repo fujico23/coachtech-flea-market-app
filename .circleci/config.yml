@@ -101,15 +101,15 @@ jobs:
           name: upload artifacts to s3
           command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
-      - run:
-          name: deploy to prod
-          command: |
-            aws deploy create-deployment \
-            --application-name flea-market-app \
-            --deployment-group-name flea-market-appDeployGroup \
-            --bundle-bucket ${AWS_S3_BUCKET_NAME} \
-            --bundle-key coachtech-flea-market-app-main.zip \
-            --service-role-arn arn:aws:iam::058264092563:role/CodeDeployServiceRole
+      #      - run:
+      #          name: deploy to prod
+      #          command: |
+      - aws-code-deploy/deployment:
+          application-name: flea-market-app
+          deployment-group: flea-market-appDeployGroup
+          bundle-bucket: ${AWS_S3_BUCKET_NAME}
+          bundle-key: coachtech-flea-market-app-main.zip
+          service-role-arn: arn:aws:iam::058264092563:role/CodeDeployServiceRole
 
           #            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip
           working_directory: src
