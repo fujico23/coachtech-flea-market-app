@@ -113,7 +113,10 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name flea-market-appDeployGroup \
             --description "My demo deployment" \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,eTag=ee83964b54a200967bfb290a1229ab5e-3,key=coachtech-flea-market-app-main.zip
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,eTag=${BUNDLE_ETAG},key=${BUNDLE_KEY}
+          environment:
+            BUNDLE_ETAG: ee83964b54a200967bfb290a1229ab5e-3
+            BUNDLE_KEY: coachtech-flea-market-app-main.zip
           working_directory: src
 
 workflows:
