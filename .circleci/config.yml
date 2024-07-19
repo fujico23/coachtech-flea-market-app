@@ -83,6 +83,9 @@ jobs:
       AWS_DEFAULT_REGION: ap-northeast-1
     steps:
       - checkout
+      - aws-cli/setup:
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
       - run: sudo composer self-update --1
       - restore_cache:
           key: composer-no-dev-v1-{{ checksum "src/composer.lock" }}
@@ -107,8 +110,10 @@ jobs:
           command: |
             aws deploy create-deployment \
             --application-name flea-market-app \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name flea-market-appDeployGroup \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},key=coachtech-flea-market-app-main.zip,bundleType=zip \
+            --description "My demo deployment" \
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,eTag=ee83964b54a200967bfb290a1229ab5e-3,key=coachtech-flea-market-app-main.zip
           working_directory: src
 
 workflows:
