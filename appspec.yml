@@ -2,12 +2,12 @@ version: 0.0
 os: linux
 files:
   - source: /src
-    #destination: /var/www/coachtech-flea-market-app-main/src
-    destination: /home/ec2-user/coachtech-flea-market-app-main/src
+    destination: /var/www/coachtech-flea-market-app-main/src
+    #destination: /home/ec2-user/coachtech-flea-market-app-main/src
 
 permissions:
-  -  #object: /var/www/coachtech-flea-market-app-main/src
-  - object: /home/ec2-user/coachtech-flea-market-app-main/src
+  - object: /var/www/coachtech-flea-market-app-main/src
+    #  - object: /home/ec2-user/coachtech-flea-market-app-main/src
     owner: ec2-user
     group: ec2-user
 
