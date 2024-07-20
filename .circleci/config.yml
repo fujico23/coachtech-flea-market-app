@@ -106,14 +106,21 @@ jobs:
           command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
       - run:
+          name: Registration app to CodeDeploy
+          command: |
+            aws deploy register-application-revision \
+            --application-name flea-market-app \
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType="zip",key=coachtech-flea-market-app-main.zip
+          working_directory: src
+      - run:
           name: deploy to prod
           command: |
             aws deploy create-deployment \
             --application-name flea-market-app \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name flea-market-appDeployGroup \
-            --description "My demo deployment" \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,eTag=${BUNDLE_ETAG},key=${BUNDLE_KEY}
+            --file-exists-behavior "OVERWRITE" \
+            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType="zip",key=coachtech-flea-market-app-main.zip
           working_directory: src
 
 workflows:
