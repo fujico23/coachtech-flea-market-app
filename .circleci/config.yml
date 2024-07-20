@@ -110,7 +110,7 @@ jobs:
           command: |
             aws deploy register-application-revision \
             --application-name flea-market-app \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType="zip",key=coachtech-flea-market-app-main.zip
+            --s3-location 'bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,key=coachtech-flea-market-app-main.zip'
           working_directory: src
       - run:
           name: deploy to prod
@@ -120,7 +120,7 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name flea-market-appDeployGroup \
             --file-exists-behavior "OVERWRITE" \
-            --s3-location bucket=${AWS_S3_BUCKET_NAME},bundleType="zip",key=coachtech-flea-market-app-main.zip
+            --s3-location 'bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,key=coachtech-flea-market-app-main.zip'
           working_directory: src
 
 workflows:
