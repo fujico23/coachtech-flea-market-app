@@ -3,8 +3,11 @@ os: linux
 files:
   - source: /src
     destination: /home/ec2-user/coachtech-flea-market-app-main/src
-    overwrite: true
-#hooks:
+hooks:
+  BeforeInstall:
+    - location: scripts/clean.sh
+      timeout: 300
+      runas: ec2-user
 #  AfterInstall:
 #    - location: ./scripts/after_install.sh
 #      timeout: 60
