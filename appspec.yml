@@ -1,8 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: /src/routes
-    destination: /home/ec2-user/coachtech-flea-market-app-main/src/routes
+  - source: /src
+    destination: /home/ec2-user/coachtech-flea-market-app-main/src
+    overwrite: true
 #hooks:
 #  AfterInstall:
 #    - location: ./scripts/after_install.sh
