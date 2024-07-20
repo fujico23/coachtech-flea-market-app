@@ -4,15 +4,13 @@ files:
   - source: /src
     destination: /var/www/coachtech-flea-market-app-main/src
     #destination: /home/ec2-user/coachtech-flea-market-app-main/src
-
-permissions:
-  - object: /var/www/coachtech-flea-market-app-main/src
-    #  - object: /home/ec2-user/coachtech-flea-market-app-main/src
-    owner: ec2-user
-    group: ec2-user
-
-hooks:
-  AfterInstall:
-    - location: ./scripts/after_install.sh
-      timeout: 60
-      runas: ec2-user
+#permissions:
+#  - object: /var/www/coachtech-flea-market-app-main/src
+#  - object: /home/ec2-user/coachtech-flea-market-app-main/src
+#    owner: ec2-user
+#    group: ec2-user
+#hooks:
+#  AfterInstall:
+#    - location: ./scripts/after_install.sh
+#      timeout: 60
+#      runas: ec2-user
