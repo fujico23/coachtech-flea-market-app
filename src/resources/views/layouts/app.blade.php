@@ -17,8 +17,13 @@
 
 <body>
   <div id="app">
+    @if( Request::routeIs('login') || Request::routeIs('register') )
+    @component('components.header_auth')
+    @endcomponent
+    @else
     @component('components.header')
     @endcomponent
+    @endif
     @yield('main')
   </div>
 </body>
