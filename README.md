@@ -1,16 +1,14 @@
 # **coachtech フリマ -フリマサービスシステム-**
 
-### coachtech フリマは coachtech ブランドのアイテムを出品するアプリです。機能や画面がシンプルで、使いやすさを重視した構成です。
+### coachtech フリマは coachtech ブランドのアイテムを出品するアプリです。
+
+### 機能や画面がシンプルで、使いやすさを重視した構成です。
 
 ## **作成した目的**
 
-### 競合他社は機能や画面が複雑で使いづらいという調査・分析結果が出ており。独自のフリマアプリを開発することに着手することになったため
+### 競合他社は機能や画面が複雑で使いづらいという調査・分析結果が出ており、今後の競争を勝ち抜くため独自のフリマアプリを開発することに着手することになったため。
 
-### **現状の問題**
-
-- 機能や画面が複雑で使いづらい
-
-### **解決方法**
+## **アプリ開発においての目標**
 
 - スマートフォン操作に慣れている 10~30 代の社会人が直感的に操作できるシステム
 
@@ -76,11 +74,12 @@
 ### 【プロフィールページ】
 
 - 各項目を更新
+- 画像は任意登録
 - プロフィール画面で入力した住所は Addresses テーブルの type カラムが「自宅」として登録
 
 ### 【出品ページ】 ゲストは閲覧不可、メール認証未実施ユーザーは verify_email ページに遷移
 
-- 出品する商品を登録出来る
+- 出品する商品を登録
 - 画像は複数枚選択可
 
 ### 【購入ページ】 ゲストは閲覧不可、メール認証未実施ユーザーは verify_email ページに遷移
@@ -110,7 +109,7 @@
 
 #### **■Stripe 機能**
 
-- 支払い方法の「変更する」を押すと支払い方法に応じた Stripe オブジェクトが生成される。
+- 支払い方法の「変更する」を押すと支払い方法に応じた Stripe オブジェクトを生成
 - 支払いが完了すると orders テーブルの status が「クレジット決済」の場合は 3、「コンビニ払い」「銀行振り込み」の場合は 2 に変更される
 
 ###### ※テストモードでの実装のため、クレジットカード決済の場合はカード番号：4242424242424242 にてご利用下さい
@@ -129,9 +128,7 @@
 
 - 配送先住所登録済みの場合、配送先一覧カラムが表示され、配送先詳細を表示
 - 権限を変更可能
-- ユーザー毎のコメントを表示出来、この画面から、ユーザーがコメントした商品の詳細ページに遷移可。この場でコメントを削除することも可。
-
-###### ※後述の「以下のファイルをコメントアウトしている「本番環境の場合」をご確認下さい
+- ユーザー毎のコメントを表示しコメントを削除可。
 
 ## **使用技術(実行環境)**
 
@@ -142,20 +139,98 @@
 
 ## **Laravel 環境構築**
 
+**※GitHub にて新しくリモートリポジトリを作成した前提です**
+
+- git@github.com:fujico23/coachtech-flea-market-app.git より git clone 実施
+- cd coachtech-flea-market-app
+- git remote set-url origin 作成したリポジトリの url
+- git remote -v(任意)
 - docker-compose up -d --build
 - docker-compose exec php bash
 - composer install
-- .env.example ファイルから.env を作成し、環境変数を変更
+- cp .env.example .env(環境変数を開発環境用に変更。後述参照)
 - php artisan key:generate
+- php artisan migrate:reset
+- php artisan migrate
+- php artisan db:seed
 - php artisan storage:link
 
-#### パッケージのインストール
+#### パッケージのインストール(インストール済みのため実行しなくて良い)
 
 - composer require laravel/fortify
 - php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 - composer require laravel-lang/lang:~7.0 --dev
 - cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
 - composer require laravel/cashier
+
+## **環境変数**
+
+### 開発環境
+
+- APP_NAME=coachtech-flea-market-app
+- APP_ENV=local
+- APP_DEBUG=true
+- APP_URL=http://localhost
+
+- DB_CONNECTION=mysql
+- DB_HOST=mysql
+- DB_PORT=3306
+- DB_DATABASE=laravel_db
+- DB_USERNAME=laravel_user
+- DB_PASSWORD=laravel_pass
+
+- FILESYSTEM_DRIVER=local
+
+- MAIL_MAILER=smtp
+- MAIL_HOST=mailhog
+- MAIL_PORT=1025
+- MAIL_USERNAME=null
+- MAIL_PASSWORD=null
+- MAIL_ENCRYPTION=null
+- MAIL_FROM_ADDRESS=coachtech-flea-market-app@example.com
+- MAIL_FROM_NAME="${APP_NAME}"
+
+### テスト環境
+
+- APP_ENV=testing
+
+**※src/phpunit.xml の「テスト時は以下のコメントアウトを有効にする」以下のコードを有効にする**
+
+### 本番環境(AWS EC2,RDS,S3,SES)
+
+- APP_NAME=coachtech-flea-market-app
+- APP_ENV=production
+- APP_DEBUG=false
+- APP_URL=http://13.113.67.92
+
+- DB_CONNECTION=mysql
+- DB_HOST=RDS のエンドポイント
+- DB_PORT=3306
+- DB_DATABASE=RDS のデータベース名
+- DB_USERNAME=RDS のユーザー名
+- DB_PASSWORD=RDS のパスワード
+
+- FILESYSTEM_DRIVER=s3
+
+- MAIL_MAILER=ses
+- MAIL_HOST=email-smtp.ap-northeast-1.amazonaws.com
+- MAIL_PORT=587
+- MAIL_USERNAME=SES の SMTP 認証情報から作成した IAM の SMTP ユーザー名
+- MAIL_PASSWORD=SES の SMTP 認証情報から作成した IAM の SMTP パスワード
+- MAIL_ENCRYPTION=tls
+- MAIL_FROM_ADDRESS=SES で認証済みメールアドレス
+- MAIL_FROM_NAME="${APP_NAME}"
+
+- AWS_ACCESS_KEY_ID=SES の SMTP 認証情報から作成した IAM で作成したアクセスキー
+- AWS_SECRET_ACCESS_KEY=SES の SMTP 認証情報から作成した IAM で作成したシークレットアクセスキー
+- AWS_DEFAULT_REGION=ap-northeast-1
+- AWS_BUCKET=//S3 のバケット名
+- AWS_USE_PATH_STYLE_ENDPOINT=false
+
+**※以下のファイルをコメントアウトしている「S3 本番環境の場合」に変更**
+
+- ProfileController
+- SellCOntroller
 
 ## **Stripe 環境構築**
 
@@ -174,7 +249,7 @@
 
 ### 3.Laravel による環境構築
 
-#### .env ファイル
+#### 環境変数の変更
 
 - STRIPE_KEY=stripe の公開可能キー
 - STRIPE_SECRET=stripe のシークレットキー
@@ -184,63 +259,9 @@
 
 - 「//https 通信では以下有効」直下のコメントアウトを有効にする
 
-## **データ生成**
-
-- php artisan migrate
-- php artisan db:seed
-
-## **PHPUnit テスト実行**
+## **PHPUnit テスト実行コマンド**
 
 - php artisan test
-
-## **環境変数**
-
-### 開発環境(ローカルマシーンに Docker で環境構築)
-
-- DB_CONNECTION=mysql
-- DB_HOST=mysql
-- DB_PORT=3306
-- DB_DATABASE=laravel_db
-- DB_USERNAME=laravel_user
-- DB_PASSWORD=laravel_pass
-
-- MAIL_FROM_ADDRESS=test@example.co.jp
-
-### 本番環境(AWS EC2,RDS インスタンスにて構築)
-
-#### ■RDS
-
-- DB_CONNECTION=mysql
-- DB_HOST=RDS のエンドポイント
-- DB_PORT=3306
-- DB_DATABASE=RDS のデータベース名
-- DB_USERNAME=RDS のユーザー名
-- DB_PASSWORD=RDS のパスワード
-
-#### ■S3
-
-- FILESYSTEM_DRIVER=s3
-- AWS_ACCESS_KEY_ID=SES の SMTP 認証情報から作成した IAM で作成したアクセスキー
-- AWS_SECRET_ACCESS_KEY=SES の SMTP 認証情報から作成した IAM で作成したシークレットアクセスキー
-- AWS_DEFAULT_REGION=ap-northeast-1
-- AWS_BUCKET=//S3 のバケット名
-- AWS_USE_PATH_STYLE_ENDPOINT=false
-
-###### ※以下のファイルをコメントアウトしている「S3 本番環境の場合」に変更
-
-- ProfileController
-- SellCOntroller
-
-#### ■SES
-
-- MAIL_MAILER=ses
-- MAIL_HOST=email-smtp.ap-northeast-1.amazonaws.com
-- MAIL_PORT=587
-- MAIL_USERNAME=SES の SMTP 認証情報から作成した IAM の SMTP ユーザー名
-- MAIL_PASSWORD=SES の SMTP 認証情報から作成した IAM の SMTP パスワード
-- MAIL_ENCRYPTION=tls
-- MAIL_FROM_ADDRESS=SES で認証済みメールアドレス
-- MAIL_FROM_NAME="${APP_NAME}"
 
 ## **テーブル設計**
 

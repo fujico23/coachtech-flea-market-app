@@ -105,6 +105,16 @@ jobs:
           name: upload artifacts to s3
           command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
           working_directory: src
+          #まだ終わってない
+      - run:
+          name: aws deploy push
+          command: |
+            aws deploy push \
+            --application-name flea-market-app \
+            --s3-location s3://${AWS_S3_BUCKET_NAME}.zip \
+            --ignore-hidden-files \
+            --source ./src
+          working_directory: src
       - run:
           name: deploy to prod
           command: |
