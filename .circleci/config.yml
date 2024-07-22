@@ -102,10 +102,6 @@ jobs:
           working_directory: src
       - aws-cli/install
       - run:
-          name: upload artifacts to s3
-          command: aws s3 cp coachtech-flea-market-app-main.zip s3://${AWS_S3_BUCKET_NAME}
-          working_directory: src
-      - run:
           name: deploy to prod
           command: |
             aws deploy create-deployment \
