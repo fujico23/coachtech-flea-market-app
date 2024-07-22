@@ -113,7 +113,8 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name flea-market-appDeployGroup \
             --file-exists-behavior "OVERWRITE" \
-            --s3-location "bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,key=coachtech-flea-market-app-main.zip"
+#            --s3-location "bucket=${AWS_S3_BUCKET_NAME},bundleType=zip,key=coachtech-flea-market-app-main.zip"
+            --github-location repository=fujico23/coachtech-flea-market-app,commitId=${CIRCLE_SHA1}
           working_directory: src
 
 workflows:
