@@ -47,64 +47,47 @@ class SellController extends Controller
             'condition_id' => $request->condition_id,
         ]);
 
+        // 画像を保存
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
-                $path = $file->store('public/items/' . $item->id);
-                $image_url = Storage::url($path);
                 $filename = uniqid() . '.jpg';
 
-                if (config("app.env") === "production") {
-                    $storagePath = 'items/' . $item->id . '/' . $filename;
+                // 環境がproductionの場合はS3に保存、それ以外はローカルに保存
+                if (config('app.env') === 'production') {
+                    $path = 'items/' . $item->id . '/' . $filename;
+                    $disk = 's3';
                 } else {
-                    $storagePath = 'public/items/' . $item->id;
+                    $path = 'public/items/' . $item->id . '/' . $filename;
+                    $disk = 'local';
                 }
-                //開発環境
-                //$storagePath = 'public/items/' . $item->id;
-                //S3本番環境の場合
-                //$storagePath = 'items/' . $item->id . '/' . $filename;
 
-                //S3では不要
-                if (config("app.env") !== "production") {
-                    if (!Storage::disk('local')->exists($storagePath)) {
-                        Storage::disk('local')->makeDirectory($storagePath);
-                    }
-                }
-                //if (!Storage::disk('local')->exists($storagePath)) {
-                //    Storage::disk('local')->makeDirectory($storagePath);
-                //}
                 // 画像をjpgに変換
                 $img = new Imagick($file->getRealPath());
                 $img->setImageFormat('jpg');
-                $imgBlob = $img->getImagesBlob();
-                if (config("app.env") === "production") {
-                    Storage::disk('s3')->put($storagePath, $imgBlob);
+
+                // ローカルに保存する場合の処理
+                if ($disk === 'local') {
+                    $tempPath = storage_path('app/temp/' . $filename);
+
+                    if (!Storage::disk('local')->exists(dirname($tempPath))) {
+                        Storage::disk('local')->makeDirectory(dirname($tempPath));
+                    }
+
+                    $img->writeImage($tempPath);
+
+                    // ローカルにアップロード
+                    Storage::disk('local')->put($path, file_get_contents($tempPath));
+
+                    // 一時ファイルを削除
+                    Storage::disk('local')->delete($tempPath);
                 } else {
-                    $fullPath = storage_path('app/' . $storagePath . '/' . $filename);
-                    file_put_contents($fullPath, $imgBlob);
-                    $image_url = Storage::url($storagePath . '/' . $filename);
+                    // S3に直接アップロード
+                    $imageData = $img->getImagesBlob();
+                    Storage::disk('s3')->put($path, $imageData, 'public');
                 }
-                //開発環境
-                //$fullPath = storage_path('app/' . $storagePath . '/' . $filename);
-                // S3本番環境の場合
-                // $fullPath = storage_path('app/temp/' . $filename);
 
-
-                if (config("app.env") === "production") {
-                    $image_url = Storage::disk('s3')->url($storagePath);
-                }
-                //S3本番環境の場合
-                // Storage::disk('s3')->put($storagePath, file_get_contents($fullPath), 'public');
-                //unlink($fullPath);
-
-                if (config("app.env") === "production") {
-                    $image_url = Storage::disk('s3')->url($storagePath);
-                } else {
-                    $image_url = Storage::url($storagePath . '/' . $filename);
-                }
-                // 開発環境
-                //$image_url = Storage::url($storagePath . '/' . $filename);
-                // S3本番環境の場合
-                //$image_url = Storage::disk('s3')->url($storagePath);
+                // URLを取得
+                $image_url = Storage::disk($disk)->url($path);
 
                 ItemImage::create([
                     'item_id' => $item->id,
