@@ -51,54 +51,43 @@ class SellController extends Controller
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
                 $filename = uniqid() . '.jpg';
-                //local開発環境の場合
-                if (config("app.env") === "production") {
-                    $storagePath = 'items/' . $item->id . '/' . $filename;
-                } else {
-                    $storagePath = 'public/items/' . $item->id;
-                }
-                //local開発環境の場合
-                //$storagePath = 'public/items/' . $item->id;
-                // S3本番環境の場合
-                //$storagePath = 'items/' . $item->id . '/' . $filename ;
 
-                //S3では不要
-                if (!Storage::disk('local')->exists($storagePath)) {
-                    Storage::disk('local')->makeDirectory($storagePath);
+                // 環境がproductionの場合はS3に保存、それ以外はローカルに保存
+                if (config('app.env') === 'production') {
+                    $path = 'items/' . $item->id . '/' . $filename;
+                    $disk = 's3';
+                } else {
+                    $path = 'public/items/' . $item->id . '/' . $filename;
+                    $disk = 'local';
                 }
 
                 // 画像をjpgに変換
                 $img = new Imagick($file->getRealPath());
                 $img->setImageFormat('jpg');
 
-                if (config("app.env") === "production") {
-                    $fullPath = storage_path('app/temp/' . $filename);
-                } else {
-                    $fullPath = storage_path('app/' . $storagePath . '/' . $filename);
-                }
-                //local開発環境の場合
-                //$fullPath = storage_path('app/' . $storagePath . '/' . $filename);
-                // S3本番環境の場合
-                // $fullPath = storage_path('app/temp/' . $filename);
-                $img->writeImage($fullPath);
+                // ローカルに保存する場合の処理
+                if ($disk === 'local') {
+                    $tempPath = storage_path('app/temp/' . $filename);
 
-                //S3本番環境の場合
-                if (config("app.env") === "production") {
-                    Storage::disk('s3')->put($storagePath, file_get_contents($fullPath));
-                    unlink($fullPath);
-                }
-                //Storage::disk('s3')->put($storagePath, file_get_contents($fullPath));
-                //unlink($fullPath);
+                    if (!Storage::disk('local')->exists(dirname($tempPath))) {
+                        Storage::disk('local')->makeDirectory(dirname($tempPath));
+                    }
 
-                if (config("app.env") === "production") {
-                    $image_url = Storage::disk('s3')->url($storagePath);
+                    $img->writeImage($tempPath);
+
+                    // ローカルにアップロード
+                    Storage::disk('local')->put($path, file_get_contents($tempPath));
+
+                    // 一時ファイルを削除
+                    Storage::disk('local')->delete($tempPath);
                 } else {
-                    $image_url = Storage::url($storagePath . '/' . $filename);
+                    // S3に直接アップロード
+                    $imageData = $img->getImagesBlob();
+                    Storage::disk('s3')->put($path, $imageData, 'public');
                 }
-                //local開発環境の場合
-                //$image_url = Storage::url($storagePath . '/' . $filename);
-                // S3本番環境の場合
-                //$image_url = Storage::disk('s3')->url($storagePath);
+
+                // URLを取得
+                $image_url = Storage::disk($disk)->url($path);
 
                 ItemImage::create([
                     'item_id' => $item->id,
@@ -106,7 +95,6 @@ class SellController extends Controller
                 ]);
             }
         }
-
         return redirect()->back()->with('success', '商品が出品されました!');
     }
 }

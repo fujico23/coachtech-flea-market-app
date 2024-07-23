@@ -23,33 +23,52 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profileData = $request->only(['name']);
 
-        // 画像を保存
         if ($request->hasFile('icon_image')) {
             $file = $request->file('icon_image');
             $fileName = 'icon_image.jpg';
-            $storagePath = 'public/icon_image/' . $user->id;
 
-            // ディレクトリが存在しない場合は作成
-            //S3では不要
-            if (!Storage::disk('local')->exists($storagePath)) {
-                Storage::disk('local')->makeDirectory($storagePath);
+            // 環境がproductionの場合はS3に保存、それ以外はローカルに保存
+            if (config('app.env') === 'production') {
+                $fullPath = 'icon_image/' . $user->id . '/' . $fileName;
+                $disk = 's3';
+            } else {
+                $fullPath = 'public/icon_image/' . $user->id;
+                $disk = 'local';
             }
 
-            $tempPath = $file->storeAs('temp', $file->getClientOriginalName());
-            $img = new Imagick(storage_path('app/' . $tempPath));
-            $img->setImageFormat('jpg');
+            // ローカルに保存する場合の処理
+            if ($disk === 'local') {
+                if (!Storage::disk('local')->exists($fullPath)) {
+                    Storage::disk('local')->makeDirectory($fullPath);
+                }
 
-            $storagePathWithFileName = $storagePath . '/' . $fileName;
-            //local開発環境の場合
-            Storage::disk('local')->put($storagePathWithFileName, $img->getImageBlob());
-            $image_url = Storage::url($storagePathWithFileName);
-            //S3本番環境の場合
-            //Storage::disk('s3')->put($storagePathWithFileName, $img->getImageBlob());
-            //$image_url = Storage::disk('s3')->url($storagePathWithFileName);
+                $tempPath = $file->storeAs('temp', $file->getClientOriginalName());
+                $img = new Imagick(storage_path('app/' . $tempPath));
+                $img->setImageFormat('jpg');
+
+                $storagePathWithFileName = $fullPath . '/' . $fileName;
+                Storage::disk('local')->put($storagePathWithFileName, $img->getImageBlob());
+                $image_url = Storage::url($storagePathWithFileName);
+
+                // 一時ファイルを削除
+                Storage::delete($tempPath);
+            } else {
+                // S3に直接アップロード
+                $img = new Imagick($file->getRealPath());
+                $img->setImageFormat('jpg');
+                $jpegData = $img->getImagesBlob();
+
+                // 一時ファイルを作成
+                $tempPath = tempnam(sys_get_temp_dir(), 'img');
+                file_put_contents($tempPath, $jpegData);
+                // 画像を直接S3に保存
+                Storage::disk('s3')->putFile('images', new File($tempPath));
+                $image_url = Storage::disk('s3')->url($fullPath);
+                // 一時ファイルを削除
+                unlink($tempPath);
+            }
 
             $profileData['icon_image'] = $image_url;
-
-            Storage::delete($tempPath);
         }
         $user->update($profileData);
 
