@@ -35,7 +35,6 @@ class SellRequest extends FormRequest
             'condition_id' => 'required',
             'image_url' => 'required',
             'image_url.*' => 'required|image|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
-            //'image_url.*' => 'required|image|max:4000',
         ];
     }
     public function messages()

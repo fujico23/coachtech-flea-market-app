@@ -24,7 +24,7 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
-    //自己参照のリレーションで更にカテゴリーを取得？？
+    //自己参照のリレーションで更にカテゴリーを取得
     public function grandchildren()
     {
         return $this->hasMany(Category::class, 'parent_id')

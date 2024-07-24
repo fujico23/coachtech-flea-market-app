@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Imagick;
+
 
 class ProfileController extends Controller
 {
@@ -25,9 +24,7 @@ class ProfileController extends Controller
 
         // 画像を保存
         if ($request->hasFile('icon_image')) {
-            //$file = $request->file('icon_image');
             $fileName = 'icon_image.jpg';
-            // $storagePath = 'public/icon_image/' . $user->id;
             if (config('app.env') === 'production') {
                 $disk = 's3';
                 $path = 'icon_image/' . $user->id;
@@ -38,29 +35,6 @@ class ProfileController extends Controller
             Storage::disk($disk)->putFileAs($path, $request->file('icon_image'), $fileName);
             $image_url = Storage::disk($disk)->url($path . '/' . $fileName);
             $profileData['icon_image'] = $image_url;
-
-            // ディレクトリが存在しない場合は作成
-            //S3では不要
-            /*            if (!Storage::disk('local')->exists($storagePath)) {
-                Storage::disk('local')->makeDirectory($storagePath);
-            }
-
-            $tempPath = $file->storeAs('temp', $file->getClientOriginalName());
-            $img = new Imagick(storage_path('app/' . $tempPath));
-            $img->setImageFormat('jpg');
-
-            $storagePathWithFileName = $storagePath . '/' . $fileName;
-            //local開発環境の場合
-            Storage::disk('local')->put($storagePathWithFileName, $img->getImageBlob());
-            $image_url = Storage::url($storagePathWithFileName);
-            //S3本番環境の場合
-            //Storage::disk('s3')->put($storagePathWithFileName, $img->getImageBlob());
-            //$image_url = Storage::disk('s3')->url($storagePathWithFileName);
-
-            $profileData['icon_image'] = $image_url;
-
-            Storage::delete($tempPath);
-*/
         }
 
         $user->update($profileData);
