@@ -34,7 +34,8 @@ class SellRequest extends FormRequest
             'grandchild_category_id' => 'required_with:child_category_id',
             'condition_id' => 'required',
             'image_url' => 'required',
-            'image_url.*' => 'required|image|max:5000',
+            'image_url.*' => 'required|image|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:4000',
+            //'image_url.*' => 'required|image|max:4000',
         ];
     }
     public function messages()
@@ -55,6 +56,7 @@ class SellRequest extends FormRequest
             'image_url.required' => '画像をアップロードしてください',
             'image_url.*.required' => '画像をアップロードしてください',
             'image_url.*.file' => 'アップロードされたファイルは画像でなければなりません。',
+            'image_url.*.mimes' => 'jpg,jpeg,svg形式を選択してください',
             'image_url.*.max' => '画像のサイズは4MB以下でなければなりません。'
         ];
     }

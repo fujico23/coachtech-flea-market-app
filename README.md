@@ -201,7 +201,7 @@
 - APP_NAME=coachtech-flea-market-app
 - APP_ENV=production
 - APP_DEBUG=false
-- APP_URL=http://13.113.67.92
+- APP_URL=http://54.199.90.159/
 
 - DB_CONNECTION=mysql
 - DB_HOST=RDS のエンドポイント
