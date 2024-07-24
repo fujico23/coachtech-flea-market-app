@@ -25,13 +25,23 @@ class ProfileController extends Controller
 
         // 画像を保存
         if ($request->hasFile('icon_image')) {
-            $file = $request->file('icon_image');
+            //$file = $request->file('icon_image');
             $fileName = 'icon_image.jpg';
-            $storagePath = 'public/icon_image/' . $user->id;
+            // $storagePath = 'public/icon_image/' . $user->id;
+            if (config('app.env') === 'production') {
+                $disk = 's3';
+                $path = 'icon_image/' . $user->id;
+            } else {
+                $disk = 'local';
+                $path = 'public/icon_image/' . $user->id;
+            }
+            Storage::disk($disk)->putFileAs($path, $request->file('icon_image'), $fileName);
+            $image_url = Storage::disk($disk)->url($path . '/' . $fileName);
+            $profileData['icon_image'] = $image_url;
 
             // ディレクトリが存在しない場合は作成
             //S3では不要
-            if (!Storage::disk('local')->exists($storagePath)) {
+            /*            if (!Storage::disk('local')->exists($storagePath)) {
                 Storage::disk('local')->makeDirectory($storagePath);
             }
 
@@ -50,7 +60,9 @@ class ProfileController extends Controller
             $profileData['icon_image'] = $image_url;
 
             Storage::delete($tempPath);
+*/
         }
+
         $user->update($profileData);
 
         $addressData = $request->only(['postal_code', 'address', 'building_name', 'type']);

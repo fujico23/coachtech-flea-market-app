@@ -27,8 +27,8 @@ class ProfileRequest extends FormRequest
             'name' => 'required|string',
             'postal_code' => 'required|string|digits:7',
             'address' => 'required|string',
-            //'icon_image' => 'file|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:5000',
-            'icon_image' => 'file|max:5000',
+            'icon_image' => 'file|mimes:jpg,jpeg,svg,JPG,JPEG,SVG|max:5000',
+            //'icon_image' => 'file|max:5000',
         ];
     }
     public function messages()

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\SellRequest;
 use App\Models\Item;
 use App\Models\Condition;
@@ -13,7 +12,6 @@ use App\Models\ItemImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Imagick;
 
 
 class SellController extends Controller
@@ -61,40 +59,6 @@ class SellController extends Controller
                     Storage::disk($disk)->put($path, file_get_contents($file));
                 }
 
-                // 環境がproductionの場合はS3に保存、それ以外はローカルに保存
-                /*                if (config('app.env') === 'production') {
-                    $path = 'items/' . $item->id . '/' . $fileName;
-                    $disk = 's3';
-                } else {
-                    $path = 'public/items/' . $item->id . '/' . $fileName;
-                    $disk = 'local';
-                }
-
-                // 画像をjpgに変換
-                $img = new Imagick($file->getRealPath());
-                $img->setImageFormat('jpg'); //JPEG形式に変換
-
-                // ローカルに保存する場合の処理
-                if ($disk === 'local') {
-                    $tempPath = storage_path('app/temp/' . $fileName); //一時パスを作成
-
-                    if (!Storage::disk('local')->exists(dirname($tempPath))) {
-                        Storage::disk('local')->makeDirectory(dirname($tempPath));
-                    }
-
-                    $img->writeImage($tempPath);
-
-                    // ローカルにアップロード
-                    Storage::disk('local')->put($path, file_get_contents($tempPath));
-
-                    // 一時ファイルを削除
-                    Storage::disk('local')->delete($tempPath);
-                } else {
-                    // S3に直接アップロード
-                    $imageData = $img->getImageBlob(); //変換後の画像データを取得
-                    Storage::disk('s3')->put($path, $imageData, 'public');
-                }
-*/
                 // URLを取得
                 $image_url = Storage::disk($disk)->url($path);
 
