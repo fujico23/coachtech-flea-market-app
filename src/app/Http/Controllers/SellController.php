@@ -12,6 +12,7 @@ use App\Models\ItemImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class SellController extends Controller
@@ -49,14 +50,18 @@ class SellController extends Controller
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
                 $fileName = uniqid() . '.jpg';
+
+                // 画像を読み込み、jpg形式に変換
+                $img = Image::make($file)->encode('jpg');
+
                 if (config('app.env') === 'production') {
                     $path = 'items/' . $item->id . '/' . $fileName;
                     $disk = 's3';
-                    Storage::disk($disk)->put($path, file_get_contents($file));
+                    Storage::disk($disk)->put($path, (string) $img);
                 } else {
                     $path = 'public/items/' . $item->id . '/' . $fileName;
                     $disk = 'local';
-                    Storage::disk($disk)->put($path, file_get_contents($file));
+                    Storage::disk($disk)->put($path, (string) $img);
                 }
 
                 // URLを取得
