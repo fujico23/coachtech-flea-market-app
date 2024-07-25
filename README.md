@@ -59,9 +59,10 @@ git@github.com:fujico23/coachtech-flea-market-app.git より git clone
 ### 【コメントページ】
 
 - ☆ マーククリックでお気に入り店舗の追加・削除(ゲストはログインページ・メール未認証ユーザーは verify-email に遷移)
-- 商品のコメントをしている履歴を表示
-- ログインユーザーかつ、メール認証済みのユーザーはコメント追加
-- 「コメントを選択する」をクリックでデフォルトメッセージから選択可。ユーザー毎にデフォルトコメントを作成・更新が出来る
+- 「コメント一覧」をホバーするとコメント一覧表示
+- ログインユーザーかつ、メール認証済みのユーザーはコメント追加可。
+- 「コメントを選択する」をクリックでデフォルトメッセージから選択可。
+- ユーザー毎にデフォルトコメントを作成・更新可
 - ログインユーザー自身のコメントは削除可
 
 ### 【Mypage ページ】 メール認証未実施ユーザーは verify_email ページに遷移
@@ -165,11 +166,11 @@ php artisan storage:link
 
 <details>
 <summary>閲覧</summary>
-- composer require laravel/fortify
-- php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-- composer require laravel-lang/lang:~7.0 --dev
-- cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
-- composer require laravel/cashier
+■composer require laravel/fortify
+■php artisan vendor:publish--provider="Laravel\Fortify\FortifyServiceProvider"
+■composer require laravel-lang/lang:~7.0 --dev
+■ cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
+■composer require laravel/cashier
 </details>
 
 ### ⅲ. 環境変数

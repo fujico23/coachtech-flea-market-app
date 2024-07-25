@@ -112,7 +112,7 @@
       @endforeach
     </select>
     <div>
-      <form action="{{ route('comment.store', $item) }}" method="post" class="item__detail--comment__form">
+      <form action="{{ route('comment.store', $item) }}" method="post" class="item__detail--comment__form" onsubmit="return confirm('コメントを送信しますか？');">
         @csrf
         <textarea class="item__detail--comment__form-textarea" name="comment" id="commentTextarea" textarea rows="4"></textarea>
         <button class="btn--bg-pink" type="submit">コメントを送信する</button>

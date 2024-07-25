@@ -37,12 +37,12 @@ class CommentController extends Controller
             'comment' => $request->input('comment'),
         ];
         Comment::create($comment);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'コメントが追加されました!');
     }
     public function destroy(Comment $comment)
     {
         Comment::where('id', $comment->id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'コメントが削除されました!');
     }
 
     public function addDefaultComment(Request $request)
