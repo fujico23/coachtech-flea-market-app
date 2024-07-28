@@ -2,8 +2,6 @@
 
 ### coachtech フリマは coachtech ブランドのアイテムを出品するアプリです。機能や画面がシンプルで、使いやすさを重視した構成です。
 
-## 目次
-
 ## 1. 作成した目的
 
 ### 競合他社は機能や画面が複雑で使いづらいという調査・分析結果が出ており、今後の競争を勝ち抜くため独自のフリマアプリを開発することに着手することになったため。スマートフォン操作に慣れている 10~30 代の社会人が直感的に操作できるシステム。
@@ -199,15 +197,11 @@
 
 ### ⅱ. パッケージ
 
-<details>
-<summary>閲覧</summary>
-■composer require laravel/fortify
-■php artisan vendor:publish--provider="Laravel\Fortify\FortifyServiceProvider"
-■composer require laravel-lang/lang:~7.0 --dev
-■cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
-■composer require laravel/cashier
-■composer require intervention/image:^2
-</details>
+- composer require laravel/fortify
+- composer require laravel-lang/lang:~7.0 --dev
+- composer require laravel/cashier
+- composer require league/flysystem-aws-s3-v3 "^3.0"
+- composer require intervention/image:^2
 
 ## 5. 環境構築（Laravel)
 
@@ -224,7 +218,7 @@ git remote set-url origin 作成したリポジトリの url
 git remote -v #任意。作成したリポジトリのurlが表示されていれば成功
 ```
 
-#### ※エラーが発生する場合は以下のコマンドを実行
+#### ※エラーが発生する場合は以下のコマンドを実行してください
 
 ```bash
 sudo chmod -R 777 *
@@ -243,7 +237,7 @@ docker-compose exec php bash
 composer install
 ```
 
-#### .env ファイルの生成　※後述[「ⅲ,環境変数 a.開発環境」](#a-開発環境)参照
+#### .env ファイルの生成　※.env ファイルは後述[「ⅲ,環境変数 a.開発環境」](#a-開発環境)に沿って環境変数を変更して下さい
 
 ```bash
 cp .env.example .env
@@ -273,6 +267,12 @@ php artisan db:seed
 
 ```bash
 php artisan storage:link
+```
+
+#### ※.env ファイルを修正した後は以下のコマンドを実行してください
+
+```bash
+php artisan config:clear
 ```
 
 ### ⅲ. 環境変数
@@ -305,7 +305,7 @@ MAIL_FROM_ADDRESS=coachtech-flea-market-app@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-#### b. テスト環境　※後述[「7. PHPUnit テスト」](#7-phpunit-テスト)参照
+#### b. テスト環境　※PHPUnit テストを実行する場合は後述[「7. PHPUnit テスト」](#7-phpunit-テスト)に沿って環境を整えて下さい
 
 ```bash
 APP_ENV=testing
@@ -337,8 +337,8 @@ MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=#SES で認証済みメールアドレス
 MAIL_FROM_NAME="${APP_NAME}"
 
-AWS_ACCESS_KEY_ID=#SES の SMTP 認証情報から作成した IAM で作成したアクセスキー
-AWS_SECRET_ACCESS_KEY=#SES の SMTP 認証情報から作成した IAM で作成したシークレットアクセスキー
+AWS_ACCESS_KEY_ID=#IAMユーザー作成時に取得したアクセスキー
+AWS_SECRET_ACCESS_KEY=#IAMユーザー作成時に取得したシークレットアクセスキー
 AWS_DEFAULT_REGION=ap-northeast-1
 AWS_BUCKET=#S3 のバケット名
 AWS_USE_PATH_STYLE_ENDPOINT=false
@@ -406,9 +406,15 @@ php artisan test
 
 ### ⅰ. 環境構築
 
-#### [config.yml](/.circleci/config.yml)
+##### ※AWS での環境構築は完了していることが前提です
 
-#### [appspec.yml](/appspec.yml)
+#### [環境構築手順 Notion URL](https://www.notion.so/Circle-CI-986d95373daa44039f0fb0f1a87a55e9)
+
+#### c. 設定ファイル
+
+- [config.yml](/.circleci/config.yml)
+
+- [appspec.yml](/appspec.yml)
 
 ### ⅱ. 実行コマンド
 
